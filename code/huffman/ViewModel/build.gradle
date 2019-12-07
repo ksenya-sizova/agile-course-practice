@@ -5,7 +5,7 @@ plugins {
 }
 
 apply plugin: 'application'
-mainClassName = 'ru.unn.agile.huffman.view.Main'
+mainClassName = 'ru.unn.agile.huffman.viewmodel.HuffmanViewModel'
 
 javafx {
     version = "11.0.2"
@@ -13,5 +13,5 @@ javafx {
 }
 
 dependencies {
-    compile project(':huffman-ViewModel')
+    compile project(':huffman-Model')
 }

@@ -120,6 +120,9 @@ project(":code/matrix/viewmodel").name = "matrix-viewmodel"
 
 include "code/huffman/View"
 project(":code/huffman/View").name = "huffman-View"
+
+include "code/huffman/ViewModel"
+project(":code/huffman/ViewModel").name = "huffman-ViewModel"
 // Красильников Михаил
 include "code/salary-calculator"
 project(":code/salary-calculator").name = "salary-calculator"
