@@ -18,11 +18,15 @@ public class HuffmanViewModel {
         return input;
     }
 
+    public void setInput(String str) {
+        input.set(str);
+    }
+
     public StringProperty getOutputEncode() {
         return outputEncode;
     }
 
-    public void swapText() {
+    public void startEncodeAndDecode() {
         String inputString = input.get();
         Huffman huffmanModel = new Huffman(inputString);
         input.set(huffmanModel.getEncodedString());
