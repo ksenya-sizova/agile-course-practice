@@ -22,7 +22,7 @@ public class HuffmanViewModel {
         return input;
     }
 
-    public void setInput(String str) {
+    public void setInput(final String str) {
         input.set(str);
     }
 
