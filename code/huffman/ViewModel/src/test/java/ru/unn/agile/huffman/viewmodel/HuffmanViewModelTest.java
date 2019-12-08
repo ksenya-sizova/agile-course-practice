@@ -30,6 +30,11 @@ public class HuffmanViewModelTest {
     }
 
     @Test
+    public void checkDecodeLabelTextByDefaultText() {
+        assertEquals(viewModel.getOutputEncode().get(), "Decode");
+    }
+
+    @Test
     public void checkEncodeLabelAfterPushStartWithZeroString() {
         viewModel.setInput("");
         viewModel.startEncodeAndDecode();
