@@ -54,4 +54,11 @@ public class HuffmanViewModelTest {
         viewModel.startEncodeAndDecode();
         assertEquals(viewModel.getOutputDecode().get(), "");
     }
+
+    @Test
+    public void checkShowLabelAfterPushStartWithString() {
+        viewModel.setInput("ab");
+        viewModel.startEncodeAndDecode();
+        assertEquals(viewModel.getShow(), "ab->01");
+    }
 }

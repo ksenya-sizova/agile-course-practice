@@ -9,6 +9,7 @@ public class HuffmanViewModel {
     private StringProperty input = new SimpleStringProperty();
     private StringProperty outputEncode = new SimpleStringProperty();
     private StringProperty outputDecode = new SimpleStringProperty();
+    private StringProperty show = new SimpleStringProperty();
     private boolean enabledButtonStart = true;
 
     public HuffmanViewModel() {
@@ -31,6 +32,10 @@ public class HuffmanViewModel {
 
     public StringProperty getOutputDecode() {
         return outputDecode;
+    }
+
+    public StringProperty getShow() {
+        return show;
     }
 
     public void startEncodeAndDecode() {

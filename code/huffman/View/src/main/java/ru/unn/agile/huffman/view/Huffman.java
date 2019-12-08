@@ -17,6 +17,8 @@ public class Huffman {
     @FXML
     private Label labelDecode;
     @FXML
+    private Label labelShow;
+    @FXML
     private Button buttonStart;
 
     @FXML
@@ -24,6 +26,7 @@ public class Huffman {
         textFieldRef.textProperty().bindBidirectional(huffmanViewModel.getInput());
         labelEncode.textProperty().bindBidirectional(huffmanViewModel.getOutputEncode());
         labelDecode.textProperty().bindBidirectional(huffmanViewModel.getOutputDecode());
+        labelShow.textProperty().bindBidirectional(huffmanViewModel.getShow());
         buttonStart.setOnAction(event -> huffmanViewModel.startEncodeAndDecode());
         buttonStart.setCancelButton(huffmanViewModel.getButtonStartEnabled());
     }
