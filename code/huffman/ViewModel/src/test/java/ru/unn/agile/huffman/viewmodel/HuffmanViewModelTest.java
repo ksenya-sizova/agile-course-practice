@@ -20,7 +20,12 @@ public class HuffmanViewModelTest {
     }
 
     @Test
-    public void checkRefLabelByDefaultText() {
+    public void checkRefLabelTextByDefaultText() {
         assertEquals(viewModel.getInput().get(), "Reference string");
+    }
+
+    @Test
+    public void checkEncodeLabelTextByDefaultText() {
+        assertEquals(viewModel.getInput().get(), "Encode");
     }
 }
