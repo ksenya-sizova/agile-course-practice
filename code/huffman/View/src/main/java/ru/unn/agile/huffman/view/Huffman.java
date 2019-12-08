@@ -15,12 +15,15 @@ public class Huffman {
     @FXML
     private Label labelEncode;
     @FXML
+    private Label labelDecode;
+    @FXML
     private Button buttonStart;
 
     @FXML
     void initialize() {
         textFieldRef.textProperty().bindBidirectional(huffmanViewModel.getInput());
         labelEncode.textProperty().bindBidirectional(huffmanViewModel.getOutputEncode());
+        labelDecode.textProperty().bindBidirectional(huffmanViewModel.getOutputDecode());
         buttonStart.setOnAction(event -> huffmanViewModel.startEncodeAndDecode());
     }
 }

@@ -8,6 +8,7 @@ import ru.unn.agile.huffman.model.Huffman;
 public class HuffmanViewModel {
     private StringProperty input = new SimpleStringProperty();
     private StringProperty outputEncode = new SimpleStringProperty();
+    private StringProperty outputDecode = new SimpleStringProperty();
 
     public HuffmanViewModel() {
         input.set("Reference string");
@@ -24,6 +25,10 @@ public class HuffmanViewModel {
 
     public StringProperty getOutputEncode() {
         return outputEncode;
+    }
+
+    public StringProperty getOutputDecode() {
+        return outputDecode;
     }
 
     public void startEncodeAndDecode() {
