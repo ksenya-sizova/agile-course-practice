@@ -25,5 +25,6 @@ public class Huffman {
         labelEncode.textProperty().bindBidirectional(huffmanViewModel.getOutputEncode());
         labelDecode.textProperty().bindBidirectional(huffmanViewModel.getOutputDecode());
         buttonStart.setOnAction(event -> huffmanViewModel.startEncodeAndDecode());
+        buttonStart.setCancelButton(huffmanViewModel.getButtonStartEnabled());
     }
 }

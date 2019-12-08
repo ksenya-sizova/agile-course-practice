@@ -9,6 +9,7 @@ public class HuffmanViewModel {
     private StringProperty input = new SimpleStringProperty();
     private StringProperty outputEncode = new SimpleStringProperty();
     private StringProperty outputDecode = new SimpleStringProperty();
+    private boolean enabledButtonStart = true;
 
     public HuffmanViewModel() {
         input.set("Reference string");
@@ -37,5 +38,9 @@ public class HuffmanViewModel {
         Huffman huffmanModel = new Huffman(inputString);
         outputEncode.set(huffmanModel.getEncodedString());
         outputDecode.set(huffmanModel.getDecodedString());
+    }
+
+    public boolean getButtonStartEnabled() {
+        return enabledButtonStart;
     }
 }
