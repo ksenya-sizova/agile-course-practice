@@ -9,7 +9,7 @@ public class HuffmanViewModel {
     private StringProperty input = new SimpleStringProperty();
 
     public HuffmanViewModel() {
-        input.set("Hello world");
+        input.set("Reference string");
     }
 
     public StringProperty getInput() {
