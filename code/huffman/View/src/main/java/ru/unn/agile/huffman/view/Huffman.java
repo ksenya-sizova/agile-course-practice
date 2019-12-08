@@ -4,19 +4,22 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
+import javafx.scene.control.TextField;
 import ru.unn.agile.huffman.viewmodel.HuffmanViewModel;
 
 public class Huffman {
     @FXML
     private HuffmanViewModel huffmanViewModel;
     @FXML
-    private Label lable1;
+    private TextField textFieldRef;
     @FXML
-    private Button button1;
+    private Label labelEncode;
+    @FXML
+    private Button buttonStart;
 
     @FXML
     void initialize() {
-        lable1.textProperty().bindBidirectional(huffmanViewModel.getInput());
-        button1.setOnAction(event -> huffmanViewModel.swapText());
+        labelEncode.textProperty().bindBidirectional(huffmanViewModel.getInput());
+        buttonStart.setOnAction(event -> huffmanViewModel.swapText());
     }
 }
