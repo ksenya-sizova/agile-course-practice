@@ -26,6 +26,6 @@ public class HuffmanViewModelTest {
 
     @Test
     public void checkEncodeLabelTextByDefaultText() {
-        assertEquals(viewModel.getInput().get(), "Encode");
+        assertEquals(viewModel.getOutputEncode().get(), "Encode");
     }
 }

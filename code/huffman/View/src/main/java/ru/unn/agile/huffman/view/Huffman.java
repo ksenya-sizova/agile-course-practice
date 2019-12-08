@@ -19,7 +19,8 @@ public class Huffman {
 
     @FXML
     void initialize() {
-        labelEncode.textProperty().bindBidirectional(huffmanViewModel.getInput());
+        textFieldRef.textProperty().bindBidirectional(huffmanViewModel.getInput());
+        labelEncode.textProperty().bindBidirectional(huffmanViewModel.getOutputEncode());
         buttonStart.setOnAction(event -> huffmanViewModel.swapText());
     }
 }
