@@ -13,6 +13,7 @@ public class HuffmanViewModel {
     public HuffmanViewModel() {
         input.set("Reference string");
         outputEncode.set("Encode");
+        outputDecode.set("Decode");
     }
 
     public StringProperty getInput() {
