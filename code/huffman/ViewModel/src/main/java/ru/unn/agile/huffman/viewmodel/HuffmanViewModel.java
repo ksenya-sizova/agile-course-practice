@@ -36,5 +36,6 @@ public class HuffmanViewModel {
         String inputString = input.get();
         Huffman huffmanModel = new Huffman(inputString);
         outputEncode.set(huffmanModel.getEncodedString());
+        outputDecode.set(huffmanModel.getDecodedString());
     }
 }
