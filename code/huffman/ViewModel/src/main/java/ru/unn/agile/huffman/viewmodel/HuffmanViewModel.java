@@ -43,6 +43,7 @@ public class HuffmanViewModel {
         Huffman huffmanModel = new Huffman(inputString);
         outputEncode.set(huffmanModel.getEncodedString());
         outputDecode.set(huffmanModel.getDecodedString());
+        show.set(huffmanModel.toString());
     }
 
     public boolean getButtonStartEnabled() {
