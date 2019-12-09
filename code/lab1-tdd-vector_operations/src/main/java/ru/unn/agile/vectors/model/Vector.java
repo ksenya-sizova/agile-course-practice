@@ -13,4 +13,11 @@ public class Vector {
     public static boolean isEqual(final Vector v1, final Vector v2) {
         return v1.x == v2.x && v1.y == v2.y && v1.z == v2.z;
     }
+
+    public static double lengthNorm(final Vector v1) {
+        double len = 0;
+        double sum = Math.pow(v1.x, 2) + Math.pow(v1.y, 2) + Math.pow(v1.z, 2);
+        len = Math.sqrt(sum);
+        return len;
+    }
 }
