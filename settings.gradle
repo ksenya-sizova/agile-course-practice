@@ -78,6 +78,8 @@ project(":code/deposit-calculator").name = "deposit-calculator-Model"
 // Куликов Александр
 // Кулыгина Юлия
 // Купцова Алеся
+include "code/lab1-tdd-vector_operations"
+project(":code/lab1-tdd-vector_operations").name = "lab1-tdd-vector_operations-Model"
 // Кучков Иван
 // Лапин Артем
 include "code/quadratic-equasion"
