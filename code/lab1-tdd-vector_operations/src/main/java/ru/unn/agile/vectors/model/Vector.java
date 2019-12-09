@@ -54,4 +54,9 @@ public class Vector {
         Vector res = new Vector (v1.x-v2.x, v1.y-v2.y, v1.z-v2.z);
         return res;
     }
+
+    public static double scalarMult (Vector v1, Vector v2)
+    {
+        return (v1.x*v2.x) + (v1.y*v2.y) + (v1.z*v2.z);
+    }
 }

@@ -114,4 +114,31 @@ public class VectorTest {
         Vector expRes = Vector.minus(v2, v1);
         assertEquals(expRes, actRes);
     }
+
+    @Test()
+    public void canDoScalarMulterenceTwoVectorsWithPositiveCoordinates() {
+        Vector v1 = new Vector(1, 1, 1);
+        Vector v2 = new Vector(2, 2, 2);
+        double actRes = 6;
+        double expRes = Vector.scalarMult(v2, v1);
+        assertEquals(expRes, actRes);
+    }
+
+    @Test()
+    public void canDoScalarMultTwoVectorsWithNegativeCoordinates() {
+        Vector v1 = new Vector(-1, -1, -1);
+        Vector v2 = new Vector(-2, -2, -2);
+        double actRes = 6;
+        double expRes = Vector.scalarMult(v2, v1);
+        assertEquals(expRes, actRes);
+    }
+
+    @Test()
+    public void canDoScalarMultTwoVectorsWithDifferentSignCoordinates() {
+        Vector v1 = new Vector(-1, 1, 1);
+        Vector v2 = new Vector(2, -2, 2);
+        double actRes = -2;
+        double expRes = Vector.scalarMult(v2, v1);
+        assertEquals(expRes, actRes);
+    }
 }
