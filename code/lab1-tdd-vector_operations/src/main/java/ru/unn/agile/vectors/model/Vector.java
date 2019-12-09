@@ -20,4 +20,10 @@ public class Vector {
         len = Math.sqrt(sum);
         return len;
     }
+
+    public static boolean isOrthogonal(final Vector v1, final Vector v2) {
+        double cosAlpha = (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z)
+                            / (lengthNorm(v1) * lengthNorm(v2));
+        return ((cosAlpha) == 0);
+    }
 }

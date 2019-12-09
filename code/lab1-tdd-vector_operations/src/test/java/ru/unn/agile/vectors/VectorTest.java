@@ -52,4 +52,12 @@ public class VectorTest {
         double len = Vector.lengthNorm(vect);
         assertEquals(len, tmp);
     }
+
+    @Test()
+    public void canCheckIsOrtogonal() {
+        Vector v1 = new Vector(0, 1, 0);
+        Vector v2 = new Vector(0, 0, 1);
+        boolean tmp = Vector.isOrthogonal(v2, v1);
+        assertTrue(tmp);
+    }
 }
