@@ -10,6 +10,24 @@ public class Vector {
         this.z = z0;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this)
+            return true;
+        if(obj == null)
+            return false;
+        if(!(getClass() == obj.getClass()))
+            return false;
+        else
+        {
+            Vector tmp = (Vector) obj;
+            if(tmp.x == this.x && tmp.y == this.y && tmp.z == this.z)
+                return true;
+            else
+                return false;
+        }
+    }
+
     public static boolean isEqual(final Vector v1, final Vector v2) {
         return v1.x == v2.x && v1.y == v2.y && v1.z == v2.z;
     }
@@ -25,5 +43,15 @@ public class Vector {
         double cosAlpha = (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z)
                             / (lengthNorm(v1) * lengthNorm(v2));
         return ((cosAlpha) == 0);
+    }
+
+    public static Vector plus(final Vector v1, final Vector v2) {
+        Vector res = new Vector(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z);
+        return res;
+    }
+    public static Vector minus(Vector v1, Vector v2)
+    {
+        Vector res = new Vector (v1.x-v2.x, v1.y-v2.y, v1.z-v2.z);
+        return res;
     }
 }
