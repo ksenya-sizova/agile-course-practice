@@ -299,4 +299,12 @@ public class ViewModelTests {
 
         assertTrue(log.get(0).matches(".*" + "Input updated: fromTemperature = " + 0.0 + ".*"));
     }
+
+    @Test
+    public void isLogMessageNotEmptyAfterSetFrom() {
+        viewModel.setFrom(ListOfTemperatures.CELSIUS);
+        List<String> log = viewModel.getLog();
+
+        assertTrue(log.get(0).matches(".*" + "Input updated" + ".*"));
+    }
 }

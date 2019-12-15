@@ -97,6 +97,7 @@ public class ViewModel {
     public void setFrom(final ListOfTemperatures listTemperaturesFrom) {
         this.resultTemperature = "";
         this.listTemperaturesFrom = listTemperaturesFrom;
+        logger.log("Input updated");
     }
     public void setTo(final ListOfTemperatures listTemperaturesTo) {
         this.resultTemperature = "";
