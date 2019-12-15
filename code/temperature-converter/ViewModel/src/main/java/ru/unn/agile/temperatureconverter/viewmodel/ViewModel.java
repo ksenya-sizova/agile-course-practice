@@ -118,7 +118,6 @@ public class ViewModel {
             return true;
         } else {
             statusText = "Error. Please enter correct temperature";
-            logger.log("Error is displayed: " + statusText);
             return false;
         }
     }
@@ -137,7 +136,6 @@ public class ViewModel {
         } catch (IllegalArgumentException e) {
             if (statusText.isEmpty()) {
                 statusText = e.getMessage();
-                logger.log("Error is displayed: " + statusText);
             }
             return false;
         }
@@ -154,6 +152,7 @@ public class ViewModel {
         } else {
             isConvertButtonEnabled = false;
             isErrorMessageDisplayed = true;
+            logger.log("Error is displayed: " + statusText);
         }
     }
 
