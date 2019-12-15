@@ -283,4 +283,13 @@ public class ViewModelTests {
         List<String> log = viewModel.getLog();
         assertEquals(0, log.size());
     }
+
+    @Test
+    public void isLogMessageNotEmptyAfterSetFromTemperature() {
+        viewModel.setFromTemperature("0.0");
+        List<String> log = viewModel.getLog();
+
+        assertTrue(log.get(0).matches(".*" + "Input updated" + ".*"));
+    }
+
 }
