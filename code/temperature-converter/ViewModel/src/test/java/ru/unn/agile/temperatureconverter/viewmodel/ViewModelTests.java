@@ -367,4 +367,13 @@ public class ViewModelTests {
 
         assertTrue(log.get(1).matches(".*" + "Calculate button is pressed" + ".*"));
     }
+
+    @Test
+    public void isLogMessageNotUpdatedAfterSetEqualFromTemperature() {
+        viewModel.setFromTemperature("0.0");
+        viewModel.setFromTemperature("0.0");
+        List<String> log = viewModel.getLog();
+
+        assertEquals(1, log.size());
+    }
 }

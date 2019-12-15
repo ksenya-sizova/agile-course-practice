@@ -91,6 +91,9 @@ public class ViewModel {
     }
 
     public void setFromTemperature(final String fromTemperature) {
+        if (fromTemperature.equals(this.fromTemperature)) {
+            return;
+        }
         this.fromTemperature = fromTemperature;
         logger.log("Input updated: value of from temperature = " + fromTemperature);
     }
