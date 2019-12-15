@@ -93,12 +93,12 @@ public class ViewModel {
     }
 
     public void setFromTemperature(final String fromTemperature) {
-        if (fromTemperature.equals(this.fromTemperature)) {
-            return;
+        if (!fromTemperature.equals(this.fromTemperature)) {
+            this.fromTemperature = fromTemperature;
+            logger.log("Input updated: value of from temperature = " + fromTemperature);
         }
-        this.fromTemperature = fromTemperature;
-        logger.log("Input updated: value of from temperature = " + fromTemperature);
     }
+
     public void setFrom(final ListOfTemperatures listTemperaturesFrom) {
         if (this.listTemperaturesFrom != listTemperaturesFrom) {
             this.resultTemperature = "";
@@ -106,6 +106,7 @@ public class ViewModel {
             logger.log("Input updated: from temperature = " + listTemperaturesFrom);
         }
     }
+    
     public void setTo(final ListOfTemperatures listTemperaturesTo) {
         if(this.listTemperaturesTo != listTemperaturesTo) {
             this.resultTemperature = "";
