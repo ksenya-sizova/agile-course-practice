@@ -149,7 +149,6 @@ public class ViewModel {
             }
             return false;
         }
-        statusText = "";
         return true;
     }
 
