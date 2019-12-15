@@ -342,8 +342,17 @@ public class ViewModelTests {
     }
 
     @Test
-    public void isLogMessageContainsErrorMessageWithText() {
+    public void isLogMessageContainsErrorMessageWithTextInCaseIncorrectInput() {
         viewModel.setFromTemperature("abc");
+        viewModel.processInput();
+        List<String> log = viewModel.getLog();
+
+        assertTrue(log.get(1).matches(".*" + "Error is displayed: " + viewModel.getStatusText() + ".*"));
+    }
+
+    @Test
+    public void isLogMessageContainsErrorMessageWithTextInCaseAbsoluteZero() {
+        viewModel.setFromTemperature("-300");
         viewModel.processInput();
         List<String> log = viewModel.getLog();
 

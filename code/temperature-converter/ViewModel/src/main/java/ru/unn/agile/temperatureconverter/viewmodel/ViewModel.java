@@ -137,6 +137,7 @@ public class ViewModel {
         } catch (IllegalArgumentException e) {
             if (statusText.isEmpty()) {
                 statusText = e.getMessage();
+                logger.log("Error is displayed: " + statusText);
             }
             return false;
         }
