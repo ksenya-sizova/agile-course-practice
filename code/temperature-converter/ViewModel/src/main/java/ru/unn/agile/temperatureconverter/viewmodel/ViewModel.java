@@ -118,6 +118,7 @@ public class ViewModel {
             return true;
         } else {
             statusText = "Error. Please enter correct temperature";
+            logger.log("Error is displayed: " + statusText);
             return false;
         }
     }
