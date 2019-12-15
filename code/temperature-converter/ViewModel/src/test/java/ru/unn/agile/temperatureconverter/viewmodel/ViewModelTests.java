@@ -367,11 +367,4 @@ public class ViewModelTests {
 
         assertTrue(log.get(1).matches(".*" + "Calculate button is pressed" + ".*"));
     }
-
-    @Test
-    public void canCreateViewModelWithoutLogger() {
-        ViewModel viewModel = new ViewModel();
-
-        assertNotNull(viewModel);
-    }
 }

@@ -76,26 +76,18 @@ public class ViewModel {
         return isErrorMessageDisplayed;
     }
 
-    private void initializeViewModel() {
+    public ViewModel(final ILogger logger) {
+        if (logger == null) {
+            throw new IllegalArgumentException("Logger parameter can't be null");
+        }
+
+        this.logger = logger;
         resultTemperature = "";
         fromTemperature = "";
         listTemperaturesFrom = ListOfTemperatures.CELSIUS;
         listTemperaturesTo = ListOfTemperatures.CELSIUS;
         statusText = "";
         isConvertButtonEnabled = false;
-    }
-
-    public ViewModel() {
-        initializeViewModel();
-    }
-
-    public ViewModel(final ILogger logger) {
-        if (logger == null) {
-            throw new IllegalArgumentException("Logger parameter can't be null");
-        }
-
-        initializeViewModel();
-        this.logger = logger;
     }
 
     public void setFromTemperature(final String fromTemperature) {
