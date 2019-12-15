@@ -87,6 +87,7 @@ public class ViewModel {
         listTemperaturesFrom = ListOfTemperatures.CELSIUS;
         logger.log("Input updated: from temperature = " + listTemperaturesFrom);
         listTemperaturesTo = ListOfTemperatures.CELSIUS;
+        logger.log("Input updated: to temperature = " + listTemperaturesTo);
         statusText = "";
         isConvertButtonEnabled = false;
     }
