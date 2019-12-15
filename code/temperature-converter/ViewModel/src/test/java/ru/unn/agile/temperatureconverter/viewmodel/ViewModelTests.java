@@ -426,4 +426,31 @@ public class ViewModelTests {
 
         assertEquals(5, log.size());
     }
+
+    @Test
+    public void isLogMessageContainFromForCalculate() {
+        viewModel.setFromTemperature("0.0");
+        viewModel.calculate();
+        List<String> log = viewModel.getLog();
+
+        assertTrue(log.get(4).matches(".*" + "From: " + ListOfTemperatures.CELSIUS + ".*"));
+    }
+
+    @Test
+    public void isLogMessageContainToForCalculate() {
+        viewModel.setFromTemperature("0.0");
+        viewModel.calculate();
+        List<String> log = viewModel.getLog();
+
+        assertTrue(log.get(4).matches(".*" + "To: " + ListOfTemperatures.CELSIUS + ".*"));
+    }
+
+    @Test
+    public void isLogMessageContainFromTemperatureForCalculate() {
+        viewModel.setFromTemperature("0.0");
+        viewModel.calculate();
+        List<String> log = viewModel.getLog();
+
+        assertTrue(log.get(4).matches(".*" + "Initial temperature = 0.0" + ".*"));
+    }
 }

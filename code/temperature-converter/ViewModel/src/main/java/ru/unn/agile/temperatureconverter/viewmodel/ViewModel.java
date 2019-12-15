@@ -196,7 +196,10 @@ public class ViewModel {
             }
 
             resultTemperature = Double.toString(toClass.getValue());
-            logger.log("Result temperature = " + resultTemperature);
+            logger.log("From: " + getFrom() +
+                    "; To: " + getTo() +
+                    "; Initial temperature = " + getFromTemperature() +
+                    "; Result temperature = " + getResultTemperature());
         }
     }
 }
