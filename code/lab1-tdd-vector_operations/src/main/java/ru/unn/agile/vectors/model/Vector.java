@@ -49,23 +49,29 @@ public class Vector {
         Vector res = new Vector(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z);
         return res;
     }
-    public static Vector minus(Vector v1, Vector v2)
-    {
+    public static Vector minus(Vector v1, Vector v2) {
         Vector res = new Vector (v1.x-v2.x, v1.y-v2.y, v1.z-v2.z);
         return res;
     }
 
-    public static double scalarMult (Vector v1, Vector v2)
-    {
+    public static double scalarMult (Vector v1, Vector v2) {
         return (v1.x*v2.x) + (v1.y*v2.y) + (v1.z*v2.z);
     }
 
-    public static Vector vectMult (Vector v1, Vector v2)
-    {
+    public static Vector vectMult (Vector v1, Vector v2) {
         double newX = v1.y*v2.z -v1.z*v2.y;
         double newY = v1.x*v2.z -v1.z*v2.x;
         double newZ = v1.x*v2.y -v1.y*v2.x;
         Vector res = new Vector(newX, newY, newZ);
         return res;
+    }
+
+    public static boolean isComplonar(Vector v1, Vector v2) {
+        Vector res = vectMult(v1, v2);
+        if(res == new Vector(0,0,0)) {
+            return true;
+        }
+        else
+            return false;
     }
 }

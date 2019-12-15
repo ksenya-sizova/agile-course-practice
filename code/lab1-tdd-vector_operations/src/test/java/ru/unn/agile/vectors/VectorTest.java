@@ -4,8 +4,7 @@ import org.junit.Test;
 import ru.unn.agile.vectors.model.Vector;
 
 import static junit.framework.TestCase.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class VectorTest {
 
@@ -167,5 +166,21 @@ public class VectorTest {
         Vector actRes = new Vector(4, 4, 0);
         Vector expRes = Vector.vectMult(v2, v1);
         assertEquals(expRes, actRes);
+    }
+
+    @Test()
+    public void canCheckIsComplonarWithComplonarVectors() {
+        Vector v1 = new Vector(1, 1, 1);
+        Vector v2 = new Vector(2, 2, 2);
+        boolean tmp = Vector.isComplonar(v2, v1);
+        assertTrue(tmp);
+    }
+
+    @Test()
+    public void canCheckIsComplonarWithNotComplonarVectors() {
+        Vector v1 = new Vector(-1, 1, 1);
+        Vector v2 = new Vector(2, -2, 2);
+        boolean tmp = Vector.isComplonar(v2, v1);
+        assertFalse(tmp);
     }
 }
