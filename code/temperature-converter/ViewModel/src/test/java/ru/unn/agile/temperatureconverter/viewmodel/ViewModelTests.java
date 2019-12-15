@@ -5,6 +5,8 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.unn.agile.temperatureconverter.viewmodel.ViewModel.ListOfTemperatures;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class ViewModelTests {
@@ -269,5 +271,16 @@ public class ViewModelTests {
         ViewModel viewModel = new ViewModel(logger);
 
         assertNotNull(viewModel);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void throwWhenCreateViewModelWithNullLogger() {
+        ViewModel viewModel = new ViewModel(null);
+    }
+
+    @Test
+    public void isLogMessageEmptyInitially() {
+        List<String> log = viewModel.getLog();
+        assertEquals(0, log.size());
     }
 }

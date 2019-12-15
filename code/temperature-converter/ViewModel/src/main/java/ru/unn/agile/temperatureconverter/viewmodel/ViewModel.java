@@ -7,6 +7,7 @@ import ru.unn.agile.temperatureconverter.model.FahrenheitTemperature;
 import ru.unn.agile.temperatureconverter.model.KelvinTemperature;
 import ru.unn.agile.temperatureconverter.model.Temperature;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -61,6 +62,10 @@ public class ViewModel {
 
     public ListOfTemperatures getTo() {
         return listTemperaturesTo;
+    }
+
+    public List<String> getLog() {
+        return logger.getLog();
     }
 
     public boolean isConvertButtonEnabled() {
