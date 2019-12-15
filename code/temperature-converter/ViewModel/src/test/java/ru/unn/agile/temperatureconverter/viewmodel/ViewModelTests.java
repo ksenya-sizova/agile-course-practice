@@ -292,4 +292,11 @@ public class ViewModelTests {
         assertTrue(log.get(0).matches(".*" + "Input updated" + ".*"));
     }
 
+    @Test
+    public void isLogMessageContainsCorrectTemperature() {
+        viewModel.setFromTemperature("0.0");
+        List<String> log = viewModel.getLog();
+
+        assertTrue(log.get(0).matches(".*" + "Input updated: fromTemperature = " + 0.0 + ".*"));
+    }
 }
