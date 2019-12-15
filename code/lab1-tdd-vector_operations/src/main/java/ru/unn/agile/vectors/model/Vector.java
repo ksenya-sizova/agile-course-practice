@@ -59,4 +59,13 @@ public class Vector {
     {
         return (v1.x*v2.x) + (v1.y*v2.y) + (v1.z*v2.z);
     }
+
+    public static Vector vectMult (Vector v1, Vector v2)
+    {
+        double newX = v1.y*v2.z -v1.z*v2.y;
+        double newY = v1.x*v2.z -v1.z*v2.x;
+        double newZ = v1.x*v2.y -v1.y*v2.x;
+        Vector res = new Vector(newX, newY, newZ);
+        return res;
+    }
 }
