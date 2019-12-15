@@ -408,4 +408,13 @@ public class ViewModelTests {
 
         assertEquals(3, log.size());
     }
+
+    @Test
+    public void isLogMessageContainResultAfterCalculate() {
+        viewModel.setFromTemperature("0.0");
+        viewModel.calculate();
+        List<String> log = viewModel.getLog();
+
+        assertTrue(log.get(4).matches(".*" + "Result = " + viewModel.getResultTemperature() + ".*"));
+    }
 }
