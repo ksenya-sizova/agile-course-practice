@@ -3,7 +3,7 @@ package ru.unn.agile.temperatureconverter.viewmodel;
 import java.util.ArrayList;
 import java.util.List;
 
-class FakeLogger implements ILogger{
+class FakeLogger implements ILogger {
     private ArrayList<String> log = new ArrayList<String>();
 
     @Override

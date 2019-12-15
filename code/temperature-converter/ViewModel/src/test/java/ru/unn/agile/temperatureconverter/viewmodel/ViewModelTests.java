@@ -301,7 +301,8 @@ public class ViewModelTests {
         viewModel.setFromTemperature("0.0");
         List<String> log = viewModel.getLog();
 
-        assertTrue(log.get(2).matches(".*" + "Input updated: value of from temperature = " + 0.0 + ".*"));
+        assertTrue(log.get(2).matches(".*"
+                + "Input updated: value of from temperature = " + 0.0 + ".*"));
     }
 
     @Test
@@ -317,7 +318,8 @@ public class ViewModelTests {
         viewModel.setFrom(ListOfTemperatures.KELVIN);
         List<String> log = viewModel.getLog();
 
-        assertTrue(log.get(2).matches(".*" + "Input updated: from temperature = " + ListOfTemperatures.KELVIN + ".*"));
+        assertTrue(log.get(2).matches(".*" + "Input updated: "
+                + "from temperature = " + ListOfTemperatures.KELVIN + ".*"));
     }
 
     @Test
@@ -333,7 +335,8 @@ public class ViewModelTests {
         viewModel.setTo(ListOfTemperatures.FAHRENHEIT);
         List<String> log = viewModel.getLog();
 
-        assertTrue(log.get(2).matches(".*" + "Input updated: to temperature = " + ListOfTemperatures.FAHRENHEIT + ".*"));
+        assertTrue(log.get(2).matches(".*" + "Input updated: "
+                + "to temperature = " + ListOfTemperatures.FAHRENHEIT + ".*"));
     }
 
     @Test
@@ -351,7 +354,8 @@ public class ViewModelTests {
         viewModel.processInput();
         List<String> log = viewModel.getLog();
 
-        assertTrue(log.get(3).matches(".*" + "Error is displayed: " + viewModel.getStatusText() + ".*"));
+        assertTrue(log.get(3).matches(".*" + "Error is displayed: "
+                + viewModel.getStatusText() + ".*"));
     }
 
     @Test
@@ -360,7 +364,8 @@ public class ViewModelTests {
         viewModel.processInput();
         List<String> log = viewModel.getLog();
 
-        assertTrue(log.get(3).matches(".*" + "Error is displayed: " + viewModel.getStatusText() + ".*"));
+        assertTrue(log.get(3).matches(".*" + "Error is displayed: "
+                + viewModel.getStatusText() + ".*"));
     }
 
     @Test
@@ -394,14 +399,16 @@ public class ViewModelTests {
     public void doesLogMessageContainDefaultFromTemperature() {
         List<String> log = viewModel.getLog();
 
-        assertTrue(log.get(0).matches(".*" + "Input updated: from temperature = " + ListOfTemperatures.CELSIUS + ".*"));
+        assertTrue(log.get(0).matches(".*" + "Input updated: "
+                + "from temperature = " + ListOfTemperatures.CELSIUS + ".*"));
     }
 
     @Test
     public void doesLogMessageContainDefaultToTemperature() {
         List<String> log = viewModel.getLog();
 
-        assertTrue(log.get(1).matches(".*" + "Input updated: to temperature = " + ListOfTemperatures.CELSIUS + ".*"));
+        assertTrue(log.get(1).matches(".*" + "Input updated: "
+                + "to temperature = " + ListOfTemperatures.CELSIUS + ".*"));
     }
 
     @Test
@@ -464,6 +471,7 @@ public class ViewModelTests {
         viewModel.processInput();
         List<String> log = viewModel.getLog();
 
-        assertTrue(log.get(3).matches(".*" + "Error is displayed: Error. Please enter correct temperature" + ".*"));
+        assertTrue(log.get(3).matches(".*" + "Error is displayed: "
+                + "Error. Please enter correct temperature" + ".*"));
     }
 }
