@@ -92,12 +92,12 @@ public class ViewModel {
 
     public void setFromTemperature(final String fromTemperature) {
         this.fromTemperature = fromTemperature;
-        logger.log("Input updated: fromTemperature = " + fromTemperature);
+        logger.log("Input updated: value of from temperature = " + fromTemperature);
     }
     public void setFrom(final ListOfTemperatures listTemperaturesFrom) {
         this.resultTemperature = "";
         this.listTemperaturesFrom = listTemperaturesFrom;
-        logger.log("Input updated");
+        logger.log("Input updated: from temperature = " + listTemperaturesFrom);
     }
     public void setTo(final ListOfTemperatures listTemperaturesTo) {
         this.resultTemperature = "";

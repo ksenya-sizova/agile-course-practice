@@ -297,7 +297,7 @@ public class ViewModelTests {
         viewModel.setFromTemperature("0.0");
         List<String> log = viewModel.getLog();
 
-        assertTrue(log.get(0).matches(".*" + "Input updated: fromTemperature = " + 0.0 + ".*"));
+        assertTrue(log.get(0).matches(".*" + "Input updated: value of from temperature = " + 0.0 + ".*"));
     }
 
     @Test
@@ -306,5 +306,13 @@ public class ViewModelTests {
         List<String> log = viewModel.getLog();
 
         assertTrue(log.get(0).matches(".*" + "Input updated" + ".*"));
+    }
+
+    @Test
+    public void isLogMessageContainsCorrectFromOption() {
+        viewModel.setFrom(ListOfTemperatures.CELSIUS);
+        List<String> log = viewModel.getLog();
+
+        assertTrue(log.get(0).matches(".*" + "Input updated: from temperature = " + ListOfTemperatures.CELSIUS + ".*"));
     }
 }
