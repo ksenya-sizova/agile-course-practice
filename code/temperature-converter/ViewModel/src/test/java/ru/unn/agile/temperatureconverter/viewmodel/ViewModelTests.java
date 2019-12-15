@@ -293,7 +293,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void isLogMessageContainsCorrectTemperature() {
+    public void isLogMessageContainCorrectTemperature() {
         viewModel.setFromTemperature("0.0");
         List<String> log = viewModel.getLog();
 
@@ -309,7 +309,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void isLogMessageContainsCorrectFromOption() {
+    public void isLogMessageContainCorrectFromOption() {
         viewModel.setFrom(ListOfTemperatures.CELSIUS);
         List<String> log = viewModel.getLog();
 
@@ -325,7 +325,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void isLogMessageContainsCorrectToOption() {
+    public void isLogMessageContainCorrectToOption() {
         viewModel.setTo(ListOfTemperatures.FAHRENHEIT);
         List<String> log = viewModel.getLog();
 
@@ -333,7 +333,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void isLogMessageContainsErrorMessage() {
+    public void isLogMessageContainErrorMessage() {
         viewModel.setFromTemperature("abc");
         viewModel.processInput();
         List<String> log = viewModel.getLog();
@@ -342,7 +342,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void isLogMessageContainsErrorMessageWithTextInCaseIncorrectInput() {
+    public void isLogMessageContainErrorMessageWithTextInCaseIncorrectInput() {
         viewModel.setFromTemperature("abc");
         viewModel.processInput();
         List<String> log = viewModel.getLog();
@@ -351,11 +351,27 @@ public class ViewModelTests {
     }
 
     @Test
-    public void isLogMessageContainsErrorMessageWithTextInCaseAbsoluteZero() {
+    public void isLogMessageContainErrorMessageWithTextInCaseAbsoluteZero() {
         viewModel.setFromTemperature("-300");
         viewModel.processInput();
         List<String> log = viewModel.getLog();
 
         assertTrue(log.get(1).matches(".*" + "Error is displayed: " + viewModel.getStatusText() + ".*"));
+    }
+
+    @Test
+    public void isLogMessageContainInfoAboutPressCalculate() {
+        viewModel.setFromTemperature("0.0");
+        viewModel.calculate();
+        List<String> log = viewModel.getLog();
+
+        assertTrue(log.get(1).matches(".*" + "Calculate button is pressed" + ".*"));
+    }
+
+    @Test
+    public void canCreateViewModelWithoutLogger() {
+        ViewModel viewModel = new ViewModel();
+
+        assertNotNull(viewModel);
     }
 }

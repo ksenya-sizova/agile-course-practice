@@ -76,6 +76,15 @@ public class ViewModel {
         return isErrorMessageDisplayed;
     }
 
+    public ViewModel() {
+        resultTemperature = "";
+        fromTemperature = "";
+        listTemperaturesFrom = ListOfTemperatures.CELSIUS;
+        listTemperaturesTo = ListOfTemperatures.CELSIUS;
+        statusText = "";
+        isConvertButtonEnabled = false;
+    }
+
     public ViewModel(final ILogger logger) {
         if (logger == null) {
             throw new IllegalArgumentException("Logger parameter can't be null");
@@ -157,6 +166,7 @@ public class ViewModel {
     }
 
     public void calculate() {
+        logger.log("Calculate button is pressed");
         processInput();
         if (isConvertButtonEnabled()) {
             resultTemperature = "";
