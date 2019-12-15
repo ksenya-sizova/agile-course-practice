@@ -167,7 +167,7 @@ public class ViewModel {
     }
 
     public void calculate() {
-        logger.log("Calculate button is pressed");
+        logger.log("Calculate");
         processInput();
         if (isConvertButtonEnabled()) {
             resultTemperature = "";
@@ -196,7 +196,7 @@ public class ViewModel {
             }
 
             resultTemperature = Double.toString(toClass.getValue());
-            logger.log("Result = " + resultTemperature);
+            logger.log("Result temperature = " + resultTemperature);
         }
     }
 }

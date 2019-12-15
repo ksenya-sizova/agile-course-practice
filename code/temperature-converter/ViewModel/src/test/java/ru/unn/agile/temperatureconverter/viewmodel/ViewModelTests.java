@@ -365,7 +365,7 @@ public class ViewModelTests {
         viewModel.calculate();
         List<String> log = viewModel.getLog();
 
-        assertTrue(log.get(3).matches(".*" + "Calculate button is pressed" + ".*"));
+        assertTrue(log.get(3).matches(".*" + "Calculate" + ".*"));
     }
 
     @Test
@@ -415,7 +415,7 @@ public class ViewModelTests {
         viewModel.calculate();
         List<String> log = viewModel.getLog();
 
-        assertTrue(log.get(4).matches(".*" + "Result = 0.0" + ".*"));
+        assertTrue(log.get(4).matches(".*" + "Result temperature = 0.0" + ".*"));
     }
 
     @Test
