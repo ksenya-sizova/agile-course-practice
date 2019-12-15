@@ -415,6 +415,15 @@ public class ViewModelTests {
         viewModel.calculate();
         List<String> log = viewModel.getLog();
 
-        assertTrue(log.get(4).matches(".*" + "Result = " + viewModel.getResultTemperature() + ".*"));
+        assertTrue(log.get(4).matches(".*" + "Result = 0.0" + ".*"));
+    }
+
+    @Test
+    public void isLogMessageNotContainResultAfterCalculateWithBadInput() {
+        viewModel.setFromTemperature("abc");
+        viewModel.calculate();
+        List<String> log = viewModel.getLog();
+
+        assertEquals(5, log.size());
     }
 }
