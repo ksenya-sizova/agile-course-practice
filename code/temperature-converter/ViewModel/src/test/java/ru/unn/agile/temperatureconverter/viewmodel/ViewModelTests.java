@@ -19,6 +19,10 @@ public class ViewModelTests {
         viewModel = new ViewModel(fakeLogger);
     }
 
+    public void setViewModel(final ViewModel viewModel) {
+        this.viewModel = viewModel;
+    }
+
     @After
     public void tearDown() {
         viewModel = null;
