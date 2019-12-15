@@ -85,6 +85,7 @@ public class ViewModel {
         resultTemperature = "";
         fromTemperature = "";
         listTemperaturesFrom = ListOfTemperatures.CELSIUS;
+        logger.log("Input updated: from temperature = " + listTemperaturesFrom);
         listTemperaturesTo = ListOfTemperatures.CELSIUS;
         statusText = "";
         isConvertButtonEnabled = false;
@@ -98,9 +99,11 @@ public class ViewModel {
         logger.log("Input updated: value of from temperature = " + fromTemperature);
     }
     public void setFrom(final ListOfTemperatures listTemperaturesFrom) {
-        this.resultTemperature = "";
-        this.listTemperaturesFrom = listTemperaturesFrom;
-        logger.log("Input updated: from temperature = " + listTemperaturesFrom);
+        if (this.listTemperaturesFrom != listTemperaturesFrom) {
+            this.resultTemperature = "";
+            this.listTemperaturesFrom = listTemperaturesFrom;
+            logger.log("Input updated: from temperature = " + listTemperaturesFrom);
+        }
     }
     public void setTo(final ListOfTemperatures listTemperaturesTo) {
         this.resultTemperature = "";

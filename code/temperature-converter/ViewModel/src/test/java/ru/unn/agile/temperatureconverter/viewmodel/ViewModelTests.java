@@ -279,9 +279,9 @@ public class ViewModelTests {
     }
 
     @Test
-    public void isLogMessageEmptyInitially() {
+    public void isLogMessageContainOneMessageInitially() {
         List<String> log = viewModel.getLog();
-        assertEquals(0, log.size());
+        assertEquals(1, log.size());
     }
 
     @Test
@@ -297,12 +297,12 @@ public class ViewModelTests {
         viewModel.setFromTemperature("0.0");
         List<String> log = viewModel.getLog();
 
-        assertTrue(log.get(0).matches(".*" + "Input updated: value of from temperature = " + 0.0 + ".*"));
+        assertTrue(log.get(1).matches(".*" + "Input updated: value of from temperature = " + 0.0 + ".*"));
     }
 
     @Test
     public void isLogMessageNotEmptyAfterSetFrom() {
-        viewModel.setFrom(ListOfTemperatures.CELSIUS);
+        viewModel.setFrom(ListOfTemperatures.NEWTON);
         List<String> log = viewModel.getLog();
 
         assertTrue(log.get(0).matches(".*" + "Input updated" + ".*"));
@@ -310,10 +310,10 @@ public class ViewModelTests {
 
     @Test
     public void isLogMessageContainCorrectFromOption() {
-        viewModel.setFrom(ListOfTemperatures.CELSIUS);
+        viewModel.setFrom(ListOfTemperatures.KELVIN);
         List<String> log = viewModel.getLog();
 
-        assertTrue(log.get(0).matches(".*" + "Input updated: from temperature = " + ListOfTemperatures.CELSIUS + ".*"));
+        assertTrue(log.get(1).matches(".*" + "Input updated: from temperature = " + ListOfTemperatures.KELVIN + ".*"));
     }
 
     @Test
@@ -329,7 +329,7 @@ public class ViewModelTests {
         viewModel.setTo(ListOfTemperatures.FAHRENHEIT);
         List<String> log = viewModel.getLog();
 
-        assertTrue(log.get(0).matches(".*" + "Input updated: to temperature = " + ListOfTemperatures.FAHRENHEIT + ".*"));
+        assertTrue(log.get(1).matches(".*" + "Input updated: to temperature = " + ListOfTemperatures.FAHRENHEIT + ".*"));
     }
 
     @Test
@@ -338,7 +338,7 @@ public class ViewModelTests {
         viewModel.processInput();
         List<String> log = viewModel.getLog();
 
-        assertTrue(log.get(1).matches(".*" + "Error is displayed" + ".*"));
+        assertTrue(log.get(2).matches(".*" + "Error is displayed" + ".*"));
     }
 
     @Test
@@ -347,7 +347,7 @@ public class ViewModelTests {
         viewModel.processInput();
         List<String> log = viewModel.getLog();
 
-        assertTrue(log.get(1).matches(".*" + "Error is displayed: " + viewModel.getStatusText() + ".*"));
+        assertTrue(log.get(2).matches(".*" + "Error is displayed: " + viewModel.getStatusText() + ".*"));
     }
 
     @Test
@@ -356,7 +356,7 @@ public class ViewModelTests {
         viewModel.processInput();
         List<String> log = viewModel.getLog();
 
-        assertTrue(log.get(1).matches(".*" + "Error is displayed: " + viewModel.getStatusText() + ".*"));
+        assertTrue(log.get(2).matches(".*" + "Error is displayed: " + viewModel.getStatusText() + ".*"));
     }
 
     @Test
@@ -365,7 +365,7 @@ public class ViewModelTests {
         viewModel.calculate();
         List<String> log = viewModel.getLog();
 
-        assertTrue(log.get(1).matches(".*" + "Calculate button is pressed" + ".*"));
+        assertTrue(log.get(2).matches(".*" + "Calculate button is pressed" + ".*"));
     }
 
     @Test
@@ -374,6 +374,22 @@ public class ViewModelTests {
         viewModel.setFromTemperature("0.0");
         List<String> log = viewModel.getLog();
 
-        assertEquals(1, log.size());
+        assertEquals(2, log.size());
+    }
+
+    @Test
+    public void isLogMessageNotUpdatedAfterSetEqualFrom() {
+        viewModel.setFrom(ListOfTemperatures.KELVIN);
+        viewModel.setFrom(ListOfTemperatures.KELVIN);
+        List<String> log = viewModel.getLog();
+
+        assertEquals(2, log.size());
+    }
+
+    @Test
+    public void isLogMessageContainDefaultToTemperature() {
+        List<String> log = viewModel.getLog();
+
+        assertTrue(log.get(0).matches(".*" + "Input updated: from temperature = " + ListOfTemperatures.CELSIUS + ".*"));
     }
 }
