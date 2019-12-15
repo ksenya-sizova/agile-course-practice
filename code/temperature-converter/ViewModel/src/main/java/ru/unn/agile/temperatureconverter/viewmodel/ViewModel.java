@@ -20,6 +20,8 @@ public class ViewModel {
     private boolean isConvertButtonEnabled;
     private boolean isErrorMessageDisplayed;
 
+    private ILogger logger;
+
     private String patternInput = "-?(\\d+)(\\.(\\d+))?";
 
     public enum ListOfTemperatures {
@@ -69,7 +71,12 @@ public class ViewModel {
         return isErrorMessageDisplayed;
     }
 
-    public ViewModel() {
+    public ViewModel(final ILogger logger) {
+        if (logger == null) {
+            throw new IllegalArgumentException("Logger parameter can't be null");
+        }
+
+        this.logger = logger;
         resultTemperature = "";
         fromTemperature = "";
         listTemperaturesFrom = ListOfTemperatures.CELSIUS;

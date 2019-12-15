@@ -13,7 +13,8 @@ public class ViewModelTests {
 
     @Before
     public void setUp() {
-        viewModel = new ViewModel();
+        FakeLogger fakeLogger = new FakeLogger();
+        viewModel = new ViewModel(fakeLogger);
     }
 
     @After
@@ -251,6 +252,7 @@ public class ViewModelTests {
 
         assertEquals("0.0", viewModel.getResultTemperature());
     }
+
     @Test
     public void convertCelsius100ToCelsius100() {
         viewModel.setTo(ListOfTemperatures.CELSIUS);
@@ -259,5 +261,13 @@ public class ViewModelTests {
         viewModel.calculate();
 
         assertEquals("100.0", viewModel.getResultTemperature());
+    }
+
+    @Test
+    public void canCreateViewModelWithLogger() {
+        FakeLogger logger = new FakeLogger();
+        ViewModel viewModel = new ViewModel(logger);
+
+        assertNotNull(viewModel);
     }
 }
