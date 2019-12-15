@@ -399,4 +399,13 @@ public class ViewModelTests {
 
         assertTrue(log.get(1).matches(".*" + "Input updated: to temperature = " + ListOfTemperatures.CELSIUS + ".*"));
     }
+
+    @Test
+    public void isLogMessageNotUpdatedAfterSetEqualTo() {
+        viewModel.setTo(ListOfTemperatures.KELVIN);
+        viewModel.setTo(ListOfTemperatures.KELVIN);
+        List<String> log = viewModel.getLog();
+
+        assertEquals(3, log.size());
+    }
 }

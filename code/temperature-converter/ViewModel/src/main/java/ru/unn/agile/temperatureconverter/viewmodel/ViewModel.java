@@ -107,9 +107,11 @@ public class ViewModel {
         }
     }
     public void setTo(final ListOfTemperatures listTemperaturesTo) {
-        this.resultTemperature = "";
-        this.listTemperaturesTo = listTemperaturesTo;
-        logger.log("Input updated: to temperature = " + listTemperaturesTo);
+        if(this.listTemperaturesTo != listTemperaturesTo) {
+            this.resultTemperature = "";
+            this.listTemperaturesTo = listTemperaturesTo;
+            logger.log("Input updated: to temperature = " + listTemperaturesTo);
+        }
     }
 
     private boolean matchInput(final String line, final String pattern) {
