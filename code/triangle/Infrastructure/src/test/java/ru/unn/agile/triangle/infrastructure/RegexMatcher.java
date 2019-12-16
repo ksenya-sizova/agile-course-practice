@@ -22,6 +22,7 @@ public class RegexMatcher extends BaseMatcher {
 
     public static Matcher<? super String> matchesPattern(final String regex) {
         RegexMatcher matcher = new RegexMatcher(regex);
+        @SuppressWarnings (value = "unchecked")
         Matcher<? super String> castedMatcher = (Matcher<? super String>)   matcher;
         return castedMatcher;
     }
