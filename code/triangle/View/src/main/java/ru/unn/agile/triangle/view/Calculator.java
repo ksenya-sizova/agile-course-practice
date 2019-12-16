@@ -1,13 +1,16 @@
 package ru.unn.agile.triangle.view;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import ru.unn.agile.triangle.Triangle.*;
+import ru.unn.agile.triangle.model.Triangle.*;
 import ru.unn.agile.triangle.viewmodel.ViewModel;
+import ru.unn.agile.triangle.infrastructure.TxtLogger;
 
 public class Calculator {
     @FXML
@@ -31,15 +34,44 @@ public class Calculator {
 
     @FXML
     void initialize() {
+        viewModel.setLogger(new TxtLogger("./TxtLogger-lab3.log"));
+
+        final ChangeListener<Boolean> focusChangeListener = new ChangeListener<Boolean>() {
+            @Override
+            public void changed(final ObservableValue<? extends Boolean> observable,
+                                final Boolean oldValue, final Boolean newValue) {
+                viewModel.onFocusChanged(oldValue, newValue);
+            }
+        };
 
         txtAx.textProperty().bindBidirectional(viewModel.axProperty());
+        txtAx.focusedProperty().addListener(focusChangeListener);
+
         txtAy.textProperty().bindBidirectional(viewModel.ayProperty());
+        txtAy.focusedProperty().addListener(focusChangeListener);
+
         txtBx.textProperty().bindBidirectional(viewModel.bxProperty());
+        txtBx.focusedProperty().addListener(focusChangeListener);
+
         txtBy.textProperty().bindBidirectional(viewModel.byProperty());
+        txtBy.focusedProperty().addListener(focusChangeListener);
+
         txtCx.textProperty().bindBidirectional(viewModel.cxProperty());
+        txtCx.focusedProperty().addListener(focusChangeListener);
+
         txtCy.textProperty().bindBidirectional(viewModel.cyProperty());
+        txtCy.focusedProperty().addListener(focusChangeListener);
 
         cbOperation.valueProperty().bindBidirectional(viewModel.operationProperty());
+
+        cbOperation.valueProperty().addListener(new ChangeListener<Operation>() {
+            @Override
+            public void changed(final ObservableValue<? extends Operation> observable,
+                                final Operation oldValue,
+                                final Operation newValue) {
+                viewModel.onOperationChanged(oldValue, newValue);
+            }
+        });
 
         btnCalc.setOnAction(new EventHandler<ActionEvent>() {
             @Override

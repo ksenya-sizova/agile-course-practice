@@ -6,8 +6,9 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import ru.unn.agile.triangle.*;
-import ru.unn.agile.triangle.Triangle.*;
+import ru.unn.agile.triangle.model.Point;
+import ru.unn.agile.triangle.model.Triangle;
+import ru.unn.agile.triangle.model.Triangle.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,7 @@ public class ViewModel {
     private final StringProperty cx = new SimpleStringProperty();
     private final StringProperty cy = new SimpleStringProperty();
 
+    private final StringProperty logs = new SimpleStringProperty();
     private final StringProperty result = new SimpleStringProperty();
     private final StringProperty status = new SimpleStringProperty();
 
@@ -29,9 +31,26 @@ public class ViewModel {
 
     private final BooleanProperty calculationDisabled = new SimpleBooleanProperty();
 
+    private ILogger logger;
     private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
 
+    public final void setLogger(final ILogger logger) {
+        if (logger == null) {
+            throw new IllegalArgumentException("Logger parameter can't be null");
+        }
+        this.logger = logger;
+    }
+
     public ViewModel() {
+        init();
+    }
+
+    public ViewModel(final ILogger logger) {
+        setLogger(logger);
+        init();
+    }
+
+    public void init() {
         ax.set("");
         ay.set("");
         bx.set("");
@@ -85,9 +104,59 @@ public class ViewModel {
             Triangle triangle = new Triangle(a, b, c);
             result.set(operation.get().apply(triangle).toString());
             status.set(Status.SUCCESS.toString());
+            StringBuilder message = new StringBuilder(LogMessages.CALCULATE_WAS_PRESSED);
+            message.append("Arguments: ax = ").append(ax.get())
+                    .append("; ay = ").append(ay.get())
+                    .append("; bx = ").append(bx.get())
+                    .append("; by = ").append(by.get())
+                    .append("; cx = ").append(cx.get())
+                    .append("; cy = ").append(cy.get())
+                    .append(" Operation: ").append(operation.get().toString()).append(".");
+            logger.log(message.toString());
         } catch (Exception ex) {
             status.set(ex.getMessage());
+            logger.log(LogMessages.INCORRECT_INPUT);
+        } finally {
+            updateLogs();
         }
+    }
+
+    public void onOperationChanged(final Operation oldValue, final Operation newValue) {
+        if (oldValue.equals(newValue)) {
+            return;
+        }
+        StringBuilder message = new StringBuilder(LogMessages.OPERATION_WAS_CHANGED);
+        message.append(newValue.toString());
+        logger.log(message.toString());
+        updateLogs();
+    }
+
+    public void onFocusChanged(final Boolean oldValue, final Boolean newValue) {
+        if (!oldValue && newValue) {
+            return;
+        }
+
+        for (ValueChangeListener listener : valueChangedListeners) {
+            if (listener.isChanged()) {
+                StringBuilder message = new StringBuilder(LogMessages.EDITING_FINISHED);
+                message.append("Input arguments are: [")
+                        .append(ax.get()).append("; ")
+                        .append(ay.get()).append("; ")
+                        .append(bx.get()).append("; ")
+                        .append(by.get()).append("; ")
+                        .append(cx.get()).append("; ")
+                        .append(cy.get()).append("]");
+                logger.log(message.toString());
+                updateLogs();
+
+                listener.cache();
+                break;
+            }
+        }
+    }
+
+    public final List<String> getLog() {
+        return logger.getLog();
     }
 
     public StringProperty axProperty() {
@@ -150,6 +219,14 @@ public class ViewModel {
         return status.get();
     }
 
+    public StringProperty logsProperty() {
+        return logs;
+    }
+
+    public final String getLogs() {
+        return logs.get();
+    }
+
     private Status getInputStatus() {
         Status inputStatus = Status.READY;
         if (ax.get().isEmpty() || ay.get().isEmpty()
@@ -183,11 +260,32 @@ public class ViewModel {
         return inputStatus;
     }
 
+    private void updateLogs() {
+        List<String> fullLog = logger.getLog();
+        String record = new String("");
+        for (String log : fullLog) {
+            record += log + "\n";
+        }
+        logs.set(record);
+    }
+
     private class ValueChangeListener implements ChangeListener<String> {
+        private String prevValue = new String("");
+        private String curValue = new String("");
         @Override
         public void changed(final ObservableValue<? extends String> observable,
                             final String oldValue, final String newValue) {
+            if (oldValue.equals(newValue)) {
+                return;
+            }
             status.set(getInputStatus().toString());
+            curValue = newValue;
+        }
+        public boolean isChanged() {
+            return !prevValue.equals(curValue);
+        }
+        public void cache() {
+            prevValue = curValue;
         }
     }
 }
@@ -207,4 +305,13 @@ enum Status {
     public String toString() {
         return name;
     }
+}
+
+final class LogMessages {
+    public static final String CALCULATE_WAS_PRESSED = "Calculate. ";
+    public static final String OPERATION_WAS_CHANGED = "Operation was changed to ";
+    public static final String EDITING_FINISHED = "Updated input. ";
+    public static final String INCORRECT_INPUT = "Incorrect input. ";
+
+    private LogMessages() { }
 }

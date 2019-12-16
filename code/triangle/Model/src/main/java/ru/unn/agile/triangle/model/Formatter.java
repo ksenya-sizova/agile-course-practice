@@ -1,4 +1,4 @@
-package ru.unn.agile.triangle;
+package ru.unn.agile.triangle.model;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;

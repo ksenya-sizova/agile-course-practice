@@ -64,6 +64,7 @@
                   <Label fx:id="lbStatus" maxWidth="1.7976931348623157E308" text="${viewModel.status}" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
+             <TextArea fx:id="areaLog" text="${viewModel.logs}" editable="false" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
          </children>
         </VBox>
     </children>

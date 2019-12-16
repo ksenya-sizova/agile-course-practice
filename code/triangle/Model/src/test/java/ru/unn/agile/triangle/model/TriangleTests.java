@@ -1,6 +1,9 @@
-package ru.unn.agile.triangle;
+package ru.unn.agile.triangle.model;
 
 import org.junit.Test;
+import ru.unn.agile.triangle.model.Formatter;
+import ru.unn.agile.triangle.model.Point;
+import ru.unn.agile.triangle.model.Triangle;
 
 import java.util.ArrayList;
 import java.util.Arrays;
