@@ -6,8 +6,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import ru.unn.agile.triangle.model.Point;
-import ru.unn.agile.triangle.model.Triangle;
+import ru.unn.agile.triangle.model.*;
 import ru.unn.agile.triangle.model.Triangle.*;
 
 import java.util.ArrayList;
