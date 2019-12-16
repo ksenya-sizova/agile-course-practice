@@ -11,6 +11,13 @@ public class RegexMatcher extends BaseMatcher {
         this.regex = regex;
     }
 
+    public static Matcher<? super String> matchesPattern(final String regex) {
+        RegexMatcher matcher = new RegexMatcher(regex);
+        @SuppressWarnings(value = "unchecked")
+        Matcher<? super String> castedMatcher = (Matcher<? super String>) matcher;
+        return castedMatcher;
+    }
+
     public boolean matches(final Object o) {
         return ((String) o).matches(regex);
     }
@@ -18,12 +25,5 @@ public class RegexMatcher extends BaseMatcher {
     public void describeTo(final Description description) {
         description.appendText("matches regex = ");
         description.appendText(regex);
-    }
-
-    public static Matcher<? super String> matchesPattern(final String regex) {
-        RegexMatcher matcher = new RegexMatcher(regex);
-        @SuppressWarnings (value = "unchecked")
-        Matcher<? super String> castedMatcher = (Matcher<? super String>)   matcher;
-        return castedMatcher;
     }
 }
