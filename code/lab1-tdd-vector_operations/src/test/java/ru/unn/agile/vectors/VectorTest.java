@@ -91,7 +91,7 @@ public class VectorTest {
     public void canDifferenceTwoVectorsWithPositiveCoordinates() {
         Vector v1 = new Vector(1, 1, 1);
         Vector v2 = new Vector(2, 2, 2);
-        Vector actRes = new Vector(-1, -1, -1);
+        Vector actRes = new Vector(1, 1, 1);
         Vector expRes = Vector.minus(v2, v1);
         assertEquals(expRes, actRes);
     }
@@ -100,7 +100,7 @@ public class VectorTest {
     public void canDifferenceTwoVectorsWithNegativeCoordinates() {
         Vector v1 = new Vector(-1, -1, -1);
         Vector v2 = new Vector(-2, -2, -2);
-        Vector actRes = new Vector(1, 1, 1);
+        Vector actRes = new Vector(-1, -1, -1);
         Vector expRes = Vector.minus(v2, v1);
         assertEquals(expRes, actRes);
     }
@@ -109,7 +109,7 @@ public class VectorTest {
     public void canDifferenceTwoVectorsWithDifferentSignCoordinates() {
         Vector v1 = new Vector(-1, 1, -1);
         Vector v2 = new Vector(2, -2, 2);
-        Vector actRes = new Vector(-3, 3, 1);
+        Vector actRes = new Vector(3, -3, 3);
         Vector expRes = Vector.minus(v2, v1);
         assertEquals(expRes, actRes);
     }
@@ -163,7 +163,7 @@ public class VectorTest {
     public void canDoVectMultTwoVectorsWithDifferentSignCoordinates() {
         Vector v1 = new Vector(-1, 1, 1);
         Vector v2 = new Vector(2, -2, 2);
-        Vector actRes = new Vector(4, 4, 0);
+        Vector actRes = new Vector(-4, 4, 0);
         Vector expRes = Vector.vectMult(v2, v1);
         assertEquals(expRes, actRes);
     }

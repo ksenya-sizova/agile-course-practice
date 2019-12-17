@@ -11,21 +11,23 @@ public class Vector {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if(obj == this)
+    public boolean equals(final Object obj) {
+        if (obj == this) {
             return true;
-        if(obj == null)
-            return false;
-        if(!(getClass() == obj.getClass()))
-            return false;
-        else
-        {
-            Vector tmp = (Vector) obj;
-            if(tmp.x == this.x && tmp.y == this.y && tmp.z == this.z)
-                return true;
-            else
-                return false;
         }
+        if (obj == null) {
+            return false;
+        }
+        if (!(getClass() == obj.getClass())) {
+            return false;
+        }
+        Vector tmp = (Vector) obj;
+        return tmp.x == this.x && tmp.y == this.y && tmp.z == this.z;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 
     public static boolean isEqual(final Vector v1, final Vector v2) {
@@ -49,29 +51,26 @@ public class Vector {
         Vector res = new Vector(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z);
         return res;
     }
-    public static Vector minus(Vector v1, Vector v2) {
-        Vector res = new Vector (v1.x-v2.x, v1.y-v2.y, v1.z-v2.z);
+
+    public static Vector minus(final Vector v1, final Vector v2) {
+        Vector res = new Vector(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z);
         return res;
     }
 
-    public static double scalarMult (Vector v1, Vector v2) {
-        return (v1.x*v2.x) + (v1.y*v2.y) + (v1.z*v2.z);
+    public static double scalarMult(final Vector v1, final Vector v2) {
+        return (v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z);
     }
 
-    public static Vector vectMult (Vector v1, Vector v2) {
-        double newX = v1.y*v2.z -v1.z*v2.y;
-        double newY = v1.x*v2.z -v1.z*v2.x;
-        double newZ = v1.x*v2.y -v1.y*v2.x;
+    public static Vector vectMult(final  Vector v1, final Vector v2) {
+        double newX = v1.y * v2.z - v1.z * v2.y;
+        double newY = v1.x * v2.z - v1.z * v2.x;
+        double newZ = v1.x * v2.y - v1.y * v2.x;
         Vector res = new Vector(newX, newY, newZ);
         return res;
     }
 
-    public static boolean isComplonar(Vector v1, Vector v2) {
+    public static boolean isComplonar(final Vector v1, final Vector v2) {
         Vector res = vectMult(v1, v2);
-        if(res == new Vector(0,0,0)) {
-            return true;
-        }
-        else
-            return false;
+        return new Vector(0, 0, 0).equals(res);
     }
 }
