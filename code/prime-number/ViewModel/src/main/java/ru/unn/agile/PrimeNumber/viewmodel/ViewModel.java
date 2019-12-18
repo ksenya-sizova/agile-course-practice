@@ -96,9 +96,9 @@ public class ViewModel {
     }
 
     private Status getInputStatus() {
-        Status inputStatus = Status.READY;
+        Status status = Status.READY;
         if (startElement.get().isEmpty() || endElement.get().isEmpty()) {
-            inputStatus = Status.WAITING;
+            status = Status.WAITING;
         }
         try {
             if (!startElement.get().isEmpty()) {
@@ -107,11 +107,10 @@ public class ViewModel {
             if (!endElement.get().isEmpty()) {
                 Integer.parseInt(endElement.get());
             }
-        } catch (NumberFormatException nfe) {
-            inputStatus = Status.BAD_FORMAT;
+        } catch (NumberFormatException e) {
+            status = Status.BAD_FORMAT;
         }
-
-        return inputStatus;
+        return status;
     }
 
     private class ValueChangeListener implements ChangeListener<String> {

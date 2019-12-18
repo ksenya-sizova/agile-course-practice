@@ -50,9 +50,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void statusIsWaitingIfNotEnoughCorrectData() {
-        viewModel.startElemProperty().set("1");
-
+    public void statusIsWaitingIfValuesAreNotSet() {
         assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
     }
 
@@ -62,9 +60,9 @@ public class ViewModelTests {
     }
 
     @Test
-    public void calculateButtonIsDisabledWhenFormatIsBad() {
-        setInputData();
-        viewModel.startElemProperty().set("big_brain");
+    public void findButtonIsDisabledWhenReportBadFormat() {
+        viewModel.startElemProperty().set("null");
+        viewModel.endElemProperty().set("NaN");
 
         assertTrue(viewModel.calculationDisabledProperty().get());
     }
@@ -78,7 +76,8 @@ public class ViewModelTests {
 
     @Test
     public void calculateButtonIsEnabledWithCorrectInput() {
-        setInputData();
+        viewModel.startElemProperty().set("1");
+        viewModel.endElemProperty().set("4");
 
         assertFalse(viewModel.calculationDisabledProperty().get());
     }
@@ -95,7 +94,8 @@ public class ViewModelTests {
 
     @Test
     public void canSetSuccessMessage() {
-        setInputData();
+        viewModel.startElemProperty().set("1");
+        viewModel.endElemProperty().set("2");
 
         viewModel.findPrimaryNums();
 
@@ -103,21 +103,10 @@ public class ViewModelTests {
     }
 
     @Test
-    public void canSetBadFormatMessage() {
-        viewModel.startElemProperty().set("#selfie");
-
-        assertEquals(Status.BAD_FORMAT.toString(), viewModel.statusProperty().get());
-    }
-
-    @Test
-    public void statusIsReadyWhenSetProperData() {
-        setInputData();
-
-        assertEquals(Status.READY.toString(), viewModel.statusProperty().get());
-    }
-
-    private void setInputData() {
+    public void statusIsReadyWhenSetProperValues() {
         viewModel.startElemProperty().set("1");
         viewModel.endElemProperty().set("2");
+
+        assertEquals(Status.READY.toString(), viewModel.statusProperty().get());
     }
 }
