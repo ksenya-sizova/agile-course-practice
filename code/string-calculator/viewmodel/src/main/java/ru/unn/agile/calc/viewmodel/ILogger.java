@@ -1,4 +1,4 @@
-package ru.unn.agile.calc.model;
+package ru.unn.agile.calc.viewmodel;
 
 import java.util.List;
 
