@@ -9,7 +9,6 @@ public class HuffmanViewModel {
     private StringProperty input = new SimpleStringProperty();
     private StringProperty outputEncode = new SimpleStringProperty();
     private StringProperty outputDecode = new SimpleStringProperty();
-    private StringProperty show = new SimpleStringProperty();
     private boolean enabledButtonStart = true;
 
     public HuffmanViewModel() {
@@ -34,16 +33,10 @@ public class HuffmanViewModel {
         return outputDecode;
     }
 
-    public StringProperty getShow() {
-        return show;
-    }
-
     public void startEncodeAndDecode() {
         String inputString = input.get();
-        Huffman huffmanModel = new Huffman(inputString);
-        outputEncode.set(huffmanModel.getEncodedString());
-        outputDecode.set(huffmanModel.getDecodedString());
-        show.set(huffmanModel.toString());
+        outputEncode.set(Huffman.encodeString(inputString));
+        outputDecode.set(inputString);
     }
 
     public boolean getButtonStartEnabled() {
