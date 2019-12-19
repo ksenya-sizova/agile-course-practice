@@ -77,6 +77,8 @@ include "code/string-calculator/viewmodel"
 project(":code/string-calculator/viewmodel").name = "string-calculator-viewmodel"
 include "code/string-calculator/view"
 project(":code/string-calculator/view").name = "string-calculator-view"
+include "code/string-calculator/infrastructure"
+project(":code/string-calculator/infrastructure").name = "string-calculator-infrastructure"
 // Карев Борис
 include "code/length-converter/Model"
 project(":code/length-converter/Model").name = "length-converter-Model"
