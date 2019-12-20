@@ -9,6 +9,7 @@ public class ViewModel {
 
     private StringProperty firstFraction = new SimpleStringProperty();
     private StringProperty secondFraction = new SimpleStringProperty();
+    private StringProperty resultFraction = new SimpleStringProperty();
 
     public StringProperty firstFractionProperty() {
         return firstFraction;
@@ -16,6 +17,10 @@ public class ViewModel {
 
     public StringProperty secondFractionProperty() {
         return secondFraction;
+    }
+
+    public StringProperty resultFractionProperty() {
+        return resultFraction;
     }
 
     public void setFirstFraction(String fraction) {

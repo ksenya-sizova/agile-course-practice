@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="233.0" prefWidth="375.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.fractioncalculator.view.Fractioncalculator">
+<AnchorPane prefHeight="233.0" prefWidth="375.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.fractioncalculator.view.FractionCalculator">
    <children>
       <Button layoutX="163.0" layoutY="22.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="50.0" text="+" />
       <TextField layoutX="50.0" layoutY="69.0" prefHeight="25.0" prefWidth="80.0" />

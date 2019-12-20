@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import ru.unn.agile.fractioncalculator.viewmodel.ViewModel;
 
-public class Fractioncalculator {
+public class FractionCalculator {
 
     @FXML private ViewModel viewModel;
 
@@ -21,8 +21,9 @@ public class Fractioncalculator {
     @FXML private Label resultLabel;
 
     @FXML
-    void init() {
+    void initialize() {
         firstFraction.textProperty().bindBidirectional(viewModel.firstFractionProperty());
         secondFraction.textProperty().bindBidirectional(viewModel.secondFractionProperty());
+        resultLabel.textProperty().bindBidirectional(viewModel.firstFractionProperty());
     }
 }
