@@ -1,5 +1,6 @@
 package ru.unn.agile.queue.viewmodel;
 
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
@@ -17,8 +18,25 @@ public class ViewModel {
     private final StringProperty queueStatus = new SimpleStringProperty();
     private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
     private double key;
+    private ILogger logger;
+
+    public final void setLogger(final ILogger logger) {
+        if (logger == null) {
+            throw new IllegalArgumentException("Logger parameter can't be null");
+        }
+        this.logger = logger;
+    }
 
     public ViewModel() {
+        init();
+    }
+
+    public ViewModel(final ILogger logger) {
+        setLogger(logger);
+        init();
+    }
+
+    private void init() {
         queueElementInput.set("");
         queueResult.set("");
         queueStatus.set("");
