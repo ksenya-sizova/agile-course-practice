@@ -9,12 +9,33 @@ public class ViewModelTests {
     private ViewModel viewModel;
     @Before
     public void creatingViewModel() {
-        viewModel = new ViewModel(new FakeLogger());
+        FakeLogger fakeLogger = new FakeLogger();
+        viewModel = new ViewModel(fakeLogger);
     }
 
     @After
     public void deletingViewModel() {
         viewModel = null;
+    }
+
+    @Test
+    public void canCreateViewModelWithoutLogger() {
+        ViewModel viewModel = new ViewModel();
+
+        assertNotNull(viewModel);
+    }
+
+    @Test
+    public void canCreateViewModelWithLogger() {
+        FakeLogger logger = new FakeLogger();
+        ViewModel viewModelLogged = new ViewModel(logger);
+
+        assertNotNull(viewModelLogged);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void throwsWhenCreateViewModelWithNullLogger() {
+        ViewModel viewModel = new ViewModel(null);
     }
 
     @Test
