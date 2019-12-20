@@ -9,7 +9,7 @@ public class ViewModelTests {
     private ViewModel viewModel;
     @Before
     public void creatingViewModel() {
-        viewModel = new ViewModel();
+        viewModel = new ViewModel(new FakeLogger());
     }
 
     @After
