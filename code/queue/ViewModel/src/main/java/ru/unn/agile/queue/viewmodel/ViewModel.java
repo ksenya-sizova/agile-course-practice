@@ -53,6 +53,10 @@ public class ViewModel {
         }
     }
 
+    public List<String> getLog() {
+        return logger.getLog();
+    }
+
     private class ValueChangeListener implements ChangeListener<String> {
         @Override
         public void changed(final ObservableValue<? extends String> observable,
@@ -101,6 +105,7 @@ public class ViewModel {
             queue.push(key);
             queueStatus.set(Status.SUCCESS.toString());
             queueResult.set("Push element: " + Double.toString(key));
+            logger.log("Pushed " + Double.toString(key) + " to queue");
         } catch (IllegalArgumentException iae) {
             queueResult.set("The item cannot be empty.");
         }

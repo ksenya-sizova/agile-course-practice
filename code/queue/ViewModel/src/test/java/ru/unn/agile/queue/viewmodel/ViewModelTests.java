@@ -189,4 +189,20 @@ public class ViewModelTests {
 
         assertEquals(expectedStatusValue, actualStatusValue);
     }
+
+    @Test
+    public void isLogEmptyWhenStartup() {
+        assertEquals(0, viewModel.getLog().size());
+    }
+
+    @Test
+    public void isLogContainsInfoAboutPushedElement() {
+        String inputElement = "1.0";
+        viewModel.setQueueInputElement(inputElement);
+        viewModel.pushProcess();
+
+        String logMessage = viewModel.getLog().get(0);
+        String expectedMessage = "Pushed " + inputElement + " to queue";
+        assertEquals(expectedMessage, logMessage);
+    }
 }
