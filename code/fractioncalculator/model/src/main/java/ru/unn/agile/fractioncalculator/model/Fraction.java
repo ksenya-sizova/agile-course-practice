@@ -1,4 +1,4 @@
-package ru.unn.agile.fractioncalculator;
+package ru.unn.agile.fractioncalculator.model;
 
 import java.util.Objects;
 
@@ -59,5 +59,4 @@ public final class Fraction {
     public int hashCode() {
         return Objects.hash(numerator, denominator);
     }
-
 }

@@ -1,4 +1,4 @@
-package ru.unn.agile.fractioncalculator;
+package ru.unn.agile.fractioncalculator.model;
 
 import java.util.Arrays;
 import java.util.Objects;
