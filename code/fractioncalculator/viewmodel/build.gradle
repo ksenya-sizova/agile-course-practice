@@ -3,5 +3,5 @@ plugins {
 }
 
 dependencies {
-    compile project(':fractioncalculator-viewmodel')
+    compile project(':fractioncalculator-model')
 }
