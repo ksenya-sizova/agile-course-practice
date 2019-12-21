@@ -30,10 +30,12 @@ public class ViewModel {
 
     private final BooleanProperty calculationDisabled = new SimpleBooleanProperty();
 
-    private ILogger logger;
+    private TriangleILogger logger;
     private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
 
-    public final void setLogger(final ILogger logger) {
+    private final String arguments = "ax = %s; ay = %s; bx = %s; by = %s; cx = %s; cy = %s";
+
+    public final void setLogger(final TriangleILogger logger) {
         if (logger == null) {
             throw new IllegalArgumentException("Logger parameter can't be null");
         }
@@ -44,7 +46,7 @@ public class ViewModel {
         init();
     }
 
-    public ViewModel(final ILogger logger) {
+    public ViewModel(final TriangleILogger logger) {
         setLogger(logger);
         init();
     }
@@ -104,12 +106,8 @@ public class ViewModel {
             result.set(operation.get().apply(triangle).toString());
             status.set(Status.SUCCESS.toString());
             StringBuilder message = new StringBuilder(LogMessages.CALCULATE_WAS_PRESSED);
-            message.append("Arguments: ax = ").append(ax.get())
-                    .append("; ay = ").append(ay.get())
-                    .append("; bx = ").append(bx.get())
-                    .append("; by = ").append(by.get())
-                    .append("; cx = ").append(cx.get())
-                    .append("; cy = ").append(cy.get())
+            message.append("Arguments: ").append(String.format(arguments,
+                    ax.get(), ay.get(), bx.get(), by.get(), cx.get(), cy.get()))
                     .append(" Operation: ").append(operation.get().toString()).append(".");
             logger.log(message.toString());
         } catch (Exception ex) {
@@ -138,13 +136,8 @@ public class ViewModel {
         for (ValueChangeListener listener : valueChangedListeners) {
             if (listener.isChanged()) {
                 StringBuilder message = new StringBuilder(LogMessages.EDITING_FINISHED);
-                message.append("Input arguments are: [")
-                        .append(ax.get()).append("; ")
-                        .append(ay.get()).append("; ")
-                        .append(bx.get()).append("; ")
-                        .append(by.get()).append("; ")
-                        .append(cx.get()).append("; ")
-                        .append(cy.get()).append("]");
+                message.append("Input arguments are: ").append(String.format(arguments,
+                        ax.get(), ay.get(), bx.get(), by.get(), cx.get(), cy.get()));
                 logger.log(message.toString());
                 updateLogs();
 
@@ -158,9 +151,7 @@ public class ViewModel {
         return logger.getLog();
     }
 
-    public StringProperty axProperty() {
-        return ax;
-    }
+    public StringProperty axProperty() { return ax; }
 
     public StringProperty ayProperty() {
         return ay;

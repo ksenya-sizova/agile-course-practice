@@ -10,7 +10,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import ru.unn.agile.triangle.model.Triangle.*;
 import ru.unn.agile.triangle.viewmodel.ViewModel;
-import ru.unn.agile.triangle.infrastructure.TxtLogger;
+import ru.unn.agile.triangle.infrastructure.TriangleTxtLogger;
 
 public class Calculator {
     @FXML
@@ -34,9 +34,9 @@ public class Calculator {
 
     @FXML
     void initialize() {
-        viewModel.setLogger(new TxtLogger("./TxtLogger-lab3.log"));
+        viewModel.setLogger(new TriangleTxtLogger("./TxtLogger-lab3.log"));
 
-        final ChangeListener<Boolean> focusChangeListener = new ChangeListener<Boolean>() {
+        final ChangeListener<Boolean> focusChangeListener = new ChangeListener<>() {
             @Override
             public void changed(final ObservableValue<? extends Boolean> observable,
                                 final Boolean oldValue, final Boolean newValue) {

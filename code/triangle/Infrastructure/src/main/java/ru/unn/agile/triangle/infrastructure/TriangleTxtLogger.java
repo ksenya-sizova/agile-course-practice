@@ -1,6 +1,6 @@
 package ru.unn.agile.triangle.infrastructure;
 
-import ru.unn.agile.triangle.viewmodel.ILogger;
+import ru.unn.agile.triangle.viewmodel.TriangleILogger;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -12,7 +12,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class TxtLogger implements ILogger {
+public class TriangleTxtLogger implements TriangleILogger {
     private static final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
     private final BufferedWriter writer;
     private final String filename;
@@ -23,7 +23,7 @@ public class TxtLogger implements ILogger {
         return sdf.format(cal.getTime());
     }
 
-    public TxtLogger(final String filename) {
+    public TriangleTxtLogger(final String filename) {
         this.filename = filename;
 
         BufferedWriter logWriter = null;

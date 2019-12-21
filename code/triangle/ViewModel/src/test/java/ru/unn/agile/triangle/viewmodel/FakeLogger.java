@@ -3,7 +3,7 @@ package ru.unn.agile.triangle.viewmodel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FakeLogger implements ILogger {
+public class FakeLogger implements TriangleILogger {
     private final ArrayList<String> log = new ArrayList<>();
 
     @Override
