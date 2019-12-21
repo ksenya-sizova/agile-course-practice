@@ -72,6 +72,19 @@ public class ViewModelTest {
     }
 
     @Test
+    public void canSumNegativeFractions() {
+        String firstFractionStr = "-10/20";
+        String secondFractionStr = "-5/20";
+        viewModel.setFirstFraction(firstFractionStr);
+        viewModel.setSecondFraction(secondFractionStr);
+        String expected = "-3/4";
+
+        viewModel.calculateSum();
+        String actual = viewModel.resultFractionProperty().get();
+        assertEquals(expected, actual);
+    }
+
+    @Test
     public void canMinusFractions() {
         String firstFractionStr = "10/20";
         String secondFractionStr = "5/20";
@@ -156,7 +169,7 @@ public class ViewModelTest {
     @Test
     public void cantDivideIncorrectFractions() {
         String firstFractionStr = "2/0";
-        String secondFractionStr = "4/5";
+        String secondFractionStr = "1/5";
         viewModel.setFirstFraction(firstFractionStr);
         viewModel.setSecondFraction(secondFractionStr);
 
