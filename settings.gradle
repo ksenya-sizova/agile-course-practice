@@ -77,7 +77,7 @@ project(":code/deposit-calculator").name = "deposit-calculator-Model"
 // Краснов Александр
 // Куликов Александр
 // Кулыгина Юлия
-// Купцова Алеся
+// Vector Operations
 include "code/lab1-tdd-vector_operations"
 project(":code/lab1-tdd-vector_operations").name = "lab1-tdd-vector_operations-Model"
 // Кучков Иван

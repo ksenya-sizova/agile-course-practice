@@ -8,19 +8,19 @@ import static org.junit.Assert.*;
 
 public class VectorTest {
 
-    @Test()
+    @Test
     public void canCreateVectorWithPositiveCoordinates() {
         Vector vect = new Vector(1, 2, 3);
         assertNotNull(vect);
     }
 
-    @Test()
+    @Test
     public void canCreateVectorWithNegativeCoordinates() {
         Vector vect = new Vector(-1, -2, -3);
         assertNotNull(vect);
     }
 
-    @Test()
+    @Test
     public void canCreateTwoEqualVectorsWithPositiveCoordinates() {
         Vector v1 = new Vector(1, 2, 3);
         Vector v2 = new Vector(1, 2, 3);
@@ -28,7 +28,7 @@ public class VectorTest {
         assertTrue(tmp);
     }
 
-    @Test()
+    @Test
     public void canCreateTwoEqualVectorsWithNegativeCoordinates() {
         Vector v1 = new Vector(-1, -2, -3);
         Vector v2 = new Vector(-1, -2, -3);
@@ -36,23 +36,23 @@ public class VectorTest {
         assertTrue(tmp);
     }
 
-    @Test()
+    @Test
     public void canFindTheLengthNormWithPositiveCoordinates() {
         Vector vect = new Vector(1, 2, 3);
         double tmp = 3.7416573867739413;
-        double len = Vector.lengthNorm(vect);
+        double len = Vector.getLengthNorm(vect);
         assertEquals(len, tmp);
     }
 
-    @Test()
+    @Test
     public void canFindTheLengthNormWithNegativeCoordinates() {
         Vector vect = new Vector(-1, -2, -3);
         double tmp = 3.7416573867739413;
-        double len = Vector.lengthNorm(vect);
+        double len = Vector.getLengthNorm(vect);
         assertEquals(len, tmp);
     }
 
-    @Test()
+    @Test
     public void canCheckIsOrtogonal() {
         Vector v1 = new Vector(0, 1, 0);
         Vector v2 = new Vector(0, 0, 1);
@@ -60,66 +60,66 @@ public class VectorTest {
         assertTrue(tmp);
     }
 
-    @Test()
+    @Test
     public void canAddTwoVectorsWithPositiveCoordinates() {
         Vector v1 = new Vector(1, 1, 1);
         Vector v2 = new Vector(2, 2, 2);
         Vector actRes = new Vector(3, 3, 3);
-        Vector expRes = Vector.plus(v2, v1);
+        Vector expRes = Vector.getSum(v2, v1);
         assertEquals(expRes, actRes);
     }
 
-    @Test()
+    @Test
     public void canAddTwoVectorsWithNegativeCoordinates() {
         Vector v1 = new Vector(-1, -1, -1);
         Vector v2 = new Vector(-2, -2, -2);
         Vector actRes = new Vector(-3, -3, -3);
-        Vector expRes = Vector.plus(v2, v1);
+        Vector expRes = Vector.getSum(v2, v1);
         assertEquals(expRes, actRes);
     }
 
-    @Test()
+    @Test
     public void canAddTwoVectorsWithDifferentSignCoordinates() {
         Vector v1 = new Vector(-1, 1, -1);
         Vector v2 = new Vector(2, -2, 2);
         Vector actRes = new Vector(1, -1, 1);
-        Vector expRes = Vector.plus(v2, v1);
+        Vector expRes = Vector.getSum(v2, v1);
         assertEquals(expRes, actRes);
     }
 
-    @Test()
+    @Test
     public void canDifferenceTwoVectorsWithPositiveCoordinates() {
         Vector v1 = new Vector(1, 1, 1);
         Vector v2 = new Vector(2, 2, 2);
         Vector actRes = new Vector(1, 1, 1);
-        Vector expRes = Vector.minus(v2, v1);
+        Vector expRes = Vector.getDiff(v2, v1);
         assertEquals(expRes, actRes);
     }
 
-    @Test()
+    @Test
     public void canDifferenceTwoVectorsWithNegativeCoordinates() {
         Vector v1 = new Vector(-1, -1, -1);
         Vector v2 = new Vector(-2, -2, -2);
         Vector actRes = new Vector(-1, -1, -1);
-        Vector expRes = Vector.minus(v2, v1);
+        Vector expRes = Vector.getDiff(v2, v1);
         assertEquals(expRes, actRes);
     }
 
-    @Test()
+    @Test
     public void canDifferenceTwoVectorsWithDifferentSignCoordinates() {
         Vector v1 = new Vector(-1, 1, -1);
         Vector v2 = new Vector(2, -2, 2);
         Vector actRes = new Vector(3, -3, 3);
-        Vector expRes = Vector.minus(v2, v1);
+        Vector expRes = Vector.getDiff(v2, v1);
         assertEquals(expRes, actRes);
     }
 
-    @Test()
+    @Test
     public void canDoScalarMulterenceTwoVectorsWithPositiveCoordinates() {
         Vector v1 = new Vector(1, 1, 1);
         Vector v2 = new Vector(2, 2, 2);
         double actRes = 6;
-        double expRes = Vector.scalarMult(v2, v1);
+        double expRes = Vector.getScalarMult(v2, v1);
         assertEquals(expRes, actRes);
     }
 
@@ -128,59 +128,83 @@ public class VectorTest {
         Vector v1 = new Vector(-1, -1, -1);
         Vector v2 = new Vector(-2, -2, -2);
         double actRes = 6;
-        double expRes = Vector.scalarMult(v2, v1);
+        double expRes = Vector.getScalarMult(v2, v1);
         assertEquals(expRes, actRes);
     }
 
-    @Test()
+    @Test
     public void canDoScalarMultTwoVectorsWithDifferentSignCoordinates() {
         Vector v1 = new Vector(-1, 1, 1);
         Vector v2 = new Vector(2, -2, 2);
         double actRes = -2;
-        double expRes = Vector.scalarMult(v2, v1);
+        double expRes = Vector.getScalarMult(v2, v1);
         assertEquals(expRes, actRes);
     }
 
-    @Test()
+    @Test
     public void canDoVectMulterenceTwoVectorsWithPositiveCoordinates() {
         Vector v1 = new Vector(1, 1, 1);
         Vector v2 = new Vector(2, 2, 2);
         Vector actRes = new Vector(0, 0, 0);
-        Vector expRes = Vector.vectMult(v2, v1);
+        Vector expRes = Vector.getVectMult(v2, v1);
         assertEquals(expRes, actRes);
     }
 
-    @Test()
+    @Test
     public void canDoVectMultTwoVectorsWithNegativeCoordinates() {
         Vector v1 = new Vector(-1, -1, -1);
         Vector v2 = new Vector(-2, -2, -2);
         Vector actRes = new Vector(0, 0, 0);
-        Vector expRes = Vector.vectMult(v2, v1);
+        Vector expRes = Vector.getVectMult(v2, v1);
         assertEquals(expRes, actRes);
     }
 
-    @Test()
+    @Test
     public void canDoVectMultTwoVectorsWithDifferentSignCoordinates() {
         Vector v1 = new Vector(-1, 1, 1);
         Vector v2 = new Vector(2, -2, 2);
         Vector actRes = new Vector(-4, 4, 0);
-        Vector expRes = Vector.vectMult(v2, v1);
+        Vector expRes = Vector.getVectMult(v2, v1);
         assertEquals(expRes, actRes);
     }
 
-    @Test()
+    @Test
     public void canCheckIsComplonarWithComplonarVectors() {
         Vector v1 = new Vector(1, 1, 1);
         Vector v2 = new Vector(2, 2, 2);
-        boolean tmp = Vector.isComplonar(v2, v1);
+        boolean tmp = Vector.isComplanar(v2, v1);
         assertTrue(tmp);
     }
 
-    @Test()
+    @Test
     public void canCheckIsComplonarWithNotComplonarVectors() {
         Vector v1 = new Vector(-1, 1, 1);
         Vector v2 = new Vector(2, -2, 2);
-        boolean tmp = Vector.isComplonar(v2, v1);
+        boolean tmp = Vector.isComplanar(v2, v1);
         assertFalse(tmp);
+    }
+
+    @Test
+    public void canGetX() {
+        Vector v1 = new Vector(-1, 1, 1);
+        double actualRes = v1.getX();
+        double expectedRes = -1.0;
+        assertEquals(actualRes, expectedRes);
+    }
+
+    @Test
+    public void canGetY() {
+        Vector v1 = new Vector(-1, 1, 1);
+        double actualRes = v1.getY();
+        double expectedRes = 1.0;
+        assertEquals(actualRes, expectedRes);
+    }
+
+    @Test
+    public void canGetZ() {
+        Vector v1 = new Vector(-1, 1, 1);
+        double actualRes = v1.getZ();
+        double expectedRes = 1.0;
+        assertEquals(actualRes, expectedRes);
     }
 }
