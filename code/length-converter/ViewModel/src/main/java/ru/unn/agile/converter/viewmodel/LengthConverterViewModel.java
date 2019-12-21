@@ -106,6 +106,9 @@ public class LengthConverterViewModel {
     }
 
     public final List<String> getLog() {
+        if (logger == null) {
+            throw new IllegalArgumentException("Logger parameter can't be null");
+        }
         return logger.getLog();
     }
 
