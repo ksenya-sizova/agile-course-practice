@@ -15,6 +15,9 @@ import ru.unn.agile.mortgagecalculator.model.parameters.monthlycommission.Percen
 import ru.unn.agile.mortgagecalculator.model.report.MortgageMonthReport;
 import ru.unn.agile.mortgagecalculator.model.report.MortgageReport;
 
+import java.util.Collections;
+import java.util.List;
+
 
 public class MortgageCalculatorViewModel {
     private StringProperty apartmentPrice = new SimpleStringProperty();
@@ -22,23 +25,42 @@ public class MortgageCalculatorViewModel {
     private StringProperty loanPeriod = new SimpleStringProperty();
     private StringProperty loanPeriodType = new SimpleStringProperty();
     private StringProperty interestRate = new SimpleStringProperty();
-    private StringProperty oneTimeComisions = new SimpleStringProperty();
-    private StringProperty oneTimeComisionsType = new SimpleStringProperty();
-    private StringProperty monthlyComissions = new SimpleStringProperty();
-    private StringProperty monthlyComissionsType = new SimpleStringProperty();
+    private StringProperty oneTimeCommissions = new SimpleStringProperty();
+    private StringProperty oneTimeCommissionsType = new SimpleStringProperty();
+    private StringProperty monthlyCommissions = new SimpleStringProperty();
+    private StringProperty monthlyCommissionsType = new SimpleStringProperty();
     private StringProperty typeOfPayment = new SimpleStringProperty();
     private StringProperty result = new SimpleStringProperty();
+    private final StringProperty logs = new SimpleStringProperty();
+
+    private MortgageCalculatorILogger logger;
+
+    public void setLogger(final MortgageCalculatorILogger logger) {
+        if (logger == null) {
+            throw new IllegalArgumentException("Logger parameter can not be null");
+        }
+        this.logger = logger;
+    }
 
     public MortgageCalculatorViewModel() {
+        init();
+    }
+
+    public MortgageCalculatorViewModel(final MortgageCalculatorILogger logger) {
+        setLogger(logger);
+        init();
+    }
+
+    private void init() {
         apartmentPrice.set("");
         firstPayment.set("");
         loanPeriod.set("");
         loanPeriodType.set("");
         interestRate.set("");
-        oneTimeComisions.set("");
-        oneTimeComisionsType.set("");
-        monthlyComissions.set("");
-        monthlyComissionsType.set("");
+        oneTimeCommissions.set("");
+        oneTimeCommissionsType.set("");
+        monthlyCommissions.set("");
+        monthlyCommissionsType.set("");
         typeOfPayment.set("");
         result.set("");
 
@@ -74,7 +96,7 @@ public class MortgageCalculatorViewModel {
             }
         });
 
-        oneTimeComisions.addListener((observable, oldValue, newValue) -> {
+        oneTimeCommissions.addListener((observable, oldValue, newValue) -> {
             if (checkInput()) {
                 result.set("");
             } else {
@@ -82,7 +104,7 @@ public class MortgageCalculatorViewModel {
             }
         });
 
-        monthlyComissions.addListener((observable, oldValue, newValue) -> {
+        monthlyCommissions.addListener((observable, oldValue, newValue) -> {
             if (checkInput()) {
                 result.set("");
             } else {
@@ -91,6 +113,10 @@ public class MortgageCalculatorViewModel {
         });
 
         loanPeriodType.addListener((observable, oldValue, newValue) -> {
+            StringBuilder message = new StringBuilder(LogMessages.LOAN_PERIOD_TYPE_WAS_CHANGED);
+            message.append(newValue).append(".");
+            logger.log(message.toString());
+            updateLogs();
             onTypeChange();
         });
 
@@ -98,11 +124,21 @@ public class MortgageCalculatorViewModel {
             onTypeChange();
         });
 
-        monthlyComissionsType.addListener((observable, oldValue, newValue) -> {
+        monthlyCommissionsType.addListener((observable, oldValue, newValue) -> {
+            StringBuilder message =
+                    new StringBuilder(LogMessages.MONTHLY_COMMISSIONS_TYPE_WAS_CHANGED);
+            message.append(newValue).append(".");
+            logger.log(message.toString());
+            updateLogs();
             onTypeChange();
         });
 
-        oneTimeComisionsType.addListener((observable, oldValue, newValue) -> {
+        oneTimeCommissionsType.addListener((observable, oldValue, newValue) -> {
+            StringBuilder message =
+                    new StringBuilder(LogMessages.ONE_TIME_COMMISSIONS_TYPE_WAS_CHANGED);
+            message.append(newValue).append(".");
+            logger.log(message.toString());
+            updateLogs();
             onTypeChange();
         });
 
@@ -182,36 +218,36 @@ public class MortgageCalculatorViewModel {
         return interestRate;
     }
 
-    public String getOneTimeComisions() {
-        return oneTimeComisions.get();
+    public String getOneTimeCommissions() {
+        return oneTimeCommissions.get();
     }
 
-    public StringProperty oneTimeComisionsProperty() {
-        return oneTimeComisions;
+    public StringProperty oneTimeCommissionsProperty() {
+        return oneTimeCommissions;
     }
 
-    public String getOneTimeComisionsType() {
-        return oneTimeComisionsType.get();
+    public String getOneTimeCommissionsType() {
+        return oneTimeCommissionsType.get();
     }
 
-    public StringProperty oneTimeComisionsTypeProperty() {
-        return oneTimeComisionsType;
+    public StringProperty oneTimeCommissionsTypeProperty() {
+        return oneTimeCommissionsType;
     }
 
-    public String getMonthlyComissions() {
-        return monthlyComissions.get();
+    public String getMonthlyCommissions() {
+        return monthlyCommissions.get();
     }
 
-    public StringProperty monthlyComissionsProperty() {
-        return monthlyComissions;
+    public StringProperty monthlyCommissionsProperty() {
+        return monthlyCommissions;
     }
 
-    public String getMonthlyComissionsType() {
-        return monthlyComissionsType.get();
+    public String getMonthlyCommissionsType() {
+        return monthlyCommissionsType.get();
     }
 
-    public StringProperty monthlyComissionsTypeProperty() {
-        return monthlyComissionsType;
+    public StringProperty monthlyCommissionsTypeProperty() {
+        return monthlyCommissionsType;
     }
 
     public String getTypeOfPayment() {
@@ -246,16 +282,16 @@ public class MortgageCalculatorViewModel {
         if (!checkDoubleInput(firstPayment.get())) {
             return false;
         }
-        if (!checkDoubleInput(oneTimeComisions.get())) {
+        if (!checkDoubleInput(oneTimeCommissions.get())) {
             return false;
         }
-        if (!checkDoubleInput(monthlyComissions.get())) {
+        if (!checkDoubleInput(monthlyCommissions.get())) {
             return false;
         }
-        if (monthlyComissionsType.get().equals("")) {
+        if (monthlyCommissionsType.get().equals("")) {
             return false;
         }
-        if (oneTimeComisionsType.get().equals("")) {
+        if (oneTimeCommissionsType.get().equals("")) {
             return false;
         }
         return !typeOfPayment.get().equals("");
@@ -272,23 +308,25 @@ public class MortgageCalculatorViewModel {
                 ? PeriodType.YEAR : PeriodType.MONTH;
 
         double initialPayment = Double.parseDouble((firstPayment.get()));
-        double fixedComissionAmount = Double.parseDouble((oneTimeComisions.get()));
-        double monthlyComissionAmount = Double.parseDouble((monthlyComissions.get()));
+        double fixedComissionAmount = Double.parseDouble((oneTimeCommissions.get()));
+        double monthlyComissionAmount = Double.parseDouble((monthlyCommissions.get()));
 
         Commission fixedCommission = null;
         MonthlyCommission monthlyCommission = null;
 
         try {
-            fixedCommission = oneTimeComisionsType.get().equals("Percent")
+            fixedCommission = oneTimeCommissionsType.get().equals("Percent")
                     ? new PercentCommission(fixedComissionAmount)
                     : new FixedCommission(fixedComissionAmount);
-            monthlyCommission = monthlyComissionsType.get().equals("Percent")
+            monthlyCommission = monthlyCommissionsType.get().equals("Percent")
                     ? new PercentAmountMonthlyCommission(monthlyComissionAmount)
                     : new FixedMonthlyCommission(monthlyComissionAmount);
 
             mortgageParameters = new MortgageParameters(amount, percent, periodType, period);
             mortgageParameters.setInitialPayment(initialPayment);
         } catch (Exception e) {
+            logger.log(LogMessages.INCORRECT_INPUT);
+            updateLogs();
             result.set("Incorrect input");
             return null;
         }
@@ -322,5 +360,57 @@ public class MortgageCalculatorViewModel {
                 + "; With month payment " + monthReport.getPayment() + " for "
                 + "" + mortgageParameters.getMonthsPeriod() + " months.";
         this.result.set(resultString);
+
+        StringBuilder message = new StringBuilder(LogMessages.CALCULATE_WAS_PRESSED);
+        message.append("Arguments: Apartment Price = ").append(apartmentPrice.get())
+                .append("; First Payment = ").append(firstPayment.get())
+                .append("; Interest Rate = ").append(interestRate.get())
+                .append("; Loan Period = ").append(loanPeriod.get())
+                .append("; Loan Period Type: ").append(loanPeriodType.get())
+                .append("; Monthly Commissions = ").append(monthlyCommissions.get())
+                .append("; Monthly Commissions Type: ").append(monthlyCommissionsType.get())
+                .append("; One Time Commissions = ").append(oneTimeCommissions.get())
+                .append("; One Time Commissions Type: ").append(oneTimeCommissionsType.get())
+                .append("; Type Of Payment: ").append(typeOfPayment.get()).append(".");
+        logger.log(message.toString());
+        updateLogs();
+    }
+
+    public List<String> getLog() {
+        if (logger != null) {
+            return logger.getLog();
+        }
+        return Collections.emptyList();
+    }
+
+    public final String getLogs() {
+        return logs.get();
+    }
+
+    public StringProperty logsProperty() {
+        return logs;
+    }
+
+    private void updateLogs() {
+        List<String> fullLog = logger.getLog();
+        String record = new String("");
+        for (String log : fullLog) {
+            record += log + "\n";
+        }
+        logs.set(record);
+    }
+
+    final class LogMessages {
+        public static final String CALCULATE_WAS_PRESSED = "Calculate. ";
+        public static final String LOAN_PERIOD_TYPE_WAS_CHANGED =
+                "Loan Period Type was changed to ";
+        public static final String ONE_TIME_COMMISSIONS_TYPE_WAS_CHANGED =
+                "One Time Commissions Type was changed to ";
+        public static final String MONTHLY_COMMISSIONS_TYPE_WAS_CHANGED =
+                "Monthly Commissions Type was changed to ";
+        public static final String INCORRECT_INPUT = "Incorrect input. ";
+
+        private LogMessages() {
+        }
     }
 }

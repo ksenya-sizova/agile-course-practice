@@ -4,6 +4,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class MortgageCalculatorViewModelTests {
@@ -15,16 +17,18 @@ public class MortgageCalculatorViewModelTests {
         viewModel.apartmentPriceProperty().set("200");
         viewModel.firstPaymentProperty().set("20");
         viewModel.interestRateProperty().set("3");
-        viewModel.monthlyComissionsProperty().set("1");
-        viewModel.monthlyComissionsTypeProperty().set("Rubles");
-        viewModel.oneTimeComisionsProperty().set("2");
-        viewModel.oneTimeComisionsTypeProperty().set("Percent");
+        viewModel.monthlyCommissionsProperty().set("1");
+        viewModel.monthlyCommissionsTypeProperty().set("Rubles");
+        viewModel.oneTimeCommissionsProperty().set("2");
+        viewModel.oneTimeCommissionsTypeProperty().set("Percent");
         viewModel.typeOfPaymentProperty().set("Annuity");
     }
 
     @Before
     public void setUp() {
-        viewModel = new MortgageCalculatorViewModel();
+        if (viewModel == null) {
+            viewModel = new MortgageCalculatorViewModel(new MortgageCalculatorFakeLogger());
+        }
     }
 
     @After
@@ -34,16 +38,21 @@ public class MortgageCalculatorViewModelTests {
 
     @Test
     public void setEmptyStringInTextFieldsByDefault() {
-        assertEquals("", viewModel.getApartmentPrice());
-        assertEquals("", viewModel.getFirstPayment());
-        assertEquals("", viewModel.getInterestRate());
-        assertEquals("", viewModel.getLoanPeriod());
-        assertEquals("", viewModel.getLoanPeriodType());
-        assertEquals("", viewModel.getMonthlyComissions());
-        assertEquals("", viewModel.getMonthlyComissionsType());
-        assertEquals("", viewModel.getOneTimeComisions());
-        assertEquals("", viewModel.getOneTimeComisionsType());
-        assertEquals("", viewModel.getTypeOfPayment());
+        StringBuilder textFields = new StringBuilder(viewModel.getApartmentPrice());
+        textFields.append(viewModel.getFirstPayment())
+                .append(viewModel.getInterestRate())
+                .append(viewModel.getLoanPeriod())
+                .append(viewModel.getLoanPeriodType())
+                .append(viewModel.getMonthlyCommissions())
+                .append(viewModel.getMonthlyCommissionsType())
+                .append(viewModel.getOneTimeCommissions())
+                .append(viewModel.getOneTimeCommissionsType())
+                .append(viewModel.getTypeOfPayment());
+        assertEquals("", textFields.toString());
+    }
+
+    public void setExternalViewModel(final MortgageCalculatorViewModel viewModel) {
+        this.viewModel = viewModel;
     }
 
     @Test
@@ -105,7 +114,7 @@ public class MortgageCalculatorViewModelTests {
     @Test
     public void canCalculateWithCommisionInPercent() {
         setCorrectInputs();
-        viewModel.monthlyComissionsTypeProperty().set("Percent");
+        viewModel.monthlyCommissionsTypeProperty().set("Percent");
 
         viewModel.calculate();
 
@@ -154,9 +163,9 @@ public class MortgageCalculatorViewModelTests {
     }
 
     @Test
-    public void cantCalculateWithEmptyMonthlyComissionsProperty() {
+    public void cantCalculateWithEmptyMonthlyCommissionsProperty() {
         setCorrectInputs();
-        viewModel.monthlyComissionsProperty().set("");
+        viewModel.monthlyCommissionsProperty().set("");
 
         viewModel.calculate();
 
@@ -164,9 +173,9 @@ public class MortgageCalculatorViewModelTests {
     }
 
     @Test
-    public void cantCalculateWithEmptyMonthlyComissionsTypeProperty() {
+    public void cantCalculateWithEmptyMonthlyCommissionsTypeProperty() {
         setCorrectInputs();
-        viewModel.monthlyComissionsTypeProperty().set("");
+        viewModel.monthlyCommissionsTypeProperty().set("");
 
         viewModel.calculate();
 
@@ -174,9 +183,9 @@ public class MortgageCalculatorViewModelTests {
     }
 
     @Test
-    public void cantCalculateWithEmptyOneTimeComisionsProperty() {
+    public void cantCalculateWithEmptyOneTimeCommissionsProperty() {
         setCorrectInputs();
-        viewModel.oneTimeComisionsProperty().set("");
+        viewModel.oneTimeCommissionsProperty().set("");
 
         viewModel.calculate();
 
@@ -184,9 +193,9 @@ public class MortgageCalculatorViewModelTests {
     }
 
     @Test
-    public void cantCalculateWithEmptyOneTimeComisionsTypeProperty() {
+    public void cantCalculateWithEmptyOneTimeCommissionsTypeProperty() {
         setCorrectInputs();
-        viewModel.oneTimeComisionsTypeProperty().set("");
+        viewModel.oneTimeCommissionsTypeProperty().set("");
 
         viewModel.calculate();
 
@@ -237,11 +246,121 @@ public class MortgageCalculatorViewModelTests {
     @Test
     public void cantCalculateWithPercentBiggerThen100() {
         setCorrectInputs();
-        viewModel.monthlyComissionsProperty().set("101");
-        viewModel.monthlyComissionsTypeProperty().set("Percent");
+        viewModel.monthlyCommissionsProperty().set("101");
+        viewModel.monthlyCommissionsTypeProperty().set("Percent");
 
         viewModel.calculate();
 
         assertEquals("Incorrect input", viewModel.getResult());
+    }
+
+    @Test
+    public void viewModelConstructorThrowsExceptionWithNullLogger() {
+        try {
+            new MortgageCalculatorViewModel(null);
+            fail("Exception was not thrown");
+        } catch (IllegalArgumentException ex) {
+            assertEquals("Logger parameter can not be null", ex.getMessage());
+        } catch (Exception ex) {
+            fail("Invalid exception type");
+        }
+    }
+
+    @Test
+    public void logIsEmptyAfterInit() {
+        List<String> log = viewModel.getLog();
+        assertTrue(log.isEmpty());
+    }
+
+    @Test
+    public void logContainsProperMessageAfterCalculation() {
+        setCorrectInputs();
+        viewModel.calculate();
+        String message = viewModel.getLog().get(3);
+
+        assertTrue(message.matches(".*" + MortgageCalculatorViewModel.
+                LogMessages.CALCULATE_WAS_PRESSED + ".*"));
+    }
+
+    @Test
+    public void logContainsInputArgumentsAfterCalculation() {
+        setCorrectInputs();
+
+        viewModel.calculate();
+
+        String message = viewModel.getLog().get(3);
+        assertTrue(message.matches(".*" + viewModel.getApartmentPrice()
+                + ".*" + viewModel.getFirstPayment()
+                + ".*" + viewModel.getInterestRate()
+                + ".*" + viewModel.getLoanPeriod()
+                + ".*" + viewModel.getLoanPeriodType()
+                + ".*" + viewModel.getMonthlyCommissions()
+                + ".*" + viewModel.getMonthlyCommissionsType()
+                + ".*" + viewModel.getOneTimeCommissions()
+                + ".*" + viewModel.getOneTimeCommissionsType()
+                + ".*" + viewModel.getTypeOfPayment() + ".*"));
+    }
+
+    @Test
+    public void canPutSeveralLogMessages() {
+        setCorrectInputs();
+
+        viewModel.calculate();
+        viewModel.calculate();
+
+        assertEquals(5, viewModel.getLog().size());
+    }
+
+    @Test
+    public void calculateIsNotWorkingWithEmptyParameters() {
+        viewModel.calculate();
+
+        assertTrue(viewModel.getLog().isEmpty());
+    }
+
+    @Test
+    public void canSeeLoanPeriodTypeChangeInLog() {
+        setCorrectInputs();
+
+        viewModel.loanPeriodTypeProperty().set("Year");
+
+        String message = viewModel.getLog().get(3);
+        assertTrue(message.matches(".*" + MortgageCalculatorViewModel.
+                LogMessages.LOAN_PERIOD_TYPE_WAS_CHANGED + ".*"
+        ));
+    }
+
+    @Test
+    public void canSeeOneTimeCommissionTypeChangeInLog() {
+        setCorrectInputs();
+
+        viewModel.oneTimeCommissionsTypeProperty().set("Rubles");
+
+        String message = viewModel.getLog().get(3);
+        assertTrue(message.matches(".*" + MortgageCalculatorViewModel.
+                LogMessages.ONE_TIME_COMMISSIONS_TYPE_WAS_CHANGED + ".*"));
+    }
+
+    @Test
+    public void canSeeMonthlyCommissionTypeChangeInLog() {
+        setCorrectInputs();
+
+        viewModel.monthlyCommissionsTypeProperty().set("Percent");
+
+        String message = viewModel.getLog().get(3);
+        assertTrue(message.matches(".*" + MortgageCalculatorViewModel.
+                LogMessages.MONTHLY_COMMISSIONS_TYPE_WAS_CHANGED + ".*"));
+    }
+
+    @Test
+    public void canSeeIncorrectInputInLog() {
+        setCorrectInputs();
+
+        viewModel.loanPeriodProperty().set("0");
+        viewModel.calculate();
+
+        String message = viewModel.getLog().get(3);
+        assertTrue(message.matches(".*" + MortgageCalculatorViewModel.
+                LogMessages.INCORRECT_INPUT + ".*"));
     }
 }
