@@ -11,7 +11,7 @@ import java.util.List;
 
 import static junit.framework.TestCase.assertNotNull;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static ru.unn.agile.converter.infrastructure.RegexMatcher.matchesPattern;
+import static ru.unn.agile.converter.infrastructure.LengthConverterRegexMatcher.matchesPattern;
 
 public class LengthConverterTxtLoggerTests {
     private static final String LOG_FILE_NAME = "./TxtLogger_Tests-lab3.log";

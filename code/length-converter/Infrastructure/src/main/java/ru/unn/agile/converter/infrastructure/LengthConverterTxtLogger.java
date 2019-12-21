@@ -14,7 +14,7 @@ import java.util.Locale;
 
 public class LengthConverterTxtLogger implements LengthConverterILogger {
     private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-    private final BufferedWriter writer;
+    private final BufferedWriter logWriter;
     private final String logFileName;
 
     private static String now() {
@@ -26,21 +26,21 @@ public class LengthConverterTxtLogger implements LengthConverterILogger {
     public LengthConverterTxtLogger(final String logFileName) {
         this.logFileName = logFileName;
 
-        BufferedWriter logWriter = null;
+        BufferedWriter initialWriter = null;
         try {
-            logWriter = new BufferedWriter(new FileWriter(logFileName));
+            initialWriter = new BufferedWriter(new FileWriter(logFileName));
         } catch (Exception e) {
             e.printStackTrace();
         }
-        writer = logWriter;
+        logWriter = initialWriter;
     }
 
     @Override
     public void log(final String s) {
         try {
-            writer.write(now() + " > " + s);
-            writer.newLine();
-            writer.flush();
+            logWriter.write(now() + " > " + s);
+            logWriter.newLine();
+            logWriter.flush();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -52,11 +52,11 @@ public class LengthConverterTxtLogger implements LengthConverterILogger {
         ArrayList<String> log = new ArrayList<String>();
         try {
             reader = new BufferedReader(new FileReader(logFileName));
-            String line = reader.readLine();
+            String lineFromLog = reader.readLine();
 
-            while (line != null) {
-                log.add(line);
-                line = reader.readLine();
+            while (lineFromLog != null) {
+                log.add(lineFromLog);
+                lineFromLog = reader.readLine();
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());

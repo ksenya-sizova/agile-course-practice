@@ -4,10 +4,10 @@ import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 
-public class RegexMatcher extends BaseMatcher {
+public class LengthConverterRegexMatcher extends BaseMatcher {
     private final String regex;
 
-    public RegexMatcher(final String regex) {
+    public LengthConverterRegexMatcher(final String regex) {
         this.regex = regex;
     }
 
@@ -21,7 +21,7 @@ public class RegexMatcher extends BaseMatcher {
     }
 
     public static Matcher<? super String> matchesPattern(final String regex) {
-        RegexMatcher matcher = new RegexMatcher(regex);
+        LengthConverterRegexMatcher matcher = new LengthConverterRegexMatcher(regex);
         @SuppressWarnings (value = "unchecked")
         Matcher<? super String> castedMatcher = (Matcher<? super String>)   matcher;
         return castedMatcher;
