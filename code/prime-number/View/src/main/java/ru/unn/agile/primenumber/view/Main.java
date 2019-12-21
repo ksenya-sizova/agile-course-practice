@@ -1,4 +1,4 @@
-package ru.unn.agile.PrimeNumber.view;
+package ru.unn.agile.primenumber.view;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

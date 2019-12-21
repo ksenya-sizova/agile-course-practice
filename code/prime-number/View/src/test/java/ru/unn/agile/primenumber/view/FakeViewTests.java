@@ -1,4 +1,4 @@
-package ru.unn.agile.PrimeNumber.view;
+package ru.unn.agile.primenumber.view;
 
 import org.junit.Ignore;
 import org.junit.Test;

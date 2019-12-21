@@ -1,10 +1,10 @@
-package ru.unn.agile.PrimeNumber.view;
+package ru.unn.agile.primenumber.view;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import ru.unn.agile.PrimeNumber.viewmodel.ViewModel;
+import ru.unn.agile.primenumber.viewmodel.ViewModel;
 
 public class PrimeNumber {
     @FXML

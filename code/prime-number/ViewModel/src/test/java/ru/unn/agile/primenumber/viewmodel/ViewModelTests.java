@@ -1,4 +1,4 @@
-package ru.unn.agile.PrimeNumber.viewmodel;
+package ru.unn.agile.primenumber.viewmodel;
 
 import org.junit.After;
 import org.junit.Before;
