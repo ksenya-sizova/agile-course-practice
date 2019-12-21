@@ -7,14 +7,13 @@ import static org.junit.Assert.fail;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.List;
 
 import static junit.framework.TestCase.assertNotNull;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static ru.unn.agile.depositcalculator.infrastructure.RegexMatcher.matchesPattern;
 
 public class LoggerTests {
-    private static final String FILENAME = "./TxtLoggerTests-lab3-legacy.log";
+    private static final String FILENAME = "./LoggerTests.log";
     private Logger txtLogger;
 
     @Before
@@ -30,20 +29,18 @@ public class LoggerTests {
     @Test
     public void canCreateLogFileOnDisk() {
         try {
-            new BufferedReader(new FileReader(FILENAME));
+            var fileReader = new FileReader(FILENAME);
+            new BufferedReader(fileReader);
         } catch (FileNotFoundException e) {
-            fail("File " + FILENAME + " wasn't found!");
+            fail("File " + FILENAME + " wasn't created!");
         }
     }
 
     @Test
     public void canWriteLogMessage() {
-        String testMessage = "Test message";
-
-        txtLogger.log(testMessage);
-
-        String message = txtLogger.getLog().get(0);
-        assertThat(message, matchesPattern(".*" + testMessage + "$"));
+        txtLogger.log("Test message");
+        var pattern = ".*Test message$";
+        assertThat(txtLogger.getLog().get(0), matchesPattern(pattern));
     }
 
     @Test
@@ -53,19 +50,15 @@ public class LoggerTests {
         txtLogger.log(messages[0]);
         txtLogger.log(messages[1]);
 
-        List<String> actualMessages = txtLogger.getLog();
-        for (int i = 0; i < actualMessages.size(); i++) {
-            assertThat(actualMessages.get(i), matchesPattern(".*" + messages[i] + "$"));
-        }
+        var actualMessages = txtLogger.getLog();
+        assertThat(actualMessages.get(0), matchesPattern(".*" + messages[0] + "$"));
+        assertThat(actualMessages.get(1), matchesPattern(".*" + messages[1] + "$"));
     }
 
     @Test
-    public void doesLogContainDateAndTime() {
-        String testMessage = "Test message";
-
-        txtLogger.log(testMessage);
-
-        String message = txtLogger.getLog().get(0);
-        assertThat(message, matchesPattern("^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2} > .*"));
+    public void checkIfLogContainsDateAndTime() {
+        txtLogger.log("Test message");
+        var pattern = "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2} > .*";
+        assertThat(txtLogger.getLog().get(0), matchesPattern(pattern));
     }
 }

@@ -27,13 +27,14 @@ public class Logger implements ILogger {
     public Logger(final String filename) {
         this.filename = filename;
 
-        BufferedWriter logWriter = null;
+        BufferedWriter bufferedWriter = null;
         try {
-            logWriter = new BufferedWriter(new FileWriter(filename));
+            var fileWriter = new FileWriter(filename);
+            bufferedWriter = new BufferedWriter(fileWriter);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        writer = logWriter;
+        writer = bufferedWriter;
     }
 
     @Override

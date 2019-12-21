@@ -11,6 +11,7 @@ import ru.unn.agile.depositcalculator.model.DepositTimeType;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,20 +21,6 @@ public class ViewModel {
 
     private final Pattern pattern =
             Pattern.compile("^([0-9]*)(\\.)?([0-9]*)$", Pattern.CASE_INSENSITIVE);
-
-    public static final String VALIDATION_ERROR =
-            "Fields should contains only number and values should be more or equal 0";
-    public static final String PERIOD_UPDATED_LOG_MSG =
-            "Selected period updated: ";
-    public static final String CAPITALIZATION_UPDATED_LOG_MSG =
-            "Selected capitalization updated: ";
-    public static final String START_SUM_UPDATED_LOG_MSG =
-            "Start sum value updated: ";
-    public static final String PERCENTAGE_UPDATED_LOG_MSG =
-            "Percentage value updated: ";
-    public static final String CALCULATION_COMPLETED_LOG_MSG =
-            "Calculation completed: ";
-
 
     // region fields
     private final SimpleStringProperty percentProperty = new SimpleStringProperty();
@@ -149,7 +136,7 @@ public class ViewModel {
                 || getPercentProperty().isEmpty()
                 || !getValidationStatus(getStartSumProperty())
                 || !getValidationStatus(getPercentProperty())) {
-            setResultProperty(VALIDATION_ERROR);
+            setResultProperty(LogMessages.VALIDATION_ERROR);
             return;
         }
 
@@ -162,18 +149,21 @@ public class ViewModel {
         result = getCustomerFormat(result);
         setResultProperty(String.format("%s", result));
 
-        log(CALCULATION_COMPLETED_LOG_MSG + result);
+        log(LogMessages.CALCULATION_COMPLETED_LOG_MSG + result);
     }
 
     public void onPercentageFocusChanged() {
-        log(PERCENTAGE_UPDATED_LOG_MSG + getPercentProperty());
+        log(LogMessages.PERCENTAGE_UPDATED_LOG_MSG + getPercentProperty());
     }
 
     public void onSumFocusChanged() {
-        log(START_SUM_UPDATED_LOG_MSG + getStartSumProperty());
+        log(LogMessages.START_SUM_UPDATED_LOG_MSG + getStartSumProperty());
     }
 
     public List<String> getLogs() {
+        if (logger == null) {
+            return new ArrayList<>();
+        }
         return logger.getLog();
     }
 
@@ -188,7 +178,7 @@ public class ViewModel {
     }
 
     private void setActualLogs() {
-        var fullLog = logger.getLog();
+        var fullLog = getLogs();
         StringBuilder record = new StringBuilder();
         for (String log : fullLog) {
             record.append(log).append("\n");
@@ -205,15 +195,28 @@ public class ViewModel {
 
     private void initialize() {
         period.addListener((observable, oldValue, newValue) -> {
-            log(PERIOD_UPDATED_LOG_MSG + newValue);
+            log(LogMessages.PERIOD_UPDATED_LOG_MSG + newValue);
         });
         capitalization.addListener((observable, oldValue, newValue) -> {
-            log(CAPITALIZATION_UPDATED_LOG_MSG + newValue);
+            log(LogMessages.CAPITALIZATION_UPDATED_LOG_MSG + newValue);
         });
 
         setCapitalization(CapitalizationPeriod.MONTH);
         setPeriod(DepositTimeType.DAY);
         setStartSumProperty("1000");
         setPercentProperty("8");
+    }
+
+    static final class LogMessages {
+        private LogMessages() {
+        }
+
+        static final String VALIDATION_ERROR =
+                "Fields should contains only number and values should be more or equal 0";
+        static final String PERIOD_UPDATED_LOG_MSG = "Selected period updated: ";
+        static final String CAPITALIZATION_UPDATED_LOG_MSG = "Selected capitalization updated: ";
+        static final String START_SUM_UPDATED_LOG_MSG = "Start sum value updated: ";
+        static final String PERCENTAGE_UPDATED_LOG_MSG = "Percentage value updated: ";
+        static final String CALCULATION_COMPLETED_LOG_MSG ="Calculation completed: ";
     }
 }

@@ -12,7 +12,10 @@ public class RegexMatcher extends BaseMatcher {
     }
 
     public boolean matches(final Object o) {
-        return ((String) o).matches(regex);
+        if (o instanceof String) {
+            return ((String) o).matches(regex);
+        }
+        return false;
     }
 
     public void describeTo(final Description description) {
