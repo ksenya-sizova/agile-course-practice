@@ -15,6 +15,7 @@ import ru.unn.agile.mortgagecalculator.model.parameters.monthlycommission.Percen
 import ru.unn.agile.mortgagecalculator.model.report.MortgageMonthReport;
 import ru.unn.agile.mortgagecalculator.model.report.MortgageReport;
 
+import java.util.Collections;
 import java.util.List;
 
 
@@ -376,7 +377,10 @@ public class MortgageCalculatorViewModel {
     }
 
     public List<String> getLog() {
-        return logger.getLog();
+        if (logger != null) {
+            return logger.getLog();
+        }
+        return Collections.emptyList();
     }
 
     public final String getLogs() {

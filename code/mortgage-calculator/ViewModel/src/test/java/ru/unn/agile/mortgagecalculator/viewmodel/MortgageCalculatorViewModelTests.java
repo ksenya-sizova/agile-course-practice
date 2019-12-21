@@ -38,16 +38,17 @@ public class MortgageCalculatorViewModelTests {
 
     @Test
     public void setEmptyStringInTextFieldsByDefault() {
-        assertEquals("", viewModel.getApartmentPrice());
-        assertEquals("", viewModel.getFirstPayment());
-        assertEquals("", viewModel.getInterestRate());
-        assertEquals("", viewModel.getLoanPeriod());
-        assertEquals("", viewModel.getLoanPeriodType());
-        assertEquals("", viewModel.getMonthlyCommissions());
-        assertEquals("", viewModel.getMonthlyCommissionsType());
-        assertEquals("", viewModel.getOneTimeCommissions());
-        assertEquals("", viewModel.getOneTimeCommissionsType());
-        assertEquals("", viewModel.getTypeOfPayment());
+        StringBuilder textFields = new StringBuilder(viewModel.getApartmentPrice());
+        textFields.append(viewModel.getFirstPayment())
+                .append(viewModel.getInterestRate())
+                .append(viewModel.getLoanPeriod())
+                .append(viewModel.getLoanPeriodType())
+                .append(viewModel.getMonthlyCommissions())
+                .append(viewModel.getMonthlyCommissionsType())
+                .append(viewModel.getOneTimeCommissions())
+                .append(viewModel.getOneTimeCommissionsType())
+                .append(viewModel.getTypeOfPayment());
+        assertEquals("", textFields.toString());
     }
 
     public void setExternalViewModel(final MortgageCalculatorViewModel viewModel) {
