@@ -7,30 +7,28 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 public class TriangleTxtLogger implements TriangleILogger {
     private static final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
     private final BufferedWriter writer;
-    private final String filename;
+    private final String fileName;
 
-    private static String now() {
-        Calendar cal = Calendar.getInstance();
+    private static String currentDateTime() {
+        Date dateNow = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW, Locale.ENGLISH);
-        return sdf.format(cal.getTime());
+        return sdf.format(dateNow.getTime());
     }
 
-    public TriangleTxtLogger(final String filename) {
-        this.filename = filename;
-
+    public TriangleTxtLogger(final String fileName) {
         BufferedWriter logWriter = null;
+
+        this.fileName = fileName;
+
         try {
-            logWriter = new BufferedWriter(new FileWriter(filename));
-        } catch (Exception e) {
-            e.printStackTrace();
+            logWriter = new BufferedWriter(new FileWriter(fileName));
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
         writer = logWriter;
     }
@@ -38,28 +36,28 @@ public class TriangleTxtLogger implements TriangleILogger {
     @Override
     public void log(final String s) {
         try {
-            writer.write(now() + " > " + s);
+            writer.write(currentDateTime() + " > " + s);
             writer.newLine();
             writer.flush();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
     }
 
     @Override
     public List<String> getLog() {
         BufferedReader reader;
-        ArrayList<String> log = new ArrayList<String>();
+        ArrayList<String> log = new ArrayList<>();
         try {
-            reader = new BufferedReader(new FileReader(filename));
+            reader = new BufferedReader(new FileReader(fileName));
             String line = reader.readLine();
 
             while (line != null) {
                 log.add(line);
                 line = reader.readLine();
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
 
         return log;

@@ -8,9 +8,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import ru.unn.agile.triangle.model.Triangle.*;
-import ru.unn.agile.triangle.viewmodel.ViewModel;
 import ru.unn.agile.triangle.infrastructure.TriangleTxtLogger;
+import ru.unn.agile.triangle.model.Triangle.Operation;
+import ru.unn.agile.triangle.viewmodel.ViewModel;
 
 public class Calculator {
     @FXML

@@ -6,8 +6,9 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import ru.unn.agile.triangle.model.*;
-import ru.unn.agile.triangle.model.Triangle.*;
+import ru.unn.agile.triangle.model.Point;
+import ru.unn.agile.triangle.model.Triangle;
+import ru.unn.agile.triangle.model.Triangle.Operation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,18 +30,9 @@ public class ViewModel {
     private final ObjectProperty<Operation> operation = new SimpleObjectProperty<>();
 
     private final BooleanProperty calculationDisabled = new SimpleBooleanProperty();
-
-    private TriangleILogger logger;
     private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
-
     private final String arguments = "ax = %s; ay = %s; bx = %s; by = %s; cx = %s; cy = %s";
-
-    public final void setLogger(final TriangleILogger logger) {
-        if (logger == null) {
-            throw new IllegalArgumentException("Logger parameter can't be null");
-        }
-        this.logger = logger;
-    }
+    private TriangleILogger logger;
 
     public ViewModel() {
         init();
@@ -49,6 +41,13 @@ public class ViewModel {
     public ViewModel(final TriangleILogger logger) {
         setLogger(logger);
         init();
+    }
+
+    public final void setLogger(final TriangleILogger logger) {
+        if (logger == null) {
+            throw new IllegalArgumentException("Logger parameter can't be null");
+        }
+        this.logger = logger;
     }
 
     public void init() {
@@ -72,6 +71,7 @@ public class ViewModel {
                 return getInputStatus() == Status.READY;
             }
         };
+
         calculationDisabled.bind(couldCalculate.not());
 
         final List<StringProperty> fields = new ArrayList<StringProperty>() {
@@ -103,7 +103,7 @@ public class ViewModel {
 
         try {
             Triangle triangle = new Triangle(a, b, c);
-            result.set(operation.get().apply(triangle).toString());
+            result.set(operation.get().apply(triangle));
             status.set(Status.SUCCESS.toString());
             StringBuilder message = new StringBuilder(LogMessages.CALCULATE_WAS_PRESSED);
             message.append("Arguments: ").append(String.format(arguments,
@@ -151,7 +151,9 @@ public class ViewModel {
         return logger.getLog();
     }
 
-    public StringProperty axProperty() { return ax; }
+    public StringProperty axProperty() {
+        return ax;
+    }
 
     public StringProperty ayProperty() {
         return ay;
@@ -252,7 +254,7 @@ public class ViewModel {
 
     private void updateLogs() {
         List<String> fullLog = logger.getLog();
-        String record = new String("");
+        String record = "";
         for (String log : fullLog) {
             record += log + "\n";
         }
@@ -260,8 +262,9 @@ public class ViewModel {
     }
 
     private class ValueChangeListener implements ChangeListener<String> {
-        private String prevValue = new String("");
-        private String curValue = new String("");
+        private String prevValue = "";
+        private String curValue = "";
+
         @Override
         public void changed(final ObservableValue<? extends String> observable,
                             final String oldValue, final String newValue) {
@@ -271,9 +274,11 @@ public class ViewModel {
             status.set(getInputStatus().toString());
             curValue = newValue;
         }
+
         public boolean isChanged() {
             return !prevValue.equals(curValue);
         }
+
         public void cache() {
             prevValue = curValue;
         }
@@ -303,5 +308,6 @@ final class LogMessages {
     public static final String EDITING_FINISHED = "Updated input. ";
     public static final String INCORRECT_INPUT = "Incorrect input. ";
 
-    private LogMessages() { }
+    private LogMessages() {
+    }
 }

@@ -22,22 +22,36 @@ public class TriangleTxtLoggerTests {
     }
 
     @Test
-    public void canCreateLoggerWithFileName() {
+    public void canCreateLogger() {
         assertNotNull(txtLogger);
     }
 
     @Test
-    public void canCreateLogFileOnDisk() {
+    public void canCreateLogFile() {
         try {
             new BufferedReader(new FileReader(FILENAME));
         } catch (FileNotFoundException e) {
-            fail("File " + FILENAME + " wasn't found!");
+            fail("File " + FILENAME + " not found!");
+        }
+    }
+
+    @Test
+    public void canWriteSeveralLogMessages() {
+        String[] messages = {"Test message 1", "Test message 2", "Test message 3"};
+
+        txtLogger.log(messages[0]);
+        txtLogger.log(messages[1]);
+
+        List<String> actualMessage = txtLogger.getLog();
+        for (int i = 0; i < actualMessage.size(); i++) {
+            assertThat(actualMessage.get(i), actualMessage.get(i).matches(".*"
+                    + messages[i] + "$"));
         }
     }
 
     @Test
     public void canWriteLogMessage() {
-        String testMessage = "Test message";
+        String testMessage = "Test log message";
 
         txtLogger.log(testMessage);
 
@@ -46,21 +60,8 @@ public class TriangleTxtLoggerTests {
     }
 
     @Test
-    public void canWriteSeveralLogMessage() {
-        String[] messages = {"Test message 1", "Test message 2"};
-
-        txtLogger.log(messages[0]);
-        txtLogger.log(messages[1]);
-
-        List<String> actualMessages = txtLogger.getLog();
-        for (int i = 0; i < actualMessages.size(); i++) {
-            assertThat(actualMessages.get(i), actualMessages.get(i).matches(".*" + messages[i] + "$"));
-        }
-    }
-
-    @Test
     public void doesLogContainDateAndTime() {
-        String testMessage = "Test message";
+        String testMessage = "Test log message";
 
         txtLogger.log(testMessage);
 
