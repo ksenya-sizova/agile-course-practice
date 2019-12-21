@@ -14,12 +14,12 @@ import static org.junit.Assert.fail;
 import static ru.unn.agile.mortgagecalculator.infrastructure.RegexMatcher.matchesPattern;
 
 public class MortgageCalculatorTxtLoggerTests {
-    private static final String FILENAME = "./MortgageCalculatorTxtLogger_Tests.log";
+    private static final String FILE_NAME = "./MortgageCalculatorTxtLogger_Tests.log";
     private MortgageCalculatorTxtLogger logger;
 
     @Before
     public void setUp() {
-        logger = new MortgageCalculatorTxtLogger(FILENAME);
+        logger = new MortgageCalculatorTxtLogger(FILE_NAME);
     }
 
     @Test
@@ -30,9 +30,9 @@ public class MortgageCalculatorTxtLoggerTests {
     @Test
     public void canCreateLogFileOnDisk() {
         try {
-            new BufferedReader(new FileReader(FILENAME));
+            new BufferedReader(new FileReader(FILE_NAME));
         } catch (FileNotFoundException e) {
-            fail("File " + FILENAME + " wasn't found!");
+            fail("File " + FILE_NAME + " wasn't found!");
         }
     }
 
@@ -53,9 +53,9 @@ public class MortgageCalculatorTxtLoggerTests {
         logger.log(messages[0]);
         logger.log(messages[1]);
 
-        List<String> actualMessages = logger.getLog();
-        for (int i = 0; i < actualMessages.size(); i++) {
-            assertThat(actualMessages.get(i), matchesPattern(".*" + messages[i] + "$"));
+        List<String> actualMsg = logger.getLog();
+        for (int i = 0; i < actualMsg.size(); i++) {
+            assertThat(actualMsg.get(i), matchesPattern(".*" + messages[i] + "$"));
         }
     }
 
