@@ -1,11 +1,9 @@
 package ru.unn.agile.fractioncalculator.viewmodel;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import ru.unn.agile.fractioncalculator.model.Fraction;
 
 import static org.junit.Assert.*;
 
