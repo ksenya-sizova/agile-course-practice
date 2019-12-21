@@ -7,7 +7,7 @@ public final class Fraction {
     private final int numerator;
     private final int denominator;
 
-    private static final String FRACTION_DELIMITER = "/";
+    public static final String FRACTION_DELIMITER = "/";
 
     public Fraction(final int numerator, final int denominator) throws IllegalArgumentException {
         if (denominator == 0) {

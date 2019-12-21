@@ -1,5 +1,6 @@
 package ru.unn.agile.fractioncalculator.viewmodel;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import org.junit.After;
 import org.junit.Before;
@@ -33,6 +34,13 @@ public class ViewModelTest {
     }
 
     @Test
+    public void canGetEmptyResult() {
+        StringProperty res = viewModel.resultFractionProperty();
+        String actual = res.get();
+        assertNull(actual);
+    }
+
+    @Test
     public void canSetFirstFraction() {
         String expected = "11/22";
         viewModel.setFirstFraction(expected);
@@ -47,6 +55,19 @@ public class ViewModelTest {
         viewModel.setSecondFraction(expected);
         String actual = viewModel.secondFractionProperty().get();
 
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void canSumFractions() {
+        String firstFractionStr = "10/20";
+        String secondFractionStr = "5/20";
+        viewModel.setFirstFraction(firstFractionStr);
+        viewModel.setSecondFraction(secondFractionStr);
+        String expected = "3/4";
+
+        viewModel.calculateSum();
+        String actual = viewModel.resultFractionProperty().get();
         assertEquals(expected, actual);
     }
 }
