@@ -36,9 +36,9 @@ public class TxtLogger implements ILogger {
     }
 
     @Override
-    public void log(final String message) {
+    public void addLog(final String message) {
         try {
-            writer.write(now() + " > " + message);
+            writer.write(now() + " >> " + message);
             writer.newLine();
             writer.flush();
         } catch (Exception e) {
@@ -47,16 +47,16 @@ public class TxtLogger implements ILogger {
     }
 
     @Override
-    public List<String> getLog() {
-        BufferedReader reader;
+    public List<String> getLogMessage() {
+        BufferedReader logReader;
         ArrayList<String> log = new ArrayList<String>();
         try {
-            reader = new BufferedReader(new FileReader(filename));
-            String line = reader.readLine();
+            logReader = new BufferedReader(new FileReader(filename));
+            String line = logReader.readLine();
 
             while (line != null) {
                 log.add(line);
-                line = reader.readLine();
+                line = logReader.readLine();
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());

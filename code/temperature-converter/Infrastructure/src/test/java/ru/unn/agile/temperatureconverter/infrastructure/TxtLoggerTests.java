@@ -26,9 +26,9 @@ public class TxtLoggerTests {
     public void canLogOneMessage() {
         String msg = "Test logger";
 
-        txtLogger.log(msg);
+        txtLogger.addLog(msg);
 
-        List<String> log = txtLogger.getLog();
+        List<String> log = txtLogger.getLogMessage();
         assertTrue(log.get(0).matches(".*" + "Test logger" + ".*"));
     }
 
@@ -38,11 +38,11 @@ public class TxtLoggerTests {
         String msg2 = "Test logger 2";
         String msg3 = "Test logger 3";
 
-        txtLogger.log(msg1);
-        txtLogger.log(msg2);
-        txtLogger.log(msg3);
+        txtLogger.addLog(msg1);
+        txtLogger.addLog(msg2);
+        txtLogger.addLog(msg3);
 
-        List<String> log = txtLogger.getLog();
+        List<String> log = txtLogger.getLogMessage();
 
         for (int i = 0; i < log.size(); i++) {
             assertTrue(log.get(i).matches(".*" + "Test logger "  + ".*"));
@@ -52,18 +52,18 @@ public class TxtLoggerTests {
     @Test
     public void canGetLogMessages() {
         String msg1 = "Test logger 1";
-        txtLogger.log(msg1);
+        txtLogger.addLog(msg1);
 
-        assertNotNull(txtLogger.getLog());
+        assertNotNull(txtLogger.getLogMessage());
     }
 
     @Test
     public void doesLogContainDateAndTime() {
         String msg1 = "Test logger 1";
-        txtLogger.log(msg1);
+        txtLogger.addLog(msg1);
 
-        List<String> log = txtLogger.getLog();
+        List<String> log = txtLogger.getLogMessage();
 
-        assertTrue(log.get(0).matches("^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2} > .*"));
+        assertTrue(log.get(0).matches("^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2} >> .*"));
     }
 }

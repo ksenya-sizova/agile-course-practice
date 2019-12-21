@@ -65,7 +65,7 @@ public class ViewModel {
     }
 
     public List<String> getLog() {
-        return logger.getLog();
+        return logger.getLogMessage();
     }
 
     public boolean isConvertButtonEnabled() {
@@ -85,9 +85,9 @@ public class ViewModel {
         resultTemperature = "";
         fromTemperature = "";
         listTemperaturesFrom = ListOfTemperatures.CELSIUS;
-        logger.log("Input updated: from temperature = " + listTemperaturesFrom);
+        logger.addLog("Input updated: from temperature = " + listTemperaturesFrom);
         listTemperaturesTo = ListOfTemperatures.CELSIUS;
-        logger.log("Input updated: to temperature = " + listTemperaturesTo);
+        logger.addLog("Input updated: to temperature = " + listTemperaturesTo);
         statusText = "";
         isConvertButtonEnabled = false;
     }
@@ -95,7 +95,7 @@ public class ViewModel {
     public void setFromTemperature(final String fromTemperature) {
         if (!fromTemperature.equals(this.fromTemperature)) {
             this.fromTemperature = fromTemperature;
-            logger.log("Input updated: value of from temperature = " + fromTemperature);
+            logger.addLog("Input updated: value of from temperature = " + fromTemperature);
         }
     }
 
@@ -103,7 +103,7 @@ public class ViewModel {
         if (this.listTemperaturesFrom != listTemperaturesFrom) {
             this.resultTemperature = "";
             this.listTemperaturesFrom = listTemperaturesFrom;
-            logger.log("Input updated: from temperature = " + listTemperaturesFrom);
+            logger.addLog("Input updated: from temperature = " + listTemperaturesFrom);
         }
     }
 
@@ -111,7 +111,7 @@ public class ViewModel {
         if (this.listTemperaturesTo != listTemperaturesTo) {
             this.resultTemperature = "";
             this.listTemperaturesTo = listTemperaturesTo;
-            logger.log("Input updated: to temperature = " + listTemperaturesTo);
+            logger.addLog("Input updated: to temperature = " + listTemperaturesTo);
         }
     }
 
@@ -161,12 +161,12 @@ public class ViewModel {
         } else {
             isConvertButtonEnabled = false;
             isErrorMessageDisplayed = true;
-            logger.log("Error is displayed: " + statusText);
+            logger.addLog("Error is displayed: " + statusText);
         }
     }
 
     public void calculate() {
-        logger.log("Calculate");
+        logger.addLog("Calculate");
         processInput();
         if (isConvertButtonEnabled()) {
             resultTemperature = "";
@@ -195,7 +195,7 @@ public class ViewModel {
             }
 
             resultTemperature = Double.toString(toClass.getValue());
-            logger.log("From: " + getFrom()
+            logger.addLog("From: " + getFrom()
                     + "; To: " + getTo()
                     + "; Initial temperature = " + getFromTemperature()
                     + "; Result temperature = " + getResultTemperature());

@@ -3,7 +3,7 @@ package ru.unn.agile.temperatureconverter.viewmodel;
 import java.util.List;
 
 public interface ILogger {
-    void log(String message);
+    void addLog(String message);
 
-    List<String> getLog();
+    List<String> getLogMessage();
 }
