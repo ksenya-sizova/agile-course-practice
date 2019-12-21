@@ -23,9 +23,9 @@ public class RegexMatcher extends BaseMatcher {
     }
 
     static Matcher<? super String> matchesPattern(final String regex) {
-        RegexMatcher matcher = new RegexMatcher(regex);
+        RegexMatcher regexMatcher = new RegexMatcher(regex);
         @SuppressWarnings(value = "unchecked")
-        Matcher<? super String> castedMatcher = (Matcher<? super String>) matcher;
+        Matcher<? super String> castedMatcher = (Matcher<? super String>) regexMatcher;
         return castedMatcher;
     }
 }
