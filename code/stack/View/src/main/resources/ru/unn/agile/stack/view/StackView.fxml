@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import ru.unn.agile.stack.viewmodel.*?>
+
+<AnchorPane prefHeight="306.0" prefWidth="424.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ru.unn.agile.stack.view.StackView">
+    <fx:define>
+        <ViewModel fx:id="viewModel"/>
+    </fx:define>
+    <Pane layoutY="298.0" prefHeight="15.0" prefWidth="455.0">
+        <Pane layoutY="-196.0" prefHeight="95.0" prefWidth="455.0">
+            <Label layoutX="14.0" layoutY="21.0" text="Pop element">
+                <font>
+                    <Font size="20.0"/>
+                </font>
+            </Label>
+            <Label fx:id="stackPopElement" layoutX="157.0" layoutY="26.0" text="${viewModel.popElement}"/>
+            <Button fx:id="popElementButton" layoutX="297.0" layoutY="21.0" mnemonicParsing="false"
+                    prefWidth="81.0" text="POP" visible="${viewModel.popButtonState}"/>
+        </Pane>
+    </Pane>
+    <Pane prefHeight="95.0" prefWidth="455.0">
+        <Label layoutX="14.0" layoutY="14.0" text="Stack status:">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Label>
+        <Label fx:id="stackEmptyStatus" layoutX="158.0" layoutY="19.0" text="${viewModel.isStackEmptyInfo}"/>
+        <Label layoutX="297.0" layoutY="15.0" text="Size:">
+            <font>
+                <Font size="20.0" fx:id="x2"/>
+            </font>
+        </Label>
+        <Label fx:id="stackSize" layoutX="367.0" layoutY="20.0" text="${viewModel.stackSize}"/>
+        <Label font="$x2" layoutX="12.0" layoutY="66.0" text="Top element:"/>
+        <Label fx:id="stackTopElement" layoutX="158.0" layoutY="71.0" text="${viewModel.topElement}"/>
+    </Pane>
+    <Label layoutX="14.0" layoutY="189.0" text="Push element">
+        <font>
+            <Font size="20.0" fx:id="x1"/>
+        </font>
+    </Label>
+    <TextField fx:id="inputNewElementField" layoutX="14.0" layoutY="232.0" prefWidth="200.0"/>
+    <Button fx:id="pushElementButton" layoutX="304.0" layoutY="232.0" mnemonicParsing="false" prefWidth="81.0"
+            text="PUSH"/>
+    <Label layoutX="14.0" layoutY="274.0" text="Status:">
+        <font>
+            <Font size="20.0" fx:id="x11"/>
+        </font>
+    </Label>
+    <Label fx:id="stackStatus" layoutX="104.0" layoutY="279.0" text="${viewModel.status}"/>
+    <SplitPane dividerPositions="" focusTraversable="true" layoutX="9.0" layoutY="315.0" orientation="VERTICAL"
+               prefHeight="200.0" prefWidth="420.0">
+        <items>
+            <ScrollPane prefHeight="198.0" prefWidth="450.0">
+                <content>
+                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="198.0" prefWidth="200.0">
+                        <children>
+                            <TextArea text="${viewModel.textLog}" layoutX="-2.0" layoutY="-2.0" prefHeight="198.0"
+                                      prefWidth="420.0"
+                                      wrapText="true"/>
+                        </children>
+                    </AnchorPane>
+                </content>
+            </ScrollPane>
+        </items>
+    </SplitPane>
+</AnchorPane>

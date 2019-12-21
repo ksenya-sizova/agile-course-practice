@@ -1,0 +1,13 @@
+
+plugins {
+    id 'org.openjfx.javafxplugin' version '0.0.8'
+}
+
+javafx {
+    version = "11.0.2"
+    modules = [ 'javafx.base' ]
+}
+
+dependencies {
+    compile project(':stack-Model')
+}

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import ru.unn.agile.binarytree.viewmodel.*?>
+<AnchorPane maxHeight="200.0" maxWidth="400.0" minHeight="200.0" minWidth="200.0" prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.binarytree.view.BinaryTree">
+    <fx:define>
+        <ViewModel fx:id="viewModel" />
+    </fx:define>
+    <Button fx:id="btnFind" mnemonicParsing="false" text="Find" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="15.0" />
+    <Button fx:id="btnAdd" mnemonicParsing="false" text="Add" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="85.0" />
+    <Button fx:id="btnRemove" mnemonicParsing="false" text="Remove" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="145.0" />
+    <TextField fx:id="txtFindKey" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="15.0" />
+    <TextField fx:id="txtAddKey" prefWidth="60.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="85.0" />
+    <TextField fx:id="txtAddValue" prefWidth="100.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="85.0" />
+    <TextField fx:id="txtRemoveKey" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="145.0" />
+    <Label text="${viewModel.findResult}" AnchorPane.leftAnchor="210.0" AnchorPane.topAnchor="20.0" />
+    <Label text="${viewModel.removeResult}" AnchorPane.leftAnchor="210.0" AnchorPane.topAnchor="150.0" />
+    <Label text="${viewModel.findStatus}" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="55.0" />
+    <Label text="${viewModel.addStatus}" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="120.0" />
+    <Label text="${viewModel.removeStatus}" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="175.0" />
+    <Label text="Status:" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="55.0" />
+    <Label text="Status:" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="120.0" />
+    <Label text="Status:" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="175.0" />
+</AnchorPane>
