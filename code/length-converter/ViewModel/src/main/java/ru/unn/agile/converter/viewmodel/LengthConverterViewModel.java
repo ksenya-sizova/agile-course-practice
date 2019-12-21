@@ -165,11 +165,11 @@ public class LengthConverterViewModel {
 
     private void addToLog() {
         List<String> log = logger.getLog();
-        String records = new String("");
+        StringBuilder records = new StringBuilder("");
         for (String logString : log) {
-            records += logString + "\n";
+            records.append(logString).append("\n");
         }
-        logs.set(records);
+        logs.set(records.toString());
     }
 
 }
@@ -181,7 +181,7 @@ final class LogMessages {
     public static final String START_LENGHT_TYPE_WAS_CHANGED =
             "Start length type was changed to ";
     public static final String SWAP_PRESSED = "Length types swapped.";
-    public static final String INCORRECT_INPUT = "Incorrect input. ";
+    public static final String INCORRECT_INPUT = "Incorrect input.";
 
     private LogMessages() { }
 }
