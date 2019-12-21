@@ -138,4 +138,31 @@ public class ViewModelTest {
 
         assertEquals(expected, res);
     }
+
+    @Test
+    public void canDivideFractions() {
+        String firstFractionStr = "2/3";
+        String secondFractionStr = "4/5";
+        viewModel.setFirstFraction(firstFractionStr);
+        viewModel.setSecondFraction(secondFractionStr);
+        String expected = "5/6";
+
+        viewModel.calculateDivide();
+        String res = viewModel.resultFractionProperty().get();
+
+        assertEquals(expected, res);
+    }
+
+    @Test
+    public void cantDivideIncorrectFractions() {
+        String firstFractionStr = "2/0";
+        String secondFractionStr = "4/5";
+        viewModel.setFirstFraction(firstFractionStr);
+        viewModel.setSecondFraction(secondFractionStr);
+
+        viewModel.calculateDivide();
+        String res = viewModel.resultFractionProperty().get();
+
+        assertEquals(ViewModel.EMPTY_CALC_RESULT, res);
+    }
 }

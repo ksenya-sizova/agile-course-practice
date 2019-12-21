@@ -79,6 +79,17 @@ public class ViewModel {
         }
     }
 
+    public void calculateDivide() {
+        if (isCorrectInputFractions()) {
+            Fraction firstFraction = stringToFraction(firstFractionProperty().get());
+            Fraction secondFraction = stringToFraction(secondFractionProperty().get());
+            Fraction res = FractionCalculator.reduce(FractionCalculator.divide(firstFraction, secondFraction));
+            resultFraction.set(res.toString());
+        } else {
+            resultFraction.set(EMPTY_CALC_RESULT);
+        }
+    }
+
     private Fraction stringToFraction(String fractionStr) {
         Fraction res = null;
         String[] args = fractionStr.split(Fraction.FRACTION_DELIMITER);
@@ -87,7 +98,7 @@ public class ViewModel {
                 int numerator = Integer.parseInt(args[0]);
                 int denominator = Integer.parseInt(args[1]);
                 res = new Fraction(numerator, denominator);
-            } catch (NumberFormatException e) {
+            } catch (IllegalArgumentException e) {
                 res = null;
             }
         }
