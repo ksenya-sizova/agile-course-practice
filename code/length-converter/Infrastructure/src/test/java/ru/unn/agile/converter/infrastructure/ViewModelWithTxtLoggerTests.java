@@ -6,8 +6,8 @@ import ru.unn.agile.converter.viewmodel.LengthConverterViewModelTests;
 public class ViewModelWithTxtLoggerTests extends LengthConverterViewModelTests {
     @Override
     public void setUp() {
-        TxtLogger realLogger =
-            new TxtLogger("./ViewModel_with_TxtLogger_Tests-lab3.log");
+        LengthConverterTxtLogger realLogger =
+            new LengthConverterTxtLogger("./ViewModel_with_TxtLogger_Tests-lab3.log");
         super.setExternalViewModel(new LengthConverterViewModel(realLogger));
     }
 }

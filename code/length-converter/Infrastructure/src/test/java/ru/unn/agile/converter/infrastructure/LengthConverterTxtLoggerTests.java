@@ -13,18 +13,18 @@ import static junit.framework.TestCase.assertNotNull;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static ru.unn.agile.converter.infrastructure.RegexMatcher.matchesPattern;
 
-public class TxtLoggerTests {
+public class LengthConverterTxtLoggerTests {
     private static final String LOG_FILE_NAME = "./TxtLogger_Tests-lab3.log";
-    private LengthConverterTxtLogger Logger;
+    private LengthConverterTxtLogger logger;
 
     @Before
     public void setUp() {
-        Logger = new LengthConverterTxtLogger(LOG_FILE_NAME);
+        logger = new LengthConverterTxtLogger(LOG_FILE_NAME);
     }
 
     @Test
     public void canCreateLoggerWithFileName() {
-        assertNotNull(Logger);
+        assertNotNull(logger);
     }
 
     @Test
@@ -40,9 +40,9 @@ public class TxtLoggerTests {
     public void canWriteSingleLogMessage() {
         String testMessage = "Test message";
 
-        Logger.log(testMessage);
+        logger.log(testMessage);
 
-        String message = Logger.getLog().get(0);
+        String message = logger.getLog().get(0);
         assertThat(message, matchesPattern(".*" + testMessage + "$"));
     }
 
@@ -50,10 +50,10 @@ public class TxtLoggerTests {
     public void canWriteMoreThenOneLogMessage() {
         String[] messages = {"Test message 1", "Test message 2"};
 
-        Logger.log(messages[0]);
-        Logger.log(messages[1]);
+        logger.log(messages[0]);
+        logger.log(messages[1]);
 
-        List<String> actualMessages = Logger.getLog();
+        List<String> actualMessages = logger.getLog();
         for (int i = 0; i < actualMessages.size(); i++) {
             assertThat(actualMessages.get(i), matchesPattern(".*" + messages[i] + "$"));
         }
@@ -63,9 +63,10 @@ public class TxtLoggerTests {
     public void doesLogFileContainDateAndTime() {
         String message = "Test message";
 
-        Logger.log(message);
+        logger.log(message);
 
-        String messageFromLog = Logger.getLog().get(0);
-        assertThat(messageFromLog, matchesPattern("^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2} > .*"));
+        String messageFromLog = logger.getLog().get(0);
+        assertThat(messageFromLog, matchesPattern(
+                "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2} > .*"));
     }
 }

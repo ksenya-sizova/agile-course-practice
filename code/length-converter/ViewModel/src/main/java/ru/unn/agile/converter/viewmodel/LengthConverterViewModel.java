@@ -56,7 +56,7 @@ public class LengthConverterViewModel {
             message.append("to type: ").append(newValue)
                     .append(".");
             logger.log(message.toString());
-            updateLogs();
+            addToLog();
             onTypeChange();
         });
         toType.addListener((observable, oldValue, newValue) -> {
@@ -64,7 +64,7 @@ public class LengthConverterViewModel {
             message.append("to type: ").append(newValue)
                     .append(".");
             logger.log(message.toString());
-            updateLogs();
+            addToLog();
             onTypeChange();
         });
     }
@@ -123,7 +123,7 @@ public class LengthConverterViewModel {
                 .append(" to type: ").append(getToType().getValue())
                 .append(".");
         logger.log(message.toString());
-        updateLogs();
+        addToLog();
     }
 
     public void swap() {
@@ -131,7 +131,7 @@ public class LengthConverterViewModel {
         fromType.set(toType.get());
         toType.set(tmp);
         logger.log(LogMessages.SWAP_PRESSED);
-        updateLogs();
+        addToLog();
     }
 
     private void onInput(final String newValue) {
@@ -141,7 +141,7 @@ public class LengthConverterViewModel {
         } else {
             error.set("invalid");
             logger.log(LogMessages.INCORRECT_INPUT);
-            updateLogs();
+            addToLog();
         }
         btnDisabled.set(newValue.isEmpty() || !isNumeric);
         output.set("");
@@ -163,23 +163,23 @@ public class LengthConverterViewModel {
         output.set("");
     }
 
-    private void updateLogs() {
-        List<String> fullLog = logger.getLog();
-        String record = new String("");
-        for (String log : fullLog) {
-            record += log + "\n";
+    private void addToLog() {
+        List<String> log = logger.getLog();
+        String records = new String("");
+        for (String logString : log) {
+            records += logString + "\n";
         }
-        logs.set(record);
+        logs.set(records);
     }
 
 }
 
 final class LogMessages {
     public static final String CONVERT_WAS_PRESSED = "Convert following: ";
-    public static final String RESULT_LENGHT_TYPE_WAS_CHANGED = "Result "
-            + "length type was changed to ";
-    public static final String START_LENGHT_TYPE_WAS_CHANGED = "Start "
-            + "length type was changed to ";
+    public static final String RESULT_LENGHT_TYPE_WAS_CHANGED =
+            "Result length type was changed to ";
+    public static final String START_LENGHT_TYPE_WAS_CHANGED =
+            "Start length type was changed to ";
     public static final String SWAP_PRESSED = "Length types swapped.";
     public static final String INCORRECT_INPUT = "Incorrect input. ";
 

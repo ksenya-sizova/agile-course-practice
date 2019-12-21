@@ -11,13 +11,13 @@ public class RegexMatcher extends BaseMatcher {
         this.regex = regex;
     }
 
-    public boolean matches(final Object o) {
-        return ((String) o).matches(regex);
-    }
-
     public void describeTo(final Description description) {
         description.appendText("matches regex = ");
         description.appendText(regex);
+    }
+
+    public boolean matches(final Object o) {
+        return ((String) o).matches(regex);
     }
 
     public static Matcher<? super String> matchesPattern(final String regex) {
