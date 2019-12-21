@@ -152,6 +152,8 @@ include "code/quadratic-equation/ViewModel"
 project(":code/quadratic-equation/ViewModel").name = "quadratic-equation-ViewModel"
 include "code/quadratic-equation/View"
 project(":code/quadratic-equation/View").name = "quadratic-equation-View"
+include "code/quadratic-equation/Infrastructure"
+project(":code/quadratic-equation/Infrastructure").name = "quadratic-equation-Infrastructure"
 // Triangle
 include "code/triangle/Model"
 project(":code/triangle/Model").name = "triangle-Model"
