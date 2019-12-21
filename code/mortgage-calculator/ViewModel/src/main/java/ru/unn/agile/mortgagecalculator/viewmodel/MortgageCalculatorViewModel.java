@@ -113,7 +113,7 @@ public class MortgageCalculatorViewModel {
 
         loanPeriodType.addListener((observable, oldValue, newValue) -> {
             StringBuilder message = new StringBuilder(LogMessages.LOAN_PERIOD_TYPE_WAS_CHANGED);
-            message.append("Loan Period Type change to: ").append(newValue).append(".");
+            message.append(newValue).append(".");
             logger.log(message.toString());
             updateLogs();
             onTypeChange();
@@ -126,7 +126,7 @@ public class MortgageCalculatorViewModel {
         monthlyCommissionsType.addListener((observable, oldValue, newValue) -> {
             StringBuilder message =
                     new StringBuilder(LogMessages.MONTHLY_COMMISSIONS_TYPE_WAS_CHANGED);
-            message.append("Monthly Commissions change to: ").append(newValue).append(".");
+            message.append(newValue).append(".");
             logger.log(message.toString());
             updateLogs();
             onTypeChange();
@@ -135,7 +135,7 @@ public class MortgageCalculatorViewModel {
         oneTimeCommissionsType.addListener((observable, oldValue, newValue) -> {
             StringBuilder message =
                     new StringBuilder(LogMessages.ONE_TIME_COMMISSIONS_TYPE_WAS_CHANGED);
-            message.append("One Time Commissions change to: ").append(newValue).append(".");
+            message.append(newValue).append(".");
             logger.log(message.toString());
             updateLogs();
             onTypeChange();
