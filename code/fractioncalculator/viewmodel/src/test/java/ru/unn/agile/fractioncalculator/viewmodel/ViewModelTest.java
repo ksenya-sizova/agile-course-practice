@@ -70,4 +70,30 @@ public class ViewModelTest {
         String actual = viewModel.resultFractionProperty().get();
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void canMinusFractions() {
+        String firstFractionStr = "10/20";
+        String secondFractionStr = "5/20";
+        viewModel.setFirstFraction(firstFractionStr);
+        viewModel.setSecondFraction(secondFractionStr);
+        String expected = "1/4";
+
+        viewModel.calculateMinus();
+        String actual = viewModel.resultFractionProperty().get();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void cantMinusFractions() {
+        String firstFractionStr = "10/20";
+        String secondFractionStr = "qwe";
+        viewModel.setFirstFraction(firstFractionStr);
+        viewModel.setSecondFraction(secondFractionStr);
+
+        viewModel.calculateMinus();
+        String res = viewModel.resultFractionProperty().get();
+
+        assertEquals(ViewModel.EMPTY_CALC_RESULT, res);
+    }
 }

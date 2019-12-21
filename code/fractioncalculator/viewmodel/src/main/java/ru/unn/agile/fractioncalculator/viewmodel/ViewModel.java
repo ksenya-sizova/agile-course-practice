@@ -8,6 +8,8 @@ import ru.unn.agile.fractioncalculator.model.FractionCalculator;
 
 public class ViewModel {
 
+    public static final String EMPTY_CALC_RESULT = "";
+
     private StringProperty firstFraction = new SimpleStringProperty();
     private StringProperty secondFraction = new SimpleStringProperty();
     private StringProperty resultFraction = new SimpleStringProperty();
@@ -33,14 +35,37 @@ public class ViewModel {
     }
 
     public void calculateSum() {
+        if (isCorrectInputFractions()) {
+            Fraction firstFraction = stringToFraction(firstFractionProperty().get());
+            Fraction secondFraction = stringToFraction(secondFractionProperty().get());
+            Fraction res = FractionCalculator.reduce(FractionCalculator.sum(firstFraction, secondFraction));
+            resultFraction.set(res.toString());
+        } else {
+            resultFraction.set(EMPTY_CALC_RESULT);
+        }
+    }
+
+    public void calculateMinus() {
+        if (isCorrectInputFractions()) {
+            Fraction firstFraction = stringToFraction(firstFractionProperty().get());
+            Fraction secondFraction = stringToFraction(secondFractionProperty().get());
+            Fraction res = FractionCalculator.reduce(FractionCalculator.minus(firstFraction, secondFraction));
+            resultFraction.set(res.toString());
+        } else {
+            resultFraction.set(EMPTY_CALC_RESULT);
+        }
+    }
+
+    private boolean isCorrectInputFractions() {
+        boolean isCorrect = false;
         if (firstFraction.get() != null && secondFraction.get() != null) {
             Fraction firstFraction = stringToFraction(firstFractionProperty().get());
             Fraction secondFraction = stringToFraction(secondFractionProperty().get());
-            Fraction res = FractionCalculator.sum(firstFraction, secondFraction);
-            res = FractionCalculator.reduce(res);
-
-            resultFraction.set(res.toString());
+            if (firstFraction != null && secondFraction != null) {
+                isCorrect = true;
+            }
         }
+        return isCorrect;
     }
 
     private Fraction stringToFraction(String fractionStr) {
