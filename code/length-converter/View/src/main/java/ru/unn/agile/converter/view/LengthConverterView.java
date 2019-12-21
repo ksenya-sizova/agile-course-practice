@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import ru.unn.agile.converter.model.LengthType;
 import ru.unn.agile.converter.viewmodel.LengthConverterViewModel;
-import ru.unn.agile.converter.infrastructure.TxtLogger;
+import ru.unn.agile.converter.infrastructure.LengthConverterTxtLogger;
 
 public class LengthConverterView {
     @FXML
@@ -29,7 +29,7 @@ public class LengthConverterView {
 
     @FXML
     void initialize() {
-        viewModel.setLogger(new TxtLogger("./TxtLogger-lab3.log"));
+        viewModel.setLogger(new LengthConverterTxtLogger("./TxtLogger-lab3.log"));
         txtInput.textProperty().bindBidirectional(viewModel.getInput());
         lblError.textProperty().bindBidirectional(viewModel.getError());
         txtOutput.textProperty().bindBidirectional(viewModel.getOutput());

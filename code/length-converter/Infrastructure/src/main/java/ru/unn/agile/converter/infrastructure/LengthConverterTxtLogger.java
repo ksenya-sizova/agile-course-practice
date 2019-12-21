@@ -12,23 +12,23 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class TxtLogger implements LengthConverterILogger {
-    private static final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
+public class LengthConverterTxtLogger implements LengthConverterILogger {
+    private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
     private final BufferedWriter writer;
-    private final String filename;
+    private final String logFileName;
 
     private static String now() {
         Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW, Locale.ENGLISH);
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH);
         return sdf.format(cal.getTime());
     }
 
-    public TxtLogger(final String filename) {
-        this.filename = filename;
+    public LengthConverterTxtLogger(final String logFileName) {
+        this.logFileName = logFileName;
 
         BufferedWriter logWriter = null;
         try {
-            logWriter = new BufferedWriter(new FileWriter(filename));
+            logWriter = new BufferedWriter(new FileWriter(logFileName));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -51,7 +51,7 @@ public class TxtLogger implements LengthConverterILogger {
         BufferedReader reader;
         ArrayList<String> log = new ArrayList<String>();
         try {
-            reader = new BufferedReader(new FileReader(filename));
+            reader = new BufferedReader(new FileReader(logFileName));
             String line = reader.readLine();
 
             while (line != null) {
