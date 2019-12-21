@@ -26,11 +26,11 @@ public class ViewModel {
         return resultFraction;
     }
 
-    public void setFirstFraction(String fraction) {
+    public void setFirstFraction(final String fraction) {
         firstFraction.set(fraction);
     }
 
-    public void setSecondFraction(String fraction) {
+    public void setSecondFraction(final String fraction) {
         secondFraction.set(fraction);
     }
 
@@ -38,7 +38,8 @@ public class ViewModel {
         if (isCorrectInputFractions()) {
             Fraction firstFraction = stringToFraction(firstFractionProperty().get());
             Fraction secondFraction = stringToFraction(secondFractionProperty().get());
-            Fraction res = FractionCalculator.reduce(FractionCalculator.sum(firstFraction, secondFraction));
+            Fraction res = FractionCalculator.reduce(
+                    FractionCalculator.sum(firstFraction, secondFraction));
             resultFraction.set(res.toString());
         } else {
             resultFraction.set(EMPTY_CALC_RESULT);
@@ -49,7 +50,8 @@ public class ViewModel {
         if (isCorrectInputFractions()) {
             Fraction firstFraction = stringToFraction(firstFractionProperty().get());
             Fraction secondFraction = stringToFraction(secondFractionProperty().get());
-            Fraction res = FractionCalculator.reduce(FractionCalculator.minus(firstFraction, secondFraction));
+            Fraction res = FractionCalculator.reduce(
+                    FractionCalculator.minus(firstFraction, secondFraction));
             resultFraction.set(res.toString());
         } else {
             resultFraction.set(EMPTY_CALC_RESULT);
@@ -72,7 +74,8 @@ public class ViewModel {
         if (isCorrectInputFractions()) {
             Fraction firstFraction = stringToFraction(firstFractionProperty().get());
             Fraction secondFraction = stringToFraction(secondFractionProperty().get());
-            Fraction res = FractionCalculator.reduce(FractionCalculator.multiple(firstFraction, secondFraction));
+            Fraction res = FractionCalculator.reduce(
+                    FractionCalculator.multiple(firstFraction, secondFraction));
             resultFraction.set(res.toString());
         } else {
             resultFraction.set(EMPTY_CALC_RESULT);
@@ -83,14 +86,15 @@ public class ViewModel {
         if (isCorrectInputFractions()) {
             Fraction firstFraction = stringToFraction(firstFractionProperty().get());
             Fraction secondFraction = stringToFraction(secondFractionProperty().get());
-            Fraction res = FractionCalculator.reduce(FractionCalculator.divide(firstFraction, secondFraction));
+            Fraction res = FractionCalculator.reduce(
+                    FractionCalculator.divide(firstFraction, secondFraction));
             resultFraction.set(res.toString());
         } else {
             resultFraction.set(EMPTY_CALC_RESULT);
         }
     }
 
-    private Fraction stringToFraction(String fractionStr) {
+    private Fraction stringToFraction(final String fractionStr) {
         Fraction res = null;
         String[] args = fractionStr.split(Fraction.FRACTION_DELIMITER);
         if (args.length == 2) {
