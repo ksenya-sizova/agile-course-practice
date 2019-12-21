@@ -96,4 +96,46 @@ public class ViewModelTest {
 
         assertEquals(ViewModel.EMPTY_CALC_RESULT, res);
     }
+
+    @Test
+    public void canMultipleFractions() {
+        String firstFractionStr = "2/3";
+        String secondFractionStr = "3/4";
+        viewModel.setFirstFraction(firstFractionStr);
+        viewModel.setSecondFraction(secondFractionStr);
+        String expected = "1/2";
+
+        viewModel.calculateMultiple();
+        String res = viewModel.resultFractionProperty().get();
+
+        assertEquals(expected, res);
+    }
+
+    @Test
+    public void canMultipleNegativePositiveFractions() {
+        String firstFractionStr = "-2/3";
+        String secondFractionStr = "3/4";
+        viewModel.setFirstFraction(firstFractionStr);
+        viewModel.setSecondFraction(secondFractionStr);
+        String expected = "-1/2";
+
+        viewModel.calculateMultiple();
+        String res = viewModel.resultFractionProperty().get();
+
+        assertEquals(expected, res);
+    }
+
+    @Test
+    public void canMultipleNegativeNegativeFractions() {
+        String firstFractionStr = "-2/3";
+        String secondFractionStr = "-3/4";
+        viewModel.setFirstFraction(firstFractionStr);
+        viewModel.setSecondFraction(secondFractionStr);
+        String expected = "1/2";
+
+        viewModel.calculateMultiple();
+        String res = viewModel.resultFractionProperty().get();
+
+        assertEquals(expected, res);
+    }
 }

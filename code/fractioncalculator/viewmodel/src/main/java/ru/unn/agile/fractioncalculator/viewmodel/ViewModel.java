@@ -68,6 +68,17 @@ public class ViewModel {
         return isCorrect;
     }
 
+    public void calculateMultiple() {
+        if (isCorrectInputFractions()) {
+            Fraction firstFraction = stringToFraction(firstFractionProperty().get());
+            Fraction secondFraction = stringToFraction(secondFractionProperty().get());
+            Fraction res = FractionCalculator.reduce(FractionCalculator.multiple(firstFraction, secondFraction));
+            resultFraction.set(res.toString());
+        } else {
+            resultFraction.set(EMPTY_CALC_RESULT);
+        }
+    }
+
     private Fraction stringToFraction(String fractionStr) {
         Fraction res = null;
         String[] args = fractionStr.split(Fraction.FRACTION_DELIMITER);
