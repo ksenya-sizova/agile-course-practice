@@ -7,8 +7,6 @@ import org.junit.Test;
 import ru.unn.agile.depositcalculator.model.CapitalizationPeriod;
 import ru.unn.agile.depositcalculator.model.DepositTimeType;
 
-import static ru.unn.agile.depositcalculator.viewmodel.ViewModel.VALIDATION_ERROR;
-
 public class ViewModelTest {
 
     private ViewModel viewModel;
@@ -59,42 +57,42 @@ public class ViewModelTest {
     public void canValidateEmptyPercentage() {
         viewModel.setPercentProperty("");
         viewModel.calculate();
-        Assert.assertEquals(VALIDATION_ERROR, viewModel.getResultProperty());
+        Assert.assertEquals(ViewModel.LogMessages.VALIDATION_ERROR, viewModel.getResultProperty());
     }
 
     @Test
     public void canValidateEmptyStartSum() {
         viewModel.setStartSumProperty("");
         viewModel.calculate();
-        Assert.assertEquals(VALIDATION_ERROR, viewModel.getResultProperty());
+        Assert.assertEquals(ViewModel.LogMessages.VALIDATION_ERROR, viewModel.getResultProperty());
     }
 
     @Test
     public void canValidateNegativeStartSum() {
         viewModel.setStartSumProperty("-1");
         viewModel.calculate();
-        Assert.assertEquals(VALIDATION_ERROR, viewModel.getResultProperty());
+        Assert.assertEquals(ViewModel.LogMessages.VALIDATION_ERROR, viewModel.getResultProperty());
     }
 
     @Test
     public void canValidateNegativePercentage() {
         viewModel.setPercentProperty("-1");
         viewModel.calculate();
-        Assert.assertEquals(VALIDATION_ERROR, viewModel.getResultProperty());
+        Assert.assertEquals(ViewModel.LogMessages.VALIDATION_ERROR, viewModel.getResultProperty());
     }
 
     @Test
     public void canValidateNotNumberSymbolsPercentage() {
         viewModel.setPercentProperty("asdfasdf100-adsf.0");
         viewModel.calculate();
-        Assert.assertEquals(VALIDATION_ERROR, viewModel.getResultProperty());
+        Assert.assertEquals(ViewModel.LogMessages.VALIDATION_ERROR, viewModel.getResultProperty());
     }
 
     @Test
     public void canValidateNotNumberSymbolsStartSum() {
         viewModel.setStartSumProperty("asdfasdf100-adsf.0");
         viewModel.calculate();
-        Assert.assertEquals(VALIDATION_ERROR, viewModel.getResultProperty());
+        Assert.assertEquals(ViewModel.LogMessages.VALIDATION_ERROR, viewModel.getResultProperty());
     }
 
     @Test
@@ -125,7 +123,7 @@ public class ViewModelTest {
         viewModel.setCapitalization(CapitalizationPeriod.YEAR);
         var logs = viewModel.getLogs();
         var lastLog = logs.get(logs.size() - 1);
-        Assert.assertTrue(lastLog.contains(ViewModel.CAPITALIZATION_UPDATED_LOG_MSG));
+        Assert.assertTrue(lastLog.contains(ViewModel.LogMessages.CAPITALIZATION_UPDATED_LOG_MSG));
     }
 
     @Test
@@ -133,7 +131,7 @@ public class ViewModelTest {
         viewModel.setPeriod(DepositTimeType.DAY);
         var logs = viewModel.getLogs();
         var lastLog = logs.get(logs.size() - 1);
-        Assert.assertTrue(lastLog.contains(ViewModel.PERIOD_UPDATED_LOG_MSG));
+        Assert.assertTrue(lastLog.contains(ViewModel.LogMessages.PERIOD_UPDATED_LOG_MSG));
     }
 
     @Test
@@ -142,7 +140,7 @@ public class ViewModelTest {
         viewModel.onSumFocusChanged();
         var logs = viewModel.getLogs();
         var lastLog = logs.get(logs.size() - 1);
-        Assert.assertTrue(lastLog.contains(ViewModel.START_SUM_UPDATED_LOG_MSG));
+        Assert.assertTrue(lastLog.contains(ViewModel.LogMessages.START_SUM_UPDATED_LOG_MSG));
     }
 
     @Test
@@ -151,7 +149,7 @@ public class ViewModelTest {
         viewModel.onPercentageFocusChanged();
         var logs = viewModel.getLogs();
         var lastLog = logs.get(logs.size() - 1);
-        Assert.assertTrue(lastLog.contains(ViewModel.PERCENTAGE_UPDATED_LOG_MSG));
+        Assert.assertTrue(lastLog.contains(ViewModel.LogMessages.PERCENTAGE_UPDATED_LOG_MSG));
     }
 
     @Test
@@ -182,6 +180,6 @@ public class ViewModelTest {
 
         var logs = viewModel.getLogs();
         var lastLog = logs.get(logs.size() - 1);
-        Assert.assertTrue(lastLog.contains(ViewModel.CALCULATION_COMPLETED_LOG_MSG));
+        Assert.assertTrue(lastLog.contains(ViewModel.LogMessages.CALCULATION_COMPLETED_LOG_MSG));
     }
 }

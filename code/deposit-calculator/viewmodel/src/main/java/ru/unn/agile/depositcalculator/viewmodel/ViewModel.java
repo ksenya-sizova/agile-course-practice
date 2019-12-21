@@ -217,6 +217,6 @@ public class ViewModel {
         static final String CAPITALIZATION_UPDATED_LOG_MSG = "Selected capitalization updated: ";
         static final String START_SUM_UPDATED_LOG_MSG = "Start sum value updated: ";
         static final String PERCENTAGE_UPDATED_LOG_MSG = "Percentage value updated: ";
-        static final String CALCULATION_COMPLETED_LOG_MSG ="Calculation completed: ";
+        static final String CALCULATION_COMPLETED_LOG_MSG = "Calculation completed: ";
     }
 }
