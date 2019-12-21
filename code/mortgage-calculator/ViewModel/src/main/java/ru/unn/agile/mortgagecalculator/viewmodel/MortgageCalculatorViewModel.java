@@ -36,7 +36,7 @@ public class MortgageCalculatorViewModel {
 
     public void setLogger(final MortgageCalculatorILogger logger) {
         if (logger == null) {
-            throw new IllegalArgumentException("Logger parameter can't be null");
+            throw new IllegalArgumentException("Logger parameter can not be null");
         }
         this.logger = logger;
     }

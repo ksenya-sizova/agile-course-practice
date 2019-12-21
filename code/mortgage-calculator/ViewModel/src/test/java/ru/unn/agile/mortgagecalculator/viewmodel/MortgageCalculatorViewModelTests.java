@@ -257,16 +257,16 @@ public class MortgageCalculatorViewModelTests {
     public void viewModelConstructorThrowsExceptionWithNullLogger() {
         try {
             new MortgageCalculatorViewModel(null);
-            fail("Exception wasn't thrown");
+            fail("Exception was not thrown");
         } catch (IllegalArgumentException ex) {
-            assertEquals("Logger parameter can't be null", ex.getMessage());
+            assertEquals("Logger parameter can not be null", ex.getMessage());
         } catch (Exception ex) {
             fail("Invalid exception type");
         }
     }
 
     @Test
-    public void logIsEmptyInTheBeginning() {
+    public void logIsEmptyAfterInit() {
         List<String> log = viewModel.getLog();
         assertTrue(log.isEmpty());
     }
