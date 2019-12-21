@@ -11,20 +11,24 @@ import ru.unn.agile.primenumber.model.PrimeNumberFinder;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringJoiner;
 
 public class ViewModel {
     private final StringProperty startElement = new SimpleStringProperty();
     private final StringProperty endElement = new SimpleStringProperty();
     private final StringProperty outputField = new SimpleStringProperty();
-
-    public BooleanProperty calculationDisabledProperty() {
-        return calculationDisabled;
-    }
-
-    private final BooleanProperty calculationDisabled = new SimpleBooleanProperty();
+    private final BooleanProperty findBtnDisabled = new SimpleBooleanProperty();
     private final StringProperty status = new SimpleStringProperty();
     private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
+    private final List<StringProperty> fields = new ArrayList<>() {
+        {
+            add(startElement);
+            add(endElement);
+        }
+    };
+
+    public BooleanProperty findBtnDisabledProperty() {
+        return findBtnDisabled;
+    }
 
     public StringProperty startElemProperty() {
         return startElement;
@@ -43,19 +47,15 @@ public class ViewModel {
     }
 
     public void findPrimaryNums() {
-        if (calculationDisabled.get()) {
+        if (findBtnDisabled.get()) {
             return;
         }
 
         try {
             PrimeNumberFinder setOfPrimeNums = new PrimeNumberFinder(
-                    Integer.parseInt(startElement.get()), Integer.parseInt(endElement.get()));
+                    Integer.parseInt(fields.get(0).get()), Integer.parseInt(fields.get(1).get()));
             List<Integer> primeNumsList = setOfPrimeNums.findNumbers();
-            StringJoiner stringJoiner = new StringJoiner(",");
-            for (Integer elem : primeNumsList) {
-                stringJoiner.add(String.valueOf(elem));
-            }
-            outputField.set(stringJoiner.toString());
+            outputField.set(primeNumsList.toString());
             status.set(Status.SUCCESS.toString());
         } catch (IllegalArgumentException e) {
             outputField.set(e.getMessage());
@@ -63,14 +63,14 @@ public class ViewModel {
     }
 
     public ViewModel() {
-        startElement.set("");
-        endElement.set("");
+        fields.get(0).set("");
+        fields.get(1).set("");
         outputField.set("");
         status.set(Status.WAITING.toString());
 
-        BooleanBinding couldCalculate = new BooleanBinding() {
+        BooleanBinding couldFind = new BooleanBinding() {
             {
-                super.bind(startElement, endElement);
+                super.bind(fields.get(0), fields.get(1));
             }
 
             @Override
@@ -78,15 +78,7 @@ public class ViewModel {
                 return getInputStatus() == Status.READY;
             }
         };
-        calculationDisabled.bind(couldCalculate.not());
-
-        // Add listeners to the input text fields
-        final List<StringProperty> fields = new ArrayList<>() {
-            {
-                add(startElement);
-                add(endElement);
-            }
-        };
+        findBtnDisabled.bind(couldFind.not());
 
         for (StringProperty field : fields) {
             final ValueChangeListener listener = new ValueChangeListener();
@@ -97,15 +89,15 @@ public class ViewModel {
 
     private Status getInputStatus() {
         Status status = Status.READY;
-        if (startElement.get().isEmpty() || endElement.get().isEmpty()) {
+        if (fields.get(0).get().isEmpty() || fields.get(1).get().isEmpty()) {
             status = Status.WAITING;
         }
         try {
-            if (!startElement.get().isEmpty()) {
-                Integer.parseInt(startElement.get());
+            if (!fields.get(0).get().isEmpty()) {
+                Integer.parseInt(fields.get(0).get());
             }
-            if (!endElement.get().isEmpty()) {
-                Integer.parseInt(endElement.get());
+            if (!fields.get(1).get().isEmpty()) {
+                Integer.parseInt(fields.get(1).get());
             }
         } catch (NumberFormatException e) {
             status = Status.BAD_FORMAT;

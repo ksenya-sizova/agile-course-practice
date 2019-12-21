@@ -20,10 +20,22 @@ public class ViewModelTests {
     }
 
     @Test
-    public void canSetDefaultValues() {
+    public void checkStartElemDefaultValue() {
         assertEquals("", viewModel.startElemProperty().get());
+    }
+
+    @Test
+    public void checkEndElemDefaultValue() {
         assertEquals("", viewModel.endElemProperty().get());
+    }
+
+    @Test
+    public void checkOutputFieldDefaultValues() {
         assertEquals("", viewModel.outputProperty().get());
+    }
+
+    @Test
+    public void checkDefaultStatus() {
         assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
     }
 
@@ -56,7 +68,7 @@ public class ViewModelTests {
 
     @Test
     public void calculateButtonIsDisabledInitially() {
-        assertTrue(viewModel.calculationDisabledProperty().get());
+        assertTrue(viewModel.findBtnDisabledProperty().get());
     }
 
     @Test
@@ -64,14 +76,14 @@ public class ViewModelTests {
         viewModel.startElemProperty().set("null");
         viewModel.endElemProperty().set("NaN");
 
-        assertTrue(viewModel.calculationDisabledProperty().get());
+        assertTrue(viewModel.findBtnDisabledProperty().get());
     }
 
     @Test
     public void calculateButtonIsDisabledWithIncompleteInput() {
         viewModel.startElemProperty().set("1");
 
-        assertTrue(viewModel.calculationDisabledProperty().get());
+        assertTrue(viewModel.findBtnDisabledProperty().get());
     }
 
     @Test
@@ -79,7 +91,7 @@ public class ViewModelTests {
         viewModel.startElemProperty().set("1");
         viewModel.endElemProperty().set("4");
 
-        assertFalse(viewModel.calculationDisabledProperty().get());
+        assertFalse(viewModel.findBtnDisabledProperty().get());
     }
 
     @Test
@@ -89,7 +101,7 @@ public class ViewModelTests {
 
         viewModel.findPrimaryNums();
 
-        assertEquals("2,3", viewModel.outputProperty().get());
+        assertEquals("[2, 3]", viewModel.outputProperty().get());
     }
 
     @Test
