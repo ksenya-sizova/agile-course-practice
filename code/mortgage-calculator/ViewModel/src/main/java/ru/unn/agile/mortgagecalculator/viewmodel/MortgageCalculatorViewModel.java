@@ -324,6 +324,8 @@ public class MortgageCalculatorViewModel {
             mortgageParameters = new MortgageParameters(amount, percent, periodType, period);
             mortgageParameters.setInitialPayment(initialPayment);
         } catch (Exception e) {
+            logger.log(LogMessages.INCORRECT_INPUT);
+            updateLogs();
             result.set("Incorrect input");
             return null;
         }
@@ -402,6 +404,7 @@ public class MortgageCalculatorViewModel {
                 "One Time Commissions Type was changed to ";
         public static final String MONTHLY_COMMISSIONS_TYPE_WAS_CHANGED =
                 "Monthly Commissions Type was changed to ";
+        public static final String INCORRECT_INPUT = "Incorrect input. ";
 
         private LogMessages() {
         }

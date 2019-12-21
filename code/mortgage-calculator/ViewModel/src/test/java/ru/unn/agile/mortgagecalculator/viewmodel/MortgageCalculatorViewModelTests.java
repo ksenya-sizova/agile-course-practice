@@ -277,9 +277,8 @@ public class MortgageCalculatorViewModelTests {
         viewModel.calculate();
         String message = viewModel.getLog().get(3);
 
-        assertTrue(message.matches(
-                ".*" + MortgageCalculatorViewModel.LogMessages.CALCULATE_WAS_PRESSED + ".*"
-        ));
+        assertTrue(message.matches(".*" + MortgageCalculatorViewModel.
+                LogMessages.CALCULATE_WAS_PRESSED + ".*"));
     }
 
     @Test
@@ -312,7 +311,7 @@ public class MortgageCalculatorViewModelTests {
     }
 
     @Test
-    public void calculateIsNotCalledWhenButtonIsDisabled() {
+    public void calculateIsNotWorkingWithEmptyParameters() {
         viewModel.calculate();
 
         assertTrue(viewModel.getLog().isEmpty());
@@ -325,8 +324,8 @@ public class MortgageCalculatorViewModelTests {
         viewModel.loanPeriodTypeProperty().set("Year");
 
         String message = viewModel.getLog().get(3);
-        assertTrue(message.matches(
-                ".*" + MortgageCalculatorViewModel.LogMessages.LOAN_PERIOD_TYPE_WAS_CHANGED + ".*"
+        assertTrue(message.matches(".*" + MortgageCalculatorViewModel.
+                LogMessages.LOAN_PERIOD_TYPE_WAS_CHANGED + ".*"
         ));
     }
 
@@ -338,8 +337,7 @@ public class MortgageCalculatorViewModelTests {
 
         String message = viewModel.getLog().get(3);
         assertTrue(message.matches(".*" + MortgageCalculatorViewModel.
-                        LogMessages.ONE_TIME_COMMISSIONS_TYPE_WAS_CHANGED + ".*"
-        ));
+                LogMessages.ONE_TIME_COMMISSIONS_TYPE_WAS_CHANGED + ".*"));
     }
 
     @Test
@@ -349,9 +347,19 @@ public class MortgageCalculatorViewModelTests {
         viewModel.monthlyCommissionsTypeProperty().set("Percent");
 
         String message = viewModel.getLog().get(3);
-        assertTrue(message.matches(
-                ".*" + MortgageCalculatorViewModel.
-                        LogMessages.MONTHLY_COMMISSIONS_TYPE_WAS_CHANGED + ".*"
-        ));
+        assertTrue(message.matches(".*" + MortgageCalculatorViewModel.
+                LogMessages.MONTHLY_COMMISSIONS_TYPE_WAS_CHANGED + ".*"));
+    }
+
+    @Test
+    public void canSeeIncorrectInputInLog() {
+        setCorrectInputs();
+
+        viewModel.loanPeriodProperty().set("0");
+        viewModel.calculate();
+
+        String message = viewModel.getLog().get(3);
+        assertTrue(message.matches(".*" + MortgageCalculatorViewModel.
+                LogMessages.INCORRECT_INPUT + ".*"));
     }
 }
