@@ -145,8 +145,10 @@ public class ViewModel {
             double head = queue.getHead();
             queueStatus.set(Status.SUCCESS.toString());
             queueResult.set("Head is: " + Double.toString(head));
+            logger.log("Head element " + Double.toString(head) + " was received");
         } catch (NullPointerException npe) {
             queueResult.set("Queue is empty.");
+            logger.log("Impossible to get head from empty queue");
         }
     }
 
