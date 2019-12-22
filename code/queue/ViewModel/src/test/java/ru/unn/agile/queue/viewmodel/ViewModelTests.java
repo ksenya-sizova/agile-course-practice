@@ -7,8 +7,9 @@ import static org.junit.Assert.*;
 
 public class ViewModelTests {
     private ViewModel viewModel;
+
     @Before
-    public void creatingViewModel() {
+    public void setUp() {
         FakeLogger fakeLogger = new FakeLogger();
         viewModel = new ViewModel(fakeLogger);
     }
@@ -203,7 +204,7 @@ public class ViewModelTests {
 
         String logMessage = viewModel.getLog().get(0);
         String expectedMessage = "Pushed " + inputElement + " to queue";
-        assertEquals(expectedMessage, logMessage);
+        assertTrue(logMessage.matches(".*" + expectedMessage + ".*"));
     }
 
     @Test
@@ -214,7 +215,7 @@ public class ViewModelTests {
 
         String logMessage = viewModel.getLog().get(0);
         String expectedMessage = "Pushing element is empty";
-        assertEquals(expectedMessage, logMessage);
+        assertTrue(logMessage.matches(".*" + expectedMessage + ".*"));
     }
 
     @Test
@@ -225,7 +226,7 @@ public class ViewModelTests {
 
         String logMessage = viewModel.getLog().get(0);
         String expectedMessage = "Pushing element test has incorrect format";
-        assertEquals(expectedMessage, logMessage);
+        assertTrue(logMessage.matches(".*" + expectedMessage + ".*"));
     }
 
     @Test
@@ -237,7 +238,7 @@ public class ViewModelTests {
 
         String logMessage = viewModel.getLog().get(1);
         String expectedMessage = "Popped 1.0 from queue";
-        assertEquals(expectedMessage, logMessage);
+        assertTrue(logMessage.matches(".*" + expectedMessage + ".*"));
     }
 
     @Test
@@ -246,7 +247,7 @@ public class ViewModelTests {
 
         String logMessage = viewModel.getLog().get(0);
         String expectedMessage = "Impossible to pop from empty queue";
-        assertEquals(expectedMessage, logMessage);
+        assertTrue(logMessage.matches(".*" + expectedMessage + ".*"));
     }
 
     @Test
@@ -258,7 +259,7 @@ public class ViewModelTests {
 
         String logMessage = viewModel.getLog().get(1);
         String expectedMessage = "Queue was cleared";
-        assertEquals(expectedMessage, logMessage);
+        assertTrue(logMessage.matches(".*" + expectedMessage + ".*"));
     }
 
     @Test
@@ -270,7 +271,7 @@ public class ViewModelTests {
 
         String logMessage = viewModel.getLog().get(1);
         String expectedMessage = "Head element 3.0 was received";
-        assertEquals(expectedMessage, logMessage);
+        assertTrue(logMessage.matches(".*" + expectedMessage + ".*"));
     }
 
     @Test
@@ -279,7 +280,7 @@ public class ViewModelTests {
 
         String logMessage = viewModel.getLog().get(0);
         String expectedMessage = "Impossible to get head from empty queue";
-        assertEquals(expectedMessage, logMessage);
+        assertTrue(logMessage.matches(".*" + expectedMessage + ".*"));
     }
 
     @Test
@@ -294,7 +295,7 @@ public class ViewModelTests {
 
         String logMessage = viewModel.getLog().get(2);
         String expectedMessage = "Tail element 5.0 was received";
-        assertEquals(expectedMessage, logMessage);
+        assertTrue(logMessage.matches(".*" + expectedMessage + ".*"));
     }
 
     @Test
@@ -303,6 +304,10 @@ public class ViewModelTests {
 
         String logMessage = viewModel.getLog().get(0);
         String expectedMessage = "Impossible to get tail from empty queue";
-        assertEquals(expectedMessage, logMessage);
+        assertTrue(logMessage.matches(".*" + expectedMessage + ".*"));
+    }
+
+    protected void setViewModel(final ViewModel viewModel) {
+        this.viewModel = viewModel;
     }
 }

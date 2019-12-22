@@ -68,7 +68,7 @@ public class TxtLoggerTests {
 
         String logMessage = logger.getLog().get(0);
         var format = "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2} > .*";
-        assertTrue(message.matches(format));
+        assertTrue(logMessage.matches(format));
     }
 
 }
