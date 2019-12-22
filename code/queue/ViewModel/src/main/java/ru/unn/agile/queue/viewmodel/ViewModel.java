@@ -102,12 +102,20 @@ public class ViewModel {
 
     public void pushProcess() {
         try {
+            var status = getQueueStatus();
+            if (!status.equals(Status.READY.toString())) {
+                if (status.equals(Status.BAD_ELEMENT_FORMAT.toString())) {
+                    throw new IllegalArgumentException("Pushing element " + getQueueElement() + " has incorrect format");
+                }
+                throw new IllegalArgumentException("Pushing element is empty");
+            }
             queue.push(key);
             queueStatus.set(Status.SUCCESS.toString());
             queueResult.set("Push element: " + Double.toString(key));
             logger.log("Pushed " + Double.toString(key) + " to queue");
         } catch (IllegalArgumentException iae) {
-            queueResult.set("The item cannot be empty.");
+            queueResult.set(iae.getMessage());
+            logger.log(iae.getMessage());
         }
     }
 

@@ -205,4 +205,26 @@ public class ViewModelTests {
         String expectedMessage = "Pushed " + inputElement + " to queue";
         assertEquals(expectedMessage, logMessage);
     }
+
+    @Test
+    public void isLogContainsInfoAboutPushingEmptyElement() {
+        String inputElement = "";
+        viewModel.setQueueInputElement(inputElement);
+        viewModel.pushProcess();
+
+        String logMessage = viewModel.getLog().get(0);
+        String expectedMessage = "Pushing element is empty";
+        assertEquals(expectedMessage, logMessage);
+    }
+
+    @Test
+    public void isLogContainsInfoAboutPushingIncorrectElement() {
+        String inputElement = "test";
+        viewModel.setQueueInputElement(inputElement);
+        viewModel.pushProcess();
+
+        String logMessage = viewModel.getLog().get(0);
+        String expectedMessage = "Pushing element test has incorrect format";
+        assertEquals(expectedMessage, logMessage);
+    }
 }
