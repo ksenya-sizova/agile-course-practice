@@ -3,8 +3,12 @@ package ru.unn.agile.calc.viewmodel;
 import ru.unn.agile.calc.model.StringCalc;
 
 import javafx.beans.binding.BooleanBinding;
-import javafx.beans.property.*;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -139,7 +143,10 @@ public class StringCalcViewModel {
     }
 
     public final List<String> getLog() {
-        return logger.getLog();
+        if (logger != null) {
+            return logger.getLog();
+        }
+        return Collections.emptyList();
     }
 }
 
