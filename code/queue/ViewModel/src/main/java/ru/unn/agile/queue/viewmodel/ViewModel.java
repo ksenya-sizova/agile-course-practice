@@ -137,6 +137,7 @@ public class ViewModel {
         queue.clear();
         queueStatus.set(Status.SUCCESS.toString());
         queueResult.set("Queue cleared");
+        logger.log("Queue was cleared");
     }
 
     public void getHeadProcess() {

@@ -248,4 +248,16 @@ public class ViewModelTests {
         String expectedMessage = "Impossible to pop from empty queue";
         assertEquals(expectedMessage, logMessage);
     }
+
+    @Test
+    public void isLogContainsInfoAboutQueueClearing() {
+        String inputElement = "3";
+        viewModel.setQueueInputElement(inputElement);
+        viewModel.pushProcess();
+        viewModel.clearProcess();
+
+        String logMessage = viewModel.getLog().get(1);
+        String expectedMessage = "Queue was cleared";
+        assertEquals(expectedMessage, logMessage);
+    }
 }
