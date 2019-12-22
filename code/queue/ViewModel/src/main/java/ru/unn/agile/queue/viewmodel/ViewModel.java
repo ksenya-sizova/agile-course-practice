@@ -105,7 +105,9 @@ public class ViewModel {
             var status = getQueueStatus();
             if (!status.equals(Status.READY.toString())) {
                 if (status.equals(Status.BAD_ELEMENT_FORMAT.toString())) {
-                    throw new IllegalArgumentException("Pushing element " + getQueueElement() + " has incorrect format");
+                    var element = getQueueElement();
+                    var message = "Pushing element " + element + " has incorrect format";
+                    throw new IllegalArgumentException(message);
                 }
                 throw new IllegalArgumentException("Pushing element is empty");
             }
@@ -124,8 +126,10 @@ public class ViewModel {
             double popElement = queue.pop();
             queueStatus.set(Status.SUCCESS.toString());
             queueResult.set("Pop element: " + Double.toString(popElement));
+            logger.log("Popped " + Double.toString(popElement) + " from queue");
         } catch (NullPointerException npe) {
             queueResult.set("Queue is empty.");
+            logger.log("Impossible to pop from empty queue");
         }
     }
 
