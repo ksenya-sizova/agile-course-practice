@@ -281,4 +281,28 @@ public class ViewModelTests {
         String expectedMessage = "Impossible to get head from empty queue";
         assertEquals(expectedMessage, logMessage);
     }
+
+    @Test
+    public void isLogContainsInfoAboutGettingTail() {
+        String firstInputElement = "3";
+        viewModel.setQueueInputElement(firstInputElement);
+        viewModel.pushProcess();
+        String secondInputElement = "5";
+        viewModel.setQueueInputElement(secondInputElement);
+        viewModel.pushProcess();
+        viewModel.getTailProcess();
+
+        String logMessage = viewModel.getLog().get(2);
+        String expectedMessage = "Tail element 5.0 was received";
+        assertEquals(expectedMessage, logMessage);
+    }
+
+    @Test
+    public void isLogContainsInfoAboutGettingTailFromEmptyQueue() {
+        viewModel.getTailProcess();
+
+        String logMessage = viewModel.getLog().get(0);
+        String expectedMessage = "Impossible to get tail from empty queue";
+        assertEquals(expectedMessage, logMessage);
+    }
 }
