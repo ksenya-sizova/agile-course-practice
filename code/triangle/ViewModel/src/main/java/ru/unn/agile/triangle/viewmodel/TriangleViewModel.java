@@ -13,7 +13,7 @@ import ru.unn.agile.triangle.model.Triangle.Operation;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewModel {
+public class TriangleViewModel {
     private final StringProperty ax = new SimpleStringProperty();
     private final StringProperty ay = new SimpleStringProperty();
     private final StringProperty bx = new SimpleStringProperty();
@@ -34,11 +34,11 @@ public class ViewModel {
     private final String arguments = "ax = %s; ay = %s; bx = %s; by = %s; cx = %s; cy = %s";
     private TriangleILogger logger;
 
-    public ViewModel() {
+    public TriangleViewModel() {
         init();
     }
 
-    public ViewModel(final TriangleILogger logger) {
+    public TriangleViewModel(final TriangleILogger logger) {
         setLogger(logger);
         init();
     }

@@ -10,11 +10,11 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import ru.unn.agile.triangle.infrastructure.TriangleTxtLogger;
 import ru.unn.agile.triangle.model.Triangle.Operation;
-import ru.unn.agile.triangle.viewmodel.ViewModel;
+import ru.unn.agile.triangle.viewmodel.TriangleViewModel;
 
 public class Calculator {
     @FXML
-    private ViewModel viewModel;
+    private TriangleViewModel viewModel;
     @FXML
     private TextField txtAx;
     @FXML

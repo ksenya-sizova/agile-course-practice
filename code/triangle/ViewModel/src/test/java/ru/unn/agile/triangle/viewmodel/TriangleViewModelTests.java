@@ -9,17 +9,18 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class ViewModelTests {
-    private ViewModel viewModel;
+public class TriangleViewModelTests {
+    private TriangleViewModel viewModel;
 
-    public void setExternalViewModel(final ViewModel viewModel) {
+    public void setExternalViewModel(final TriangleViewModel viewModel) {
+
         this.viewModel = viewModel;
     }
 
     @Before
     public void setUp() {
         if (viewModel == null) {
-            viewModel = new ViewModel(new FakeLogger());
+            viewModel = new TriangleViewModel(new FakeLogger());
         }
     }
 
@@ -29,7 +30,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void canSetDefaultValues() {
+    public void canSetValuesByDefault() {
         assertEquals("", viewModel.axProperty().get());
         assertEquals("", viewModel.ayProperty().get());
         assertEquals("", viewModel.bxProperty().get());
