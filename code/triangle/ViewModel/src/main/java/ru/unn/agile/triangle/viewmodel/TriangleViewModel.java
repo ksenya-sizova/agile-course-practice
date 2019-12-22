@@ -11,6 +11,7 @@ import ru.unn.agile.triangle.model.Triangle;
 import ru.unn.agile.triangle.model.Triangle.Operation;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TriangleViewModel {
@@ -147,10 +148,6 @@ public class TriangleViewModel {
         }
     }
 
-    public final List<String> getLog() {
-        return logger.getLog();
-    }
-
     public StringProperty axProperty() {
         return ax;
     }
@@ -213,6 +210,13 @@ public class TriangleViewModel {
 
     public StringProperty logsProperty() {
         return logs;
+    }
+
+    public final List<String> getLog() {
+        if (logger != null) {
+            return logger.getLog();
+        }
+        return Collections.emptyList();
     }
 
     public final String getLogs() {
