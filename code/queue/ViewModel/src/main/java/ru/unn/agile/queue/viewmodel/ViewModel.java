@@ -19,6 +19,7 @@ public class ViewModel {
     private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
     private double key;
     private ILogger logger;
+    private StringProperty textLogger = new SimpleStringProperty();
 
     public final void setLogger(final ILogger logger) {
         if (logger == null) {
@@ -40,6 +41,7 @@ public class ViewModel {
         queueElementInput.set("");
         queueResult.set("");
         queueStatus.set("");
+        textLogger.set("");
 
         final List<StringProperty> fields = new ArrayList<>() { {
             add(queueElementInput);
@@ -64,10 +66,18 @@ public class ViewModel {
             queueStatus.set(getStatus().toString());
         }
     }
+    public StringProperty textLoggerProperty() {
+        return textLogger;
+    }
+
+    public String getTextLogger() {
+        return textLogger.get();
+    }
 
     public StringProperty queueElementProperty() {
         return queueElementInput;
     }
+
     public StringProperty queueResultProperty() {
         return queueResult;
     }
@@ -100,6 +110,15 @@ public class ViewModel {
         return queueStatus.get();
     }
 
+    private void writeLog(final String logMessage) {
+        logger.log(logMessage);
+        StringBuilder messages = new StringBuilder();
+        for (String log : logger.getLog()) {
+            messages.append(log).append("\n");
+        }
+        textLogger.set(messages.toString());
+    }
+
     public void pushProcess() {
         try {
             var status = getQueueStatus();
@@ -114,10 +133,10 @@ public class ViewModel {
             queue.push(key);
             queueStatus.set(Status.SUCCESS.toString());
             queueResult.set("Push element: " + Double.toString(key));
-            logger.log("Pushed " + Double.toString(key) + " to queue");
+            writeLog("Pushed " + Double.toString(key) + " to queue");
         } catch (IllegalArgumentException iae) {
             queueResult.set(iae.getMessage());
-            logger.log(iae.getMessage());
+            writeLog(iae.getMessage());
         }
     }
 
@@ -126,10 +145,10 @@ public class ViewModel {
             double popElement = queue.pop();
             queueStatus.set(Status.SUCCESS.toString());
             queueResult.set("Pop element: " + Double.toString(popElement));
-            logger.log("Popped " + Double.toString(popElement) + " from queue");
+            writeLog("Popped " + Double.toString(popElement) + " from queue");
         } catch (NullPointerException npe) {
             queueResult.set("Queue is empty.");
-            logger.log("Impossible to pop from empty queue");
+            writeLog("Impossible to pop from empty queue");
         }
     }
 
@@ -137,7 +156,7 @@ public class ViewModel {
         queue.clear();
         queueStatus.set(Status.SUCCESS.toString());
         queueResult.set("Queue cleared");
-        logger.log("Queue was cleared");
+        writeLog("Queue was cleared");
     }
 
     public void getHeadProcess() {
@@ -145,10 +164,10 @@ public class ViewModel {
             double head = queue.getHead();
             queueStatus.set(Status.SUCCESS.toString());
             queueResult.set("Head is: " + Double.toString(head));
-            logger.log("Head element " + Double.toString(head) + " was received");
+            writeLog("Head element " + Double.toString(head) + " was received");
         } catch (NullPointerException npe) {
             queueResult.set("Queue is empty.");
-            logger.log("Impossible to get head from empty queue");
+            writeLog("Impossible to get head from empty queue");
         }
     }
 
@@ -157,10 +176,10 @@ public class ViewModel {
             double tail = queue.getTail();
             queueStatus.set(Status.SUCCESS.toString());
             queueResult.set("Tail is: " + Double.toString(tail));
-            logger.log("Tail element " + Double.toString(tail) + " was received");
+            writeLog("Tail element " + Double.toString(tail) + " was received");
         } catch (NullPointerException npe) {
             queueResult.set("Queue is empty.");
-            logger.log("Impossible to get tail from empty queue");
+            writeLog("Impossible to get tail from empty queue");
         }
     }
 

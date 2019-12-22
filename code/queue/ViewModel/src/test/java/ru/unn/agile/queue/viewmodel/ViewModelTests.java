@@ -54,6 +54,11 @@ public class ViewModelTests {
         assertEquals("", viewModel.getQueueStatus());
     }
 
+    @Test
+    public void canInitDefaultTextLogger() {
+        assertEquals("", viewModel.getTextLogger());
+    }
+
 
     @Test
     public void canSetElementInputValue() {
