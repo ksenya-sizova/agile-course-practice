@@ -13,6 +13,7 @@ import static org.junit.Assert.*;
 
 public class TxtLoggerTests {
     private static final String FILENAME = "./TxtLogger_Tests-lab3_string_calculator.log";
+    public static final String FILE_NOT_FOUND_MESSAGE = "File not found.";
     private TxtLogger txtLogger;
 
     @Before
@@ -32,7 +33,7 @@ public class TxtLoggerTests {
         try {
             reader = new BufferedReader(new FileReader(FILENAME));
         } catch (FileNotFoundException exception) {
-            fail("File not found.");
+            fail(FILE_NOT_FOUND_MESSAGE);
         }
     }
 
