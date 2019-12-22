@@ -114,8 +114,12 @@ project(":code/vectors-distances-calculator/ViewModel").name = "vectors-distance
 include "code/vectors-distances-calculator/View"
 project(":code/vectors-distances-calculator/View").name = "vectors-distances-calculator-View"
 // Киселева Ольга
-include "code/huffman"
-project(":code/huffman").name = "huffman"
+include "code/huffman/Model"
+project(":code/huffman/Model").name = "huffman-Model"
+include "code/huffman/View"
+project(":code/huffman/View").name = "huffman-View"
+include "code/huffman/ViewModel"
+project(":code/huffman/ViewModel").name = "huffman-ViewModel"
 // Конева Александра
 include "code/numbers-in-words"
 project(":code/numbers-in-words").name = "numbers-in-words-Model"
