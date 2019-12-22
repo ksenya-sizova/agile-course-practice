@@ -227,4 +227,25 @@ public class ViewModelTests {
         String expectedMessage = "Pushing element test has incorrect format";
         assertEquals(expectedMessage, logMessage);
     }
+
+    @Test
+    public void isLogContainsInfoAboutPoppedElement() {
+        String inputElement = "1";
+        viewModel.setQueueInputElement(inputElement);
+        viewModel.pushProcess();
+        viewModel.popProcess();
+
+        String logMessage = viewModel.getLog().get(1);
+        String expectedMessage = "Popped 1.0 from queue";
+        assertEquals(expectedMessage, logMessage);
+    }
+
+    @Test
+    public void isLogContainsInfoAboutPopFromEmptyQueue() {
+        viewModel.popProcess();
+
+        String logMessage = viewModel.getLog().get(0);
+        String expectedMessage = "Impossible to pop from empty queue";
+        assertEquals(expectedMessage, logMessage);
+    }
 }
