@@ -21,37 +21,37 @@ public class HuffmanViewModelTest {
 
     @Test
     public void checkRefLabelTextByDefaultText() {
-        assertEquals(viewModel.getInput().get(), "Reference string");
+        assertEquals("Reference string", viewModel.getInput().get());
     }
 
     @Test
     public void checkEncodeLabelTextByDefaultText() {
-        assertEquals(viewModel.getOutputEncode().get(), "Encode");
+        assertEquals("Encode", viewModel.getOutputEncode().get());
     }
 
     @Test
     public void checkDecodeLabelTextByDefaultText() {
-        assertEquals(viewModel.getOutputDecode().get(), "Decode");
+        assertEquals("Decode", viewModel.getOutputDecode().get());
     }
 
     @Test
     public void checkEncodeLabelAfterPushStartWithZeroString() {
         viewModel.setInput("");
         viewModel.startEncodeAndDecode();
-        assertEquals(viewModel.getOutputEncode().get(), "");
+        assertEquals("", viewModel.getOutputEncode().get());
     }
 
     @Test
     public void checkEncodeLabelAfterPushStartWithString() {
         viewModel.setInput("ab");
         viewModel.startEncodeAndDecode();
-        assertEquals(viewModel.getOutputEncode().get(), "01");
+        assertEquals("01", viewModel.getOutputEncode().get());
     }
 
     @Test
     public void checkDecodeLabelAfterPushStartWithZeroString() {
         viewModel.setInput("");
         viewModel.startEncodeAndDecode();
-        assertEquals(viewModel.getOutputDecode().get(), "");
+        assertEquals("", viewModel.getOutputDecode().get());
     }
 }
