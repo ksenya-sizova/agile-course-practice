@@ -6,13 +6,15 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import ru.unn.agile.triangle.*;
-import ru.unn.agile.triangle.Triangle.*;
+import ru.unn.agile.triangle.model.Point;
+import ru.unn.agile.triangle.model.Triangle;
+import ru.unn.agile.triangle.model.Triangle.Operation;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class ViewModel {
+public class TriangleViewModel {
     private final StringProperty ax = new SimpleStringProperty();
     private final StringProperty ay = new SimpleStringProperty();
     private final StringProperty bx = new SimpleStringProperty();
@@ -20,6 +22,7 @@ public class ViewModel {
     private final StringProperty cx = new SimpleStringProperty();
     private final StringProperty cy = new SimpleStringProperty();
 
+    private final StringProperty logs = new SimpleStringProperty();
     private final StringProperty result = new SimpleStringProperty();
     private final StringProperty status = new SimpleStringProperty();
 
@@ -28,10 +31,27 @@ public class ViewModel {
     private final ObjectProperty<Operation> operation = new SimpleObjectProperty<>();
 
     private final BooleanProperty calculationDisabled = new SimpleBooleanProperty();
-
     private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
+    private final String arguments = "ax = %s; ay = %s; bx = %s; by = %s; cx = %s; cy = %s";
+    private TriangleILogger logger;
 
-    public ViewModel() {
+    public TriangleViewModel() {
+        init();
+    }
+
+    public TriangleViewModel(final TriangleILogger logger) {
+        setLogger(logger);
+        init();
+    }
+
+    public final void setLogger(final TriangleILogger logger) {
+        if (logger == null) {
+            throw new IllegalArgumentException("Logger parameter can't be null");
+        }
+        this.logger = logger;
+    }
+
+    public void init() {
         ax.set("");
         ay.set("");
         bx.set("");
@@ -52,6 +72,7 @@ public class ViewModel {
                 return getInputStatus() == Status.READY;
             }
         };
+
         calculationDisabled.bind(couldCalculate.not());
 
         final List<StringProperty> fields = new ArrayList<StringProperty>() {
@@ -83,10 +104,47 @@ public class ViewModel {
 
         try {
             Triangle triangle = new Triangle(a, b, c);
-            result.set(operation.get().apply(triangle).toString());
+            result.set(operation.get().apply(triangle));
             status.set(Status.SUCCESS.toString());
+            StringBuilder message = new StringBuilder(LogMessages.CALCULATE_WAS_PRESSED);
+            message.append("Arguments: ").append(String.format(arguments,
+                    ax.get(), ay.get(), bx.get(), by.get(), cx.get(), cy.get()))
+                    .append(" Operation: ").append(operation.get().toString()).append(".");
+            logger.log(message.toString());
         } catch (Exception ex) {
             status.set(ex.getMessage());
+            logger.log(LogMessages.INCORRECT_INPUT);
+        } finally {
+            updateLogs();
+        }
+    }
+
+    public void onOperationChanged(final Operation oldValue, final Operation newValue) {
+        if (oldValue.equals(newValue)) {
+            return;
+        }
+        StringBuilder message = new StringBuilder(LogMessages.OPERATION_WAS_CHANGED);
+        message.append(newValue.toString());
+        logger.log(message.toString());
+        updateLogs();
+    }
+
+    public void onFocusChanged(final Boolean oldValue, final Boolean newValue) {
+        if (!oldValue && newValue) {
+            return;
+        }
+
+        for (ValueChangeListener listener : valueChangedListeners) {
+            if (listener.isChanged()) {
+                StringBuilder message = new StringBuilder(LogMessages.EDITING_FINISHED);
+                message.append("Input arguments are: ").append(String.format(arguments,
+                        ax.get(), ay.get(), bx.get(), by.get(), cx.get(), cy.get()));
+                logger.log(message.toString());
+                updateLogs();
+
+                listener.cache();
+                break;
+            }
         }
     }
 
@@ -150,6 +208,21 @@ public class ViewModel {
         return status.get();
     }
 
+    public StringProperty logsProperty() {
+        return logs;
+    }
+
+    public final List<String> getLog() {
+        if (logger != null) {
+            return logger.getLog();
+        }
+        return Collections.emptyList();
+    }
+
+    public final String getLogs() {
+        return logs.get();
+    }
+
     private Status getInputStatus() {
         Status inputStatus = Status.READY;
         if (ax.get().isEmpty() || ay.get().isEmpty()
@@ -183,11 +256,35 @@ public class ViewModel {
         return inputStatus;
     }
 
+    private void updateLogs() {
+        List<String> fullLog = logger.getLog();
+        String record = "";
+        for (String log : fullLog) {
+            record += log + "\n";
+        }
+        logs.set(record);
+    }
+
     private class ValueChangeListener implements ChangeListener<String> {
+        private String prevValue = "";
+        private String curValue = "";
+
         @Override
         public void changed(final ObservableValue<? extends String> observable,
                             final String oldValue, final String newValue) {
+            if (oldValue.equals(newValue)) {
+                return;
+            }
             status.set(getInputStatus().toString());
+            curValue = newValue;
+        }
+
+        public boolean isChanged() {
+            return !prevValue.equals(curValue);
+        }
+
+        public void cache() {
+            prevValue = curValue;
         }
     }
 }
@@ -206,5 +303,15 @@ enum Status {
 
     public String toString() {
         return name;
+    }
+}
+
+final class LogMessages {
+    public static final String CALCULATE_WAS_PRESSED = "Calculate. ";
+    public static final String OPERATION_WAS_CHANGED = "Operation was changed to ";
+    public static final String EDITING_FINISHED = "Updated input. ";
+    public static final String INCORRECT_INPUT = "Incorrect input. ";
+
+    private LogMessages() {
     }
 }

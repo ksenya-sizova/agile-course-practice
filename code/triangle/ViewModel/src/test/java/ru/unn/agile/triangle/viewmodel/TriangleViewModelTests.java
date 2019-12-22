@@ -3,16 +3,25 @@ package ru.unn.agile.triangle.viewmodel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import ru.unn.agile.triangle.Triangle.*;
+import ru.unn.agile.triangle.model.Triangle.Operation;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class ViewModelTests {
-    private ViewModel viewModel;
+public class TriangleViewModelTests {
+    private TriangleViewModel viewModel;
+
+    public void setExternalViewModel(final TriangleViewModel viewModel) {
+
+        this.viewModel = viewModel;
+    }
 
     @Before
     public void setUp() {
-        viewModel = new ViewModel();
+        if (viewModel == null) {
+            viewModel = new TriangleViewModel(new FakeLogger());
+        }
     }
 
     @After
@@ -21,7 +30,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void canSetDefaultValues() {
+    public void canSetValuesByDefault() {
         assertEquals("", viewModel.axProperty().get());
         assertEquals("", viewModel.ayProperty().get());
         assertEquals("", viewModel.bxProperty().get());
@@ -359,6 +368,113 @@ public class ViewModelTests {
     public void statusIsReadyWhenSetProperData() {
         setInputData();
         assertEquals(Status.READY.toString(), viewModel.statusProperty().get());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void canInitEmptyLogger() {
+        viewModel.setLogger(null);
+    }
+
+    @Test
+    public void logIsEmptyInTheBeginning() {
+        List<String> log = viewModel.getLog();
+
+        assertTrue(log.isEmpty());
+    }
+
+    @Test
+    public void logContainsProperMessageAfterCalculation() {
+        setInputData();
+        viewModel.calculate();
+        String message = viewModel.getLog().get(0);
+
+        assertTrue(message.matches(".*" + LogMessages.CALCULATE_WAS_PRESSED + ".*"));
+    }
+
+    @Test
+    public void logContainsInputArgumentsAfterCalculation() {
+        setInputData();
+        viewModel.calculate();
+        String message = viewModel.getLog().get(0);
+
+        assertTrue(message.matches(".*" + viewModel.axProperty().get()
+                + ".*" + viewModel.ayProperty().get()
+                + ".*" + viewModel.bxProperty().get()
+                + ".*" + viewModel.byProperty().get()
+                + ".*" + viewModel.cxProperty().get()
+                + ".*" + viewModel.cyProperty().get() + ".*"));
+    }
+
+    @Test
+    public void logContainsProperlyFormattedArguments() {
+        setInputData();
+        viewModel.calculate();
+        String message = viewModel.getLog().get(0);
+
+        assertTrue(message.matches(".*Arguments"
+                + ": ax = " + viewModel.axProperty().get()
+                + "; ay = " + viewModel.ayProperty().get()
+                + "; bx = " + viewModel.bxProperty().get()
+                + "; by = " + viewModel.byProperty().get()
+                + "; cx = " + viewModel.cxProperty().get()
+                + "; cy = " + viewModel.cyProperty().get() + ".*"));
+    }
+
+    @Test
+    public void operationTypeIsMentionedInTheLog() {
+        setInputData();
+        viewModel.calculate();
+        String message = viewModel.getLog().get(0);
+
+        assertTrue(message.matches(".*getAngleA.*"));
+    }
+
+    @Test
+    public void canPutSeveralLogMessages() {
+        setInputData();
+        viewModel.calculate();
+        viewModel.calculate();
+        viewModel.calculate();
+
+        assertEquals(3, viewModel.getLog().size());
+    }
+
+    @Test
+    public void logContainOperationChange() {
+        setInputData();
+        viewModel.onOperationChanged(Operation.GETANGLEA, Operation.GETAREA);
+        String message = viewModel.getLog().get(0);
+
+        assertTrue(message.matches(".*" + LogMessages.OPERATION_WAS_CHANGED + "getArea.*"));
+    }
+
+    @Test
+    public void operationIsNotLoggedIfNotChanged() {
+        viewModel.onOperationChanged(Operation.GETANGLEA, Operation.GETBISECTORA);
+        viewModel.onOperationChanged(Operation.GETBISECTORA, Operation.GETBISECTORA);
+
+        assertEquals(1, viewModel.getLog().size());
+    }
+
+    @Test
+    public void cantCallCalculateWhenButtonIsDisabled() {
+        viewModel.calculate();
+
+        assertTrue(viewModel.getLog().isEmpty());
+    }
+
+    @Test
+    public void logContainsErrorMessageAfterIncorrectInput() {
+        viewModel.axProperty().set("0");
+        viewModel.ayProperty().set("0");
+        viewModel.bxProperty().set("0");
+        viewModel.byProperty().set("0");
+        viewModel.cxProperty().set("0");
+        viewModel.cyProperty().set("0");
+        viewModel.calculate();
+        String message = viewModel.getLog().get(0);
+
+        assertTrue(message.matches(".*" + LogMessages.INCORRECT_INPUT + ".*"));
     }
 
     private void setInputData() {
