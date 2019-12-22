@@ -260,4 +260,25 @@ public class ViewModelTests {
         String expectedMessage = "Queue was cleared";
         assertEquals(expectedMessage, logMessage);
     }
+
+    @Test
+    public void isLogContainsInfoAboutGettingHead() {
+        String inputElement = "3";
+        viewModel.setQueueInputElement(inputElement);
+        viewModel.pushProcess();
+        viewModel.getHeadProcess();
+
+        String logMessage = viewModel.getLog().get(1);
+        String expectedMessage = "Head element 3.0 was received";
+        assertEquals(expectedMessage, logMessage);
+    }
+
+    @Test
+    public void isLogContainsInfoAboutGettingHeadFromEmptyQueue() {
+        viewModel.getHeadProcess();
+
+        String logMessage = viewModel.getLog().get(0);
+        String expectedMessage = "Impossible to get head from empty queue";
+        assertEquals(expectedMessage, logMessage);
+    }
 }
