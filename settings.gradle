@@ -65,9 +65,13 @@ include "code/prime-number/View"
 project(":code/prime-number/View").name = "prime-number-View"
 include "code/prime-number/ViewModel"
 project(":code/prime-number/ViewModel").name = "prime-number-ViewModel"
-// Гречухин Никита
-include "code/fractioncalculator"
-project(":code/fractioncalculator").name = "fractioncalculator"
+// fractioncalculator
+include "code/fractioncalculator/model"
+project(":code/fractioncalculator/model").name = "fractioncalculator-model"
+include "code/fractioncalculator/view"
+project(":code/fractioncalculator/view").name = "fractioncalculator-view"
+include "code/fractioncalculator/viewmodel"
+project(":code/fractioncalculator/viewmodel").name = "fractioncalculator-viewmodel"
 // Гришин Дмитрий
 include "code/cross-sections/Model"
 project(":code/cross-sections/Model").name = "cross-sections-Model"
