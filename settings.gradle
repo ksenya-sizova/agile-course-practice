@@ -61,6 +61,10 @@ project(":code/temperature-converter/Infrastructure").name = "temperature-conver
 // Власов Антон
 include "code/prime-number/Model"
 project(":code/prime-number/Model").name = "prime-number-Model"
+include "code/prime-number/View"
+project(":code/prime-number/View").name = "prime-number-View"
+include "code/prime-number/ViewModel"
+project(":code/prime-number/ViewModel").name = "prime-number-ViewModel"
 // Гречухин Никита
 include "code/fractioncalculator"
 project(":code/fractioncalculator").name = "fractioncalculator"
