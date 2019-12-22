@@ -59,15 +59,14 @@ public class ViewModel {
     }
 
     private boolean isCorrectInputFractions() {
-        boolean isCorrect = false;
         if (firstFraction.get() != null && secondFraction.get() != null) {
             Fraction firstFraction = stringToFraction(firstFractionProperty().get());
             Fraction secondFraction = stringToFraction(secondFractionProperty().get());
             if (firstFraction != null && secondFraction != null) {
-                isCorrect = true;
+                return true;
             }
         }
-        return isCorrect;
+        return false;
     }
 
     public void calculateMultiple() {
@@ -95,17 +94,16 @@ public class ViewModel {
     }
 
     private Fraction stringToFraction(final String fractionStr) {
-        Fraction res = null;
         String[] args = fractionStr.split(Fraction.FRACTION_DELIMITER);
         if (args.length == 2) {
             try {
                 int numerator = Integer.parseInt(args[0]);
                 int denominator = Integer.parseInt(args[1]);
-                res = new Fraction(numerator, denominator);
+                return new Fraction(numerator, denominator);
             } catch (IllegalArgumentException e) {
-                res = null;
+                return null;
             }
         }
-        return res;
+        return null;
     }
 }
