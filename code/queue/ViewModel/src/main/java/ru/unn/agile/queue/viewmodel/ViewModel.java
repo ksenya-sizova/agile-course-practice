@@ -157,8 +157,10 @@ public class ViewModel {
             double tail = queue.getTail();
             queueStatus.set(Status.SUCCESS.toString());
             queueResult.set("Tail is: " + Double.toString(tail));
+            logger.log("Tail element " + Double.toString(tail) + " was received");
         } catch (NullPointerException npe) {
             queueResult.set("Queue is empty.");
+            logger.log("Impossible to get tail from empty queue");
         }
     }
 
