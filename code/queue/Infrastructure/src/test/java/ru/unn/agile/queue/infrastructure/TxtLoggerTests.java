@@ -33,4 +33,14 @@ public class TxtLoggerTests {
             fail("File " + LOGGER_FILENAME + " wasn't found!");
         }
     }
+
+    @Test
+    public void canLogOneMessage() {
+        String message = "test";
+
+        logger.log(message);
+
+        String logMessage = logger.getLog().get(0);
+        assertTrue(logMessage.matches(".*" + message + "$"));
+    }
 }
