@@ -45,12 +45,9 @@ public class StringCalcView {
         calcBtn.disableProperty().bindBidirectional(viewModel.calculationDisabledProperty());
 
         calcBtn.setOnAction(e -> viewModel.calculate());
-
-
     }
 
     private void setErrorBorder(final boolean active) {
         expressionTf.pseudoClassStateChanged(errorClass, active);
     }
-
 }

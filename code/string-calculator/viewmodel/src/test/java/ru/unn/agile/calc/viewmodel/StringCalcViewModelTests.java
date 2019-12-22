@@ -204,5 +204,4 @@ public class StringCalcViewModelTests {
     private List<String> getLog() {
         return viewModel.getLog();
     }
-
 }
