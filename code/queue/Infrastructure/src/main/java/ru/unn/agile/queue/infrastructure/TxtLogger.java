@@ -40,7 +40,8 @@ public class TxtLogger implements ILogger {
     @Override
     public void log(final String message) {
         try {
-            writer.write(now() + " > " + message);
+            var separator = " > ";
+            writer.write(now() + separator + message);
             writer.newLine();
             writer.flush();
         } catch (Exception e) {
