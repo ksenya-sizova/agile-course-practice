@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class TxtLogger implements ILogger {
-    private static final String DATE_AND_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    private static final String DATE_AND_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
 
     private final BufferedWriter writer;
     private final String file;
