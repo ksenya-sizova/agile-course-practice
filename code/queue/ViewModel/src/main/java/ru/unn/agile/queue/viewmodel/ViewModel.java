@@ -54,7 +54,10 @@ public class ViewModel {
     }
 
     public List<String> getLog() {
-        return logger.getLog();
+        if (logger != null) {
+            return logger.getLog();
+        }
+        return null;
     }
 
     private class ValueChangeListener implements ChangeListener<String> {
