@@ -2,15 +2,11 @@ package ru.unn.agile.queue.infrastructure;
 
 import org.junit.Before;
 import org.junit.Test;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.List;
-
 import static org.junit.Assert.*;
-
-
 
 public class TxtLoggerTests {
     private static final String LOGGER_FILENAME = "./TxtLoggerTests.log";

@@ -1,7 +1,6 @@
 package ru.unn.agile.queue.infrastructure;
 
 import ru.unn.agile.queue.viewmodel.ILogger;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
